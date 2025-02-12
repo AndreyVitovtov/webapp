@@ -1,4 +1,4 @@
-<?php use app\utility\Request; ?>
+<?php use App\Utility\Request; ?>
 
 <!doctype html>
 <html lang="en">
@@ -18,6 +18,12 @@
     <script src="<?= assets('js/jquery-3.7.1.min.js') ?>"></script>
     <script src="<?= assets('js/main.js') ?>"></script>
 	<?php
+    if (isset($assetsURL['js'])) {
+        echo implode("\n", array_map(function ($v) {
+            return '<script src="' . $v . '"></script>';
+        }, (is_array($assetsURL['js']) ? $assetsURL['js'] : [$assetsURL['js']])));
+    }
+
 	if (isset($assets['css'])) {
 		echo implode("\n", array_map(function ($v) {
 			return '<link rel="stylesheet" href="' . assets('css/' . $v) . '">';

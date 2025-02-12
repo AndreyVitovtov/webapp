@@ -12,6 +12,10 @@ class API
 
     public function webSocket($data, $object = true)
     {
+        if (is_object($data)) {
+            $this->request = $data;
+            return $data;
+        }
         $data = ($object ? @json_decode($data) : $data);
         if (!is_object($data)) $this->request = new StdClass;
         else $this->request = $data;
@@ -50,11 +54,12 @@ class API
         }
     }
 
-    public function existsProperties($properties): bool
+    public function existsProperties($properties, $data = new StdClass): bool
     {
-        if (!is_object($this->request)) return false;
+        if(empty($data)) $data = $this->request;
+        if (!is_object($data)) return false;
         foreach ($properties as $property) {
-            if (!property_exists($this->request, $property)) {
+            if (!property_exists($data, $property)) {
                 return false;
             }
         }
@@ -88,9 +93,9 @@ class API
 
     public function existsUser($data): User|null
     {
-        if ($this->existsProperties(['chat_id'])) {
+        if ($this->existsProperties(['id'], $data)) {
             $user = new User();
-            return $user->getOneObject(['chat_id' => $data->chat_id]);
+            return $user->getOneObject(['chatId' => $data->id]);
         } else {
             return null;
         }
@@ -101,10 +106,17 @@ class API
      */
     public function register($data): User
     {
-        $user = new User($data);
+        $user = new User([
+            'chatId' => $data->id,
+            'username' => $data->username,
+            'firstName' => $data->first_name,
+            'lastName' => $data->last_name,
+            'languageCode' => $data->language_code,
+            'photoUrl' => $data->photo_url
+        ]);
         $token = $this->generateToken();
         $user->token = $token;
-        $user->insert();
+        $user = $user->insert();
         return $user;
     }
 
@@ -113,7 +125,6 @@ class API
      */
     public function updateToken(User $user, $token = null): User
     {
-        $user = new User();
         $user->token = $token ?? $this->generateToken();
         $user->update();
         return $user;

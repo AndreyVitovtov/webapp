@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use app\utility\Database;
+use App\Utility\Database;
 use PDOException;
 
 class Model
@@ -73,7 +73,7 @@ class Model
 
     public function getOneObject($where = [], $separator = 'AND', $order = 'id', $direction = 'ASC', $offset = 0, $limit = null)
     {
-        $data = $this->getObjects($where, $separator, $order, $direction, $offset, $limit);
+        $data = $this->get($where, $separator, $order, $direction, $offset, $limit);
         if (empty($data[0])) return null;
         return new $this->className($data[0]);
     }

@@ -14,7 +14,7 @@
       "App\\Models\\": "app/models/",
       "App\\Core\\": "app/core/",
       "App\\Utility\\": "app/utility/",
-      "App\\api\\": "app/api/"
+      "App\\Api\\": "app/api/"
     },
     "files": [
       "app/core/config.php",

@@ -1,8 +1,10 @@
 <?php
 
-namespace app\api;
+namespace App\Api;
 
+use App\Models\User;
 use Random\RandomException;
+use stdClass;
 
 class RequestHandler extends API
 {
@@ -19,13 +21,26 @@ class RequestHandler extends API
     public function authorizationRegistration(): ?\App\Models\User
     {
         if (!empty($this->data)) {
-            $user = $this->existsUser($this->data);
-            if (!empty($user)) {
+            $user = $this->existsUser($this->data->data->user);
+            $userId = $user->id;
+            if (!empty($userId)) {
                 return $this->updateToken($user);
             } else {
-                $user = $this->register($this->data);
+                $user = $this->register($this->data->data->user);
             }
         }
         return $user ?? null;
+    }
+
+    public function getPage(): string
+    {
+        $page = $this->data->page;
+        if (!empty($page)) {
+            return html('Webapp/' . $page . '.php', [
+                'content' => 'Test page'
+            ]);
+        } else {
+            return 'No page found';
+        }
     }
 }

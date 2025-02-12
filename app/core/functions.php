@@ -135,14 +135,14 @@ function data($path): string
 
 function template(string $path): string
 {
-    return $_SERVER['DOCUMENT_ROOT'] . '/app/templates/' . $path;
+    return realpath('') . '/app/templates/' . $path;
 }
 
 function html(string $path, array $variables = []): string
 {
     ob_start();
     extract($variables);
-    require template($path);
+    require PATH_TEMPALETS . $path;
     return ob_get_clean();
 }
 

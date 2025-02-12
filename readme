@@ -1,0 +1,37 @@
+/* Websocket service */
+sudo nano /etc/systemd/system/workerman.service
+
+[Unit]
+Description=Workerman Service
+After=network.target
+WorkingDirectory=/var/www/web-app
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/php /var/www/web-app/webSocketServer.php start
+ExecStop=/usr/bin/php /var/www/web-app/webSocketServer.php stop
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl daemon-reload
+
+sudo systemctl start workerman.service
+
+# sudo systemctl restart workerman.service
+
+sudo systemctl enable workerman.service
+
+_____________________________________________________
+
+/* MySQL */
+CREATE USER 'web-app'@'localhost' IDENTIFIED BY '';
+CREATE USER 'web-app'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON `web-app`.* TO 'web-app'@'localhost';
+GRANT ALL PRIVILEGES ON `web-app`.* TO 'web-app'@'%';
+FLUSH PRIVILEGES;
+
+_____________________________________________________
+

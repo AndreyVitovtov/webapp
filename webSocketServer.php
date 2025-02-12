@@ -21,8 +21,16 @@ $wsWorker->onConnect = function ($connection) {
 };
 
 $wsWorker->onMessage = function ($connection, $data) use ($wsWorker, &$clients) {
-    $clients[$connection->id] = $connection;
-    (new \App\Actions\WebSocketActions())->onMessage($connection, $data, $clients);
+    try {
+        (new App\Api\Websocket())->onMessage($data, $connection, $clients);
+    } catch (\Throwable $th) {
+        $connection->send(json_encode([
+            'file' => $th->getFile(),
+            'line' => $th->getLine(),
+            'message' => $th->getMessage()
+        ]));
+    }
+
 };
 
 $wsWorker->onClose = function ($connection) use (&$clients) {
