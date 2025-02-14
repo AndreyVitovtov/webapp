@@ -140,9 +140,10 @@ function template(string $path): string
 
 function html(string $path, array $variables = []): string
 {
+    if(!file_exists(PATH_TEMPLATES . $path)) return 'Page not found';
     ob_start();
     extract($variables);
-    require PATH_TEMPALETS . $path;
+    require PATH_TEMPLATES . $path;
     return ob_get_clean();
 }
 
@@ -304,4 +305,14 @@ function decryptData($data, $key)
     $iv = substr($data, 0, $iv_length);
     $data = substr($data, $iv_length);
     return openssl_decrypt($data, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+}
+
+function css($fileName): string
+{
+    return '<link rel="stylesheet" href="' . BASE_URL . $fileName . '">';
+}
+
+function js($fileName): string
+{
+    return '<script src="' . BASE_URL . $fileName . '"></script>';
 }

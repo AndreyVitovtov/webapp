@@ -1,0 +1,26 @@
+.content {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+}
+
+.content-wrapper {
+    display: flex;
+    width: 200%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.old-content, .new-content {
+    width: 50%;
+    flex-shrink: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.old-content, .new-content {
+    width: 50%;
+    flex-shrink: 0;
+}

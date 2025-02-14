@@ -1,7 +1,7 @@
 const DEV = false;
 const DESKTOP_FORBIDDEN = true;
-const HEADER_COLOR = '#1B1412';
-const BG_COLOR = '#261b18';
+const HEADER_COLOR = '#000000';
+const BG_COLOR = '#000000';
 
 
 let Telegram, HapticFeedback, WebAppInitData, User, INIT_DATA, userToken = null;
@@ -22,4 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Telegram.onEvent('settingsButtonClicked', async () => {
     //     Telegram.BackButton.show();
     // })
+
+
+    document.body.addEventListener('click', (event) => {
+        let element = event.target;
+        if (element.className === 'app-menu-item') {
+            let page = event.target.getAttribute('data-page');
+            webSocketSendMessage({
+                'type': 'getPage',
+                'page': page
+            });
+        }
+    });
+
+
 });

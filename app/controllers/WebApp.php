@@ -6,7 +6,7 @@ class WebApp extends Controller
 {
     public function index()
     {
-        $this->view('index', [
+        $this->view('content', [
             'title' => 'Web App',
             'content' => 'Hello World!',
             'assetsURL' => [

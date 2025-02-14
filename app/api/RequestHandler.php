@@ -37,7 +37,7 @@ class RequestHandler extends API
         $page = $this->data->page;
         if (!empty($page)) {
             return html('Webapp/' . $page . '.php', [
-                'content' => 'Test page'
+                'content' => 'Page 1'
             ]);
         } else {
             return 'No page found';
