@@ -50,7 +50,7 @@ class Model
     public function get($where = [], $separator = 'AND', $order = 'id', $direction = 'ASC', $offset = 0, $limit = null)
     {
         $sqlWhere = implode(" " . $separator . " ", array_map(function ($n) {
-            return $n . " = :" . $n;
+            return "`" . $n . "` = :" . $n;
         }, array_keys($where)));
         $stmt = $this->db->prepare("SELECT * FROM " . $this->table .
             (!empty($sqlWhere) ? " WHERE " . $sqlWhere : "") .
@@ -89,9 +89,9 @@ class Model
         $stmt = $this->db->prepare("
 			UPDATE " . $this->table . " 
 				SET " . implode(", ", array_map(function ($n) {
-                return $n . " = :" . $n;
+                return "`" . $n . "` = :" . $n;
             }, $this->fields)) . "
-			WHERE id = :id
+			WHERE `id` = :id
 		");
 
         $stmt->execute(array_filter($this->properties, function ($v) {
