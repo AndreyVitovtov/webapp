@@ -52,7 +52,8 @@ function auth() {
         type: 'auth',
         data: {
             initData: INIT_DATA,
-            user: User
+            user: User,
+            referrer: WebAppInitData['start_param'] ?? null,
         }
     });
 }
@@ -66,7 +67,7 @@ function requestHandler(data) {
                     'type': 'getPage',
                     'page': 'index'
                 });
-            }, 2000);
+            }, 1000);
         } else {
             switch (data.type) {
                 case 'page':

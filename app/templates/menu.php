@@ -12,22 +12,40 @@ $menu = [
 		'address' => '/users',
 		'controller' => 'Users'
 	], [
-		'title' => __('mailing'),
-		'icon' => 'mail',
-		'controller' => 'Mailing',
+		'title' => __('channels'),
+		'icon' => 'megaphone',
+		'controller' => 'Channels',
         'forbid' => ['guest'],
 		'items' => [
 			[
 				'title' => __('add'),
-				'address' => '/mailing/add',
+				'address' => '/channels/add',
 				'method' => 'add'
 			], [
-				'title' => __('archive'),
-				'address' => '/mailing/archive',
-				'method' => 'archive'
+				'title' => __('all'),
+				'address' => '/channels/all',
+				'method' => 'all'
 			]
 		]
-	], [
+	],
+//    [
+//		'title' => __('mailing'),
+//		'icon' => 'mail',
+//		'controller' => 'Mailing',
+//        'forbid' => ['guest'],
+//		'items' => [
+//			[
+//				'title' => __('add'),
+//				'address' => '/mailing/add',
+//				'method' => 'add'
+//			], [
+//				'title' => __('archive'),
+//				'address' => '/mailing/archive',
+//				'method' => 'archive'
+//			]
+//		]
+//	],
+    [
 		'title' => __('administrators'),
 		'icon' => 'star',
 		'address' => '/administrators',

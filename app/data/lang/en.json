@@ -23,7 +23,6 @@
   "cancel": "Cancel",
   "edit administrator": "Edit administrator",
   "remember me": "Remember me",
-
   "incorrect login or password": "Incorrect login or password",
   "password mismatch": "Password mismatch",
   "extension not allowed": "Extension not allowed, please choose a {extensions} file.",
@@ -35,10 +34,32 @@
   "administrator added": "Administrator added",
   "administrator with this login already exists": "Administrator with this login already exists",
   "send all required parameters": "Send all required parameters",
-
   "are you sure you want to remove the administrator": "Are you sure you want to remove the administrator?",
   "deletion confirmation": "Deletion confirmation",
   "administrator deleted": "Administrator deleted",
-  "changes saved": "Changes saved"
-
+  "changes saved": "Changes saved",
+  "coefficient": "Coefficient",
+  "coefficient_first_level": "Coefficient first level",
+  "coefficient_second_level": "Coefficient second level",
+  "greetings": "Welcome to the bot!",
+  "unknown command": "Sorry, I don't understand you",
+  "no subscribe to channels": "No subscribe to channels",
+  "there are channel subscriptions": "There are channel subscriptions",
+  "check subscribe": "\uD83E\uDDD0 Check subscribe",
+  "invite": "➕ Invite",
+  "invite text": "invite text",
+  "draw": "Draw",
+  "profile": "Profile",
+  "referrals": "Referrals",
+  "channels": "Channels",
+  "add channel": "Add channel",
+  "all": "All",
+  "title": "Title",
+  "url": "URL",
+  "chat id": "Chat id",
+  "language": "Language",
+  "are you sure you want to remove the channel": "Are you sure you want to remove the channel",
+  "channel added": "Channel added",
+  "channel deleted": "Channel deleted",
+  "channel edited": "Channel edited"
 }

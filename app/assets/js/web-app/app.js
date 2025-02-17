@@ -1,7 +1,7 @@
 const DEV = false;
 const DESKTOP_FORBIDDEN = true;
-const HEADER_COLOR = '#000000';
-const BG_COLOR = '#000000';
+const HEADER_COLOR = '#262626';
+const BG_COLOR = '#F8F8F8';
 
 
 let Telegram, HapticFeedback, WebAppInitData, User, INIT_DATA, userToken = null;
@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     Telegram.disableVerticalSwipes();
     Telegram.setBackgroundColor(BG_COLOR);
-    Telegram.setHeaderColor(HEADER_COLOR);
+    // Telegram.setHeaderColor(HEADER_COLOR);
+
 
     Telegram.SettingsButton.isVisible = true;
 
@@ -34,6 +35,4 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
-
-
 });

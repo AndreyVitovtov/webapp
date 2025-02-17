@@ -37,11 +37,22 @@ class Websocket extends API
                     }
                     break;
                 case 'getPage':
-                    $connection->send(json_encode([
-                        'sc' => true,
-                        'type' => 'page',
-                        'html' => $handler->getPage()
-                    ]));
+
+
+					$data = [
+						'sc' => true,
+						'type' => 'page',
+						'page' => $handler->data->page,
+						'html' => $handler->getPage(),
+						'token' => $handler->data->token
+					];
+
+//					if($handler->data->page == 'index') {
+//						$data['mainButtonText'] = __('main button text', $user->languageCode);
+//						$data['mainButtonUrl'] = 'https://google.com';
+//					}
+
+                    $connection->send(json_encode($data));
                     break;
             }
         }
