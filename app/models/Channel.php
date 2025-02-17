@@ -7,11 +7,12 @@ namespace App\Models;
  * @property mixed|null $url
  * @property mixed|null $chat_id
  * @property mixed|null $language
+ * @property mixed|null $draw_id
  */
 class Channel extends Model
 {
 	protected $table = 'channels';
 	protected $fields = [
-		'title', 'chat_id', 'url', 'language'
+		'title', 'chat_id', 'url', 'language', 'draw_id'
 	];
 }

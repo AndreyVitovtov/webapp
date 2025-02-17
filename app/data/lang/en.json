@@ -61,5 +61,18 @@
   "are you sure you want to remove the channel": "Are you sure you want to remove the channel",
   "channel added": "Channel added",
   "channel deleted": "Channel deleted",
-  "channel edited": "Channel edited"
+  "channel edited": "Channel edited",
+  "invite participants": "Invite participants",
+  "draws": "Draws",
+  "add draw": "Add draw",
+  "description": "Description",
+  "date": "Date",
+  "active": "Active",
+  "prize": "Prize",
+  "draw added": "Draw added",
+  "draw edited": "Draw edited",
+  "edit draw": "Edit draw",
+  "edit channel": "Edit channel",
+  "are you sure you want to remove the draw": "Are you sure you want to remove the draw",
+  "draw deleted": "Draw deleted"
 }

@@ -2,6 +2,7 @@
 
 namespace App\Api;
 
+use App\Models\User;
 use App\Utility\TelegramWebApp;
 use Random\RandomException;
 
@@ -37,20 +38,33 @@ class Websocket extends API
                     }
                     break;
                 case 'getPage':
+                    $user = (new User())->getOneObject(['token' => $handler->data->token]);
 
+                    $data = [
+                        'sc' => true,
+                        'type' => 'page',
+                        'page' => $handler->data->page,
+                        'html' => $handler->getPage()
+                    ];
 
-					$data = [
-						'sc' => true,
-						'type' => 'page',
-						'page' => $handler->data->page,
-						'html' => $handler->getPage(),
-						'token' => $handler->data->token
-					];
-
-//					if($handler->data->page == 'index') {
-//						$data['mainButtonText'] = __('main button text', $user->languageCode);
-//						$data['mainButtonUrl'] = 'https://google.com';
-//					}
+                    if ($handler->data->page == 'index') {
+                        $data['mainButton'] = [
+                            'text' => __('invite participants', [], $handler->getLanguageCode($user)),
+                            'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_APP_LINK . '?startapp=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $handler->getLanguageCode($user)))
+                        ];
+                        $activeDraw = $handler->getActiveDraw();
+                        $drawId = $activeDraw->id ?? 0;
+                        if (!empty($drawId)) {
+                            $activeDraw->title = json_decode($activeDraw->title);
+                            $activeDraw->description = json_decode($activeDraw->description);
+                            $data['draw'] = [
+                                'title' => $activeDraw->title->{$handler->getLanguageCode($user)},
+                                'description' => $activeDraw->description->{$handler->getLanguageCode($user)},
+                                'prize' => $activeDraw->prize,
+                                'date' => date('Y-m-d\TH:i:s', strtotime($activeDraw->date))
+                            ];
+                        }
+                    }
 
                     $connection->send(json_encode($data));
                     break;

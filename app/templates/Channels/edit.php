@@ -1,6 +1,14 @@
 <form action="/channels/editSave" method="POST">
     <input type="hidden" name="id" value="<?= $channel->id ?? 0 ?>">
     <div class="mb-3">
+        <label for="draw" class="form-label">* <?= __('draw') ?>:</label>
+        <select name="draw" id="type" class="form-select">
+            <?php foreach ($draws ?? [] as $draw): ?>
+                <option value="<?= $draw->id ?>" <?= (($channel->draw_id ?? '') == $draw->id ? 'selected' : '') ?>><?= $draw->title->{getCurrentLang()} ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="mb-3">
         <label for="title" class="form-label">* <?= __('title') ?>:</label>
         <input type="text" name="title" value="<?= $channel->title ?? '' ?>" class="form-control" id="title" required>
     </div>
@@ -19,9 +27,9 @@
     <div class="mb-3">
         <label for="language" class="form-label"><?= __('language') ?>:</label>
         <select name="language" id="language" class="form-select">
-			<?php foreach (LANGUAGES as $abbr => $language): ?>
+            <?php foreach (LANGUAGES as $abbr => $language): ?>
                 <option value="<?= $language['abbr'] ?>" <?= ($abbr === $channel->language ?? '') ? 'selected' : '' ?>><?= $language['title'] ?></option>
-			<?php endforeach; ?>
+            <?php endforeach; ?>
         </select>
     </div>
     <div class="mb-3">

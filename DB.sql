@@ -13,7 +13,7 @@ CREATE TABLE `users`
     FOREIGN KEY `users` (`referrer_id`) REFERENCES `users` (`id`)
 );
 
-CREATE TABLE `events`
+CREATE TABLE `draws`
 (
     `id`     INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `title`  TEXT,
@@ -65,3 +65,17 @@ CREATE TABLE `channels`
     `language` VARCHAR(255),
     `updated`  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+ALTER TABLE `channels`
+    ADD COLUMN `draw_id` INT UNSIGNED AFTER `language`;
+
+ALTER TABLE `channels`
+    ADD CONSTRAINT `fk_draw_id`
+        FOREIGN KEY (`draw_id`) REFERENCES `draws` (`id`);
+
+ALTER TABLE `draws`
+    ADD COLUMN `description` TEXT AFTER `title`;
+
+ALTER TABLE `draws` ADD COLUMN `prize` BIGINT UNSIGNED AFTER `active`;
+
+ALTER TABLE `draws` ADD COLUMN `translations` TEXT AFTER `prize`;

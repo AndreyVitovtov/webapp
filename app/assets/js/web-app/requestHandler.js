@@ -5,17 +5,17 @@ function page(data) {
         let content = document.querySelector('div.app-content');
         content.innerHTML = data.html;
 
-        if(data.page === 'index') {
-            // const targetDate = new Date(window.dateTime).getTime();
-            const targetDate = new Date("2025-02-18T00:00:00").getTime();
-            startCountdown(targetDate);
-
-            Telegram.MainButton.setText("Invite");
+        if (data.page === 'index') {
+            if(typeof data.draw.date !== 'undefined') {
+                const targetDate = new Date(data.draw.date).getTime();
+                startCountdown(targetDate);
+            }
+            Telegram.MainButton.setText(data.mainButton.text);
             Telegram.MainButton.show();
-            Telegram.WebApp.openLink("https://t.me/");
+            Telegram.MainButton.onClick(function () {
+                Telegram.openTelegramLink(data.mainButton.url);
+            });
         }
-
-
 
 
         // updateContent(data);

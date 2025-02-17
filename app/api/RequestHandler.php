@@ -3,6 +3,7 @@
 namespace App\Api;
 
 use App\Models\Coefficients;
+use App\Models\Draw;
 use App\Models\User;
 use Random\RandomException;
 use stdClass;
@@ -83,4 +84,15 @@ class RequestHandler extends API
 	{
 
 	}
+
+    public function getLanguageCode(User $user): string
+    {
+        if (!in_array($user->language_code, array_keys(LANGUAGES))) return DEFAULT_LANG;
+        return $user->language_code ?? DEFAULT_LANG;
+    }
+
+    public function getActiveDraw()
+    {
+        return (new Draw())->getOneObject(['active' => 1]);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\BotMessages;
 use App\Models\Channel;
+use App\Models\Draw;
 use App\Models\User;
 use App\Utility\TelegramBot;
 
@@ -17,10 +18,11 @@ class Bot extends Controller
 
 	public function __construct()
 	{
+        $activeDraw = (new Draw())->getOneObject(['active' => 1]);
 		$this->telegram = new TelegramBot(TELEGRAM_TOKEN);
 		$channel = new Channel();
 		$channels = [];
-		foreach ($channel->getObjects() as $ch) {
+		foreach ($channel->getObjects(['draw_id' => ($activeDraw->id ?? 0)]) as $ch) {
 			$lang = $ch->language;
 			if (!isset($channels[$lang])) $channels[$lang] = [];
 			$channels[$lang][] = [
