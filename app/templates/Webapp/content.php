@@ -86,12 +86,19 @@
     }
 
 
-
+    .hello {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
 </style>
 
 <div>
     <div class="app-content">
-        <?= $content ?? 'no content' ?>
+        <div class="hello">
+            <?= $content ?? 'no content' ?>
+        </div>
     </div>
 <!--    <div class="app-menu">-->
 <!--        <div class="app-menu-item active" data-page="index">--><?php //= __('draw') ?><!--</div>-->

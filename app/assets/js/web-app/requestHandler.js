@@ -15,6 +15,7 @@ function page(data) {
             Telegram.MainButton.onClick(function () {
                 Telegram.openTelegramLink(data.mainButton.url);
             });
+            Telegram.setBottomBarColor('#ffffff');
         }
 
 
