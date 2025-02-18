@@ -12,6 +12,7 @@ namespace App\Models;
  * @property mixed|string|null $last_name
  * @property mixed|string|null $language_code
  * @property mixed|string|null $photo_url
+ * @property mixed|null $active
  */
 class User extends Model
 {
