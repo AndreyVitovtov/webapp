@@ -1,4 +1,4 @@
-<a href="/administrators/add" class="btn">Add</a>
+<a href="/administrators/add" class="btn"><?= __('add') ?></a>
 
 <table class="table table-bordered table-striped table-hover mt-3 rounded">
     <thead>
