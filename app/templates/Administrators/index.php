@@ -1,6 +1,6 @@
 <a href="/administrators/add" class="btn"><?= __('add') ?></a>
 
-<table class="table table-bordered table-striped table-hover mt-3 rounded">
+<table class="table table-striped table-hover mt-3 rounded">
     <thead>
     <tr>
         <th scope="col">ID</th>
