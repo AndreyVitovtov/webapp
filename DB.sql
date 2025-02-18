@@ -26,10 +26,10 @@ CREATE TABLE `coefficients`
 (
     `id`                INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `user_id`           INT UNSIGNED,
-    `event_id`          INT UNSIGNED,
     `coefficient`       FLOAT,
     `coefficient_admin` FLOAT    DEFAULT 0,
-    `updated`           DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    `updated`           DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `settings`
@@ -76,6 +76,11 @@ ALTER TABLE `channels`
 ALTER TABLE `draws`
     ADD COLUMN `description` TEXT AFTER `title`;
 
-ALTER TABLE `draws` ADD COLUMN `prize` BIGINT UNSIGNED AFTER `active`;
+ALTER TABLE `draws`
+    ADD COLUMN `prize` BIGINT UNSIGNED AFTER `active`;
 
-ALTER TABLE `draws` ADD COLUMN `translations` TEXT AFTER `prize`;
+ALTER TABLE `draws`
+    ADD COLUMN `translations` TEXT AFTER `prize`;
+
+ALTER TABLE `users`
+    ADD COLUMN `active` BOOLEAN DEFAULT 1 AFTER `token`;

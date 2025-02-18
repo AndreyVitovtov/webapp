@@ -12,6 +12,6 @@ class Coefficients extends Model
 {
 	protected $table = 'coefficients';
 	protected $fields = [
-		'user_id', 'event_id', 'coefficient', 'coefficient_admin'
+		'user_id', 'coefficient', 'coefficient_admin'
 	];
 }

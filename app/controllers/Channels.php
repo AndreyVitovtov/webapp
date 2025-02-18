@@ -11,7 +11,7 @@ class Channels extends Controller
     public function add(): void
     {
         $draws = (new Draw)->getObjects();
-        $this->view('add', [
+        $this->auth()->view('add', [
             'title' => __('add channel'),
             'pageTitle' => __('add channel'),
             'draws' => array_map(function ($draw) {
@@ -24,6 +24,7 @@ class Channels extends Controller
 
     public function all($params): void
     {
+        $this->auth();
         if (!is_object($params) && !empty($params['draw-id'])) {
             $where = ['draw_id' => $params['draw-id']];
             $drawId = $params['draw-id'];
@@ -46,6 +47,7 @@ class Channels extends Controller
 
     public function addSave(Request $request): void
     {
+        $this->auth();
         $channel = new Channel();
         $channel->title = $request->title;
         $channel->url = $request->url;
@@ -60,6 +62,7 @@ class Channels extends Controller
 
     public function edit($id): void
     {
+        $this->auth();
         $draws = (new Draw)->getObjects();
         $this->view('edit', [
             'title' => __('edit channel'),
@@ -75,6 +78,7 @@ class Channels extends Controller
 
     public function editSave(Request $request): void
     {
+        $this->auth();
         $channel = new Channel();
         $channel->find($request->id);
         $channel->title = $request->title;
@@ -90,6 +94,7 @@ class Channels extends Controller
 
     public function delete(Request $request): void
     {
+        $this->auth();
         $channel = new Channel();
         $channel->delete($request->id);
         redirect('/channels/all', [

@@ -138,7 +138,7 @@
 				<?php if (!empty($template)) require_once $template . '.php'; ?>
             </div>
             <div class="footer">
-                <div class="copyright"><?= VERSION ?> © 2024</div>
+                <div class="copyright"><?= VERSION ?> © 2025</div>
             </div>
         </div>
     </div>

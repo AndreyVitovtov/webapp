@@ -8,7 +8,7 @@ class Settings extends Controller
 {
 	public function index(): void
 	{
-		$this->view('index', [
+		$this->auth()->view('index', [
 			'title' => __('Settings'),
 			'pageTitle' => __('Settings'),
 			'settings' => (new \App\Models\Settings)->getObjects()
@@ -17,6 +17,7 @@ class Settings extends Controller
 
 	public function save(Request $request): void
 	{
+        $this->auth();
 		$request = $request->get();
 		foreach ($request as $key => $value) {
 			$settings = (new \App\Models\Settings())->getOneObject(['key' => $key]);

@@ -17,6 +17,6 @@ class User extends Model
 {
 	protected $table = 'users';
 	protected $fields = [
-		'chat_id', 'username', 'first_name', 'last_name', 'token', 'language_code', 'photo_url', 'referrer_id'
+		'chat_id', 'username', 'first_name', 'last_name', 'token', 'language_code', 'photo_url', 'referrer_id', 'active'
 	];
 }

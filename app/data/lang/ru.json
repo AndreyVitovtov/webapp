@@ -74,5 +74,15 @@
   "edit draw": "Редактировать розыгрыш",
   "edit channel": "Редактировать канал",
   "are you sure you want to remove the draw": "Вы уверены, что хотите удалить розыгрыш?",
-  "draw deleted": "Розыгрыш удален"
+  "draw deleted": "Розыгрыш удален",
+  "username": "Имя пользователя",
+  "added": "Добавлен",
+  "user details": "Данные пользователя",
+  "first name": "Имя",
+  "last name": "Фамилия",
+  "referrer": "Реферрер",
+  "send message": "Отправить сообщение",
+  "send": "Отправить",
+  "message sent": "Сообщение отправлено",
+  "coefficient updated": "Коэффициент обновлен"
 }

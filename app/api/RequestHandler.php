@@ -10,80 +10,84 @@ use stdClass;
 
 class RequestHandler extends API
 {
-	public mixed $data;
+    public mixed $data;
 
-	public function __construct($data)
-	{
-		$this->data = $this->webSocket($data);
-	}
+    public function __construct($data)
+    {
+        $this->data = $this->webSocket($data);
+    }
 
-	/**
-	 * @throws RandomException
-	 */
-	public function authorizationRegistration(): ?\App\Models\User
-	{
-		if (!empty($this->data)) {
-			$user = $this->existsUser($this->data->data->user);
-			$userId = $user->id;
-			if (!empty($userId)) {
-				return $this->updateToken($user);
-			} else {
-				$referrerChatId = $this->data->data->referrer ?? null;
-				$referrer = new User();
-				$userReferrer = $referrer->getOneObject(['chat_id' => $referrerChatId]);
-				$referrerId = $userReferrer->id ?? null;
-				$user = $this->register($this->data->data->user, $referrerId);
-				$userId = $user->id;
-				if (!empty($userId) && !empty($referrerId)) {
-					$this->updateCoefficients($user, $eventId = 1, $referrerId);
-				}
-			}
-		}
-		return $user ?? null;
-	}
+    /**
+     * @throws RandomException
+     */
+    public function authorizationRegistration(): ?\App\Models\User
+    {
+        if (!empty($this->data)) {
+            $user = $this->existsUser($this->data->data->user);
+            $userId = $user->id;
+            if (!empty($userId)) {
+                $this->addCoefficient($user);
+                return $this->updateToken($user);
+            } else {
+                $referrerChatId = $this->data->data->referrer ?? null;
+                $referrer = new User();
+                $userReferrer = $referrer->getOneObject(['chat_id' => $referrerChatId]);
+                $referrerId = $userReferrer->id ?? null;
+                $user = $this->register($this->data->data->user, $referrerId);
+                $userId = $user->id;
+                if (!empty($userId)) {
+                    $this->addCoefficient($user);
+                    $this->updateCoefficients($user);
+                }
+            }
+        }
+        return $user ?? null;
+    }
 
-	public function getPage(): string
-	{
-		$page = $this->data->page;
-		if (!empty($page)) {
-			return html('Webapp/' . $page . '.php');
-		} else {
-			return 'No page found';
-		}
-	}
+    public function getPage(): string
+    {
+        $page = $this->data->page;
+        if (!empty($page)) {
+            return html('Webapp/' . $page . '.php');
+        } else {
+            return 'No page found';
+        }
+    }
 
-	private function updateCoefficients()
-	{
+    private function updateCoefficients(User $user): void
+    {
+        $referrerId = $user->referrer_id;
+        if (!empty($referrerId)) {
+            $coefficients = (new Coefficients())->getOneObject(['user_id' => $referrerId]);
+            $newCoefficient = floatval($coefficients->coefficient) + settings('coefficient_first_level');
+            $coefficients->coefficient = $newCoefficient;
+            $coefficients->update();
+        }
 
-	}
+        $referrerLevel1 = (new User())->getOneObject(['id' => $referrerId]);
+        $referrerIdLevel2 = $referrerLevel1->referrer_id;
+        if (!empty($referrerIdLevel2)) {
+            $coefficients = (new Coefficients())->getOneObject(['user_id' => $referrerIdLevel2]);
+            $newCoefficient = floatval($coefficients->coefficient) + settings('coefficient_second_level');
+            $coefficients->coefficient = $newCoefficient;
+            $coefficients->update();
+        }
+    }
 
-	private function updateCoefficient(User $user, $eventId, $referrerId = null, $coefficient = null, $deep = 1): void
-	{
-		$coefficients = (new Coefficients())->getOneObject(['user_id' => $user->id, 'event_id' => $eventId]);
-		$coefficientsId = $coefficients->id ?? null;
-		if (!empty($coefficientsId)) {
-			$coefficients->user_id = $user->id;
-			$coefficients->event_id = $eventId;
-			$coefficients->coefficient = ($coefficient ?? settings('coefficient'));
-			$coefficients->coefficient_admin = 0;
-			$coefficients->insert();
-		} else {
-			$coefficients->find($coefficientsId);
-			$coefficients->coefficient = ($coefficients->coefficient + ($coefficient ?? 0));
-			$coefficients->update();
-		}
-
-		if (!empty($referrerId)) {
-			$user = new User();
-			$user->find($referrerId);
-			$this->updateCoefficient($user, $eventId, $user->referrer_id, $coefficients->coefficient + settings('coefficient'));
-		}
-	}
-
-	private function addCoefficient()
-	{
-
-	}
+    private function addCoefficient(User $user)
+    {
+        $coefficients = (new Coefficients())->getOneObject(['user_id' => $user->id]);
+        $coefficientsId = $coefficients->id ?? null;
+        if (!empty($coefficientsId)) return $coefficients->coefficient;
+        else {
+            $coefficients = new Coefficients();
+            $coefficients->user_id = $user->id;
+            $coefficients->coefficient = settings('coefficient');
+            $coefficients->coefficient_admin = 0;
+            $coefficients->insert();
+            return $coefficients->coefficient;
+        }
+    }
 
     public function getLanguageCode(User $user): string
     {

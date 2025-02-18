@@ -113,7 +113,8 @@ class API
 			'last_name' => $data->last_name,
 			'language_code' => $data->language_code,
 			'photo_url' => $data->photo_url,
-			'referrer_id' => $referrerId
+			'referrer_id' => $referrerId,
+            'active' => 1
 		]);
 		$token = $this->generateToken();
 		$user->token = $token;

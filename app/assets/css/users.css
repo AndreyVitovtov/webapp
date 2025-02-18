@@ -1,0 +1,17 @@
+.table-users {
+    cursor: pointer;
+}
+
+.user-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.user-photo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: solid 2px #323232;
+}

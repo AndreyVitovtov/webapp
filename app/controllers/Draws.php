@@ -9,7 +9,8 @@ class Draws extends Controller
 {
     public function all(): void
     {
-        $draws = (new Draw())->getObjects();
+        $this->auth();
+        $draws = (new Draw())->getObjects([], 'AND', 'id', 'DESC');
         $this->view('all', [
             'title' => __('draws'),
             'pageTitle' => __('draws'),
@@ -23,7 +24,7 @@ class Draws extends Controller
 
     public function add(): void
     {
-        $this->view('add', [
+        $this->auth()->view('add', [
             'title' => __('add draw'),
             'pageTitle' => __('add draw')
         ]);
@@ -37,6 +38,7 @@ class Draws extends Controller
 
     public function addSave(Request $request): void
     {
+        $this->auth();
         $active = ($request->active ? 1 : 0);
         if ($active) $this->updateActive();
         $draw = new Draw();
@@ -53,6 +55,7 @@ class Draws extends Controller
 
     public function edit($id): void
     {
+        $this->auth();
         $draw = new Draw();
         $draw = $draw->find($id);
         $draw->title = json_decode($draw->title);
@@ -66,6 +69,7 @@ class Draws extends Controller
 
     public function editSave(Request $request): void
     {
+        $this->auth();
         $active = ($request->active ? 1 : 0);
         if ($active) $this->updateActive();
         $draw = new Draw();
@@ -83,6 +87,7 @@ class Draws extends Controller
 
     public function delete($id): void
     {
+        $this->auth();
         (new Draw())->delete($id);
         redirect('/draws/all', [
             'message' => __('draw deleted')
