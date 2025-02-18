@@ -85,5 +85,9 @@
   "send": "Send",
   "message sent": "Message sent",
   "coefficient updated": "Coefficient updated",
-  "does not participate in the drawing": "Does not participate in the drawing"
+  "does not participate in the drawing": "Does not participate in the drawing",
+  "number registration": "Number registration",
+  "number active": "Number active",
+  "active users": "Active",
+  "no active users": "No active"
 }

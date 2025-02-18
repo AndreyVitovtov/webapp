@@ -85,5 +85,9 @@
   "send": "Отправить",
   "message sent": "Сообщение отправлено",
   "coefficient updated": "Коэффициент обновлен",
-  "does not participate in the drawing": "Не участвует в розыгрыше"
+  "does not participate in the drawing": "Не участвует в розыгрыше",
+  "number registration": "Количество регистраций",
+  "number active": "Активные / не активные пользователи",
+  "active users": "Активные",
+  "no active users": "Не активные"
 }
