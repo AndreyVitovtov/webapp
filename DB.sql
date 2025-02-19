@@ -84,3 +84,16 @@ ALTER TABLE `draws`
 
 ALTER TABLE `users`
     ADD COLUMN `active` BOOLEAN DEFAULT 1 AFTER `token`;
+
+CREATE TABLE `mailing`
+(
+    `id`        INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    `users`     VARCHAR(255),
+    `language`  VARCHAR(255),
+    `text`      TEXT,
+    `image`     VARCHAR(255),
+    `added`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
+    `start`     DATETIME,
+    `completed` DATETIME,
+    `min_id`    INT UNSIGNED DEFAULT 0
+);

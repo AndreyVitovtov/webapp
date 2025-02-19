@@ -313,7 +313,7 @@ function decryptData($data, $key)
 
 function css($fileName): string
 {
-	return '<link rel="stylesheet" href="' . BASE_URL . $fileName . '">';
+	return '<link rel="stylesheet" href="' . assets('css/' . $fileName) . '" type="text/css" media="all" />';
 }
 
 function js($fileName): string

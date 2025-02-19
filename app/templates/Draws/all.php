@@ -10,6 +10,7 @@
     </thead>
     <tbody>
     <?php foreach ($draws ?? [] as $draw): ?>
+    <tr>
         <td><?= $draw->title->{getCurrentLang()} ?></td>
         <td><?= $draw->date ?></td>
         <td><?= ($draw->active ? '<i class="icon-check-1"></i>' : '<i class="icon-cancel"></i>') ?></td>
@@ -33,6 +34,7 @@
                 <input type="hidden" name="id" value="<?= $draw->id ?>">
             </form>
         </td>
+    </tr>
     <?php endforeach; ?>
     </tbody>
 </table>

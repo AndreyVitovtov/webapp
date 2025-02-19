@@ -104,12 +104,14 @@ class Model
     {
         try {
             $stmt = $this->db->prepare("
-				INSERT INTO " . $this->table . " (" . implode(", ", $this->fields) . ") 
-					VALUES 
+				INSERT INTO " . $this->table . " (" . implode(", ", array_map(function ($v) {
+                    return "`" . $v . "`";
+                }, array_keys($this->properties))) . ") 
+				VALUES 
 					(" . implode(", ",
                     array_map(function ($v) {
                         return ":" . $v;
-                    }, $this->fields)) . ")");
+                    }, array_keys($this->properties))) . ")");
 
             $stmt->execute(array_filter($this->properties, function ($v) {
                 return $v != 'id';

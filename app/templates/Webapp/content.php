@@ -82,7 +82,7 @@
 
 
     .app-menu {
-        display: none;
+        /*display: none;*/
     }
 
 
@@ -100,9 +100,9 @@
             <?= $content ?? 'no content' ?>
         </div>
     </div>
-<!--    <div class="app-menu">-->
-<!--        <div class="app-menu-item active" data-page="index">--><?php //= __('draw') ?><!--</div>-->
-<!--        <div class="app-menu-item" data-page="profile">--><?php //= __('profile') ?><!--</div>-->
-<!--        <div class="app-menu-item" data-page="referrals">--><?php //= __('referrals') ?><!--</div>-->
-<!--    </div>-->
+    <div class="app-menu">
+        <div class="app-menu-item" data-page="index"><?= __('draw') ?></div>
+        <div class="app-menu-item" data-page="profile"><?= __('profile') ?></div>
+        <div class="app-menu-item" data-page="referrals"><?= __('referrals') ?></div>
+    </div>
 </div>

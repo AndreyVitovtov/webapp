@@ -1,3 +1,6 @@
+<div class="mb-3 text-danger">
+    <b><?= __('bot admin') ?></b>
+</div>
 <form action="/channels/addSave" method="POST">
     <div class="mb-3">
         <label for="draw" class="form-label">* <?= __('draw') ?>:</label>

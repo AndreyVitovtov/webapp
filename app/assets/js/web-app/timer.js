@@ -2,6 +2,8 @@ let timerInterval;
 
 function startCountdown(targetDate) {
     function updateTimer() {
+        if (document.getElementById("days-container") === null) return;
+
         const now = new Date().getTime();
         const distance = targetDate - now;
 

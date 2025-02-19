@@ -12,6 +12,22 @@ $menu = [
         'address' => '/users',
         'controller' => 'Users'
     ], [
+        'title' => __('mailing'),
+        'icon' => 'mail',
+        'controller' => 'Mailing',
+        'forbid' => ['guest'],
+        'items' => [
+            [
+                'title' => __('add'),
+                'address' => '/mailing/add',
+                'method' => 'add'
+            ], [
+                'title' => __('all'),
+                'address' => '/mailing',
+                'method' => 'index'
+            ]
+        ]
+    ], [
         'title' => __('draws'),
         'icon' => 'award-1',
         'controller' => 'Draws',

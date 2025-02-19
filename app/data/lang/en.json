@@ -89,5 +89,18 @@
   "number registration": "Number registration",
   "number active": "Number active",
   "active users": "Active",
-  "no active users": "No active"
+  "no active users": "No active",
+  "bot admin": "It is necessary to add the bot as a channel administrator",
+  "text message": "Text message",
+  "add mailing": "Add mailing",
+  "image": "Image",
+  "image url": "Image url",
+  "or": "or",
+  "text": "Text",
+  "start": "Start",
+  "completed": "Completed",
+  "user id": "User id",
+  "result": "Result",
+  "mailing log": "Mailing log",
+  "log": "Log"
 }

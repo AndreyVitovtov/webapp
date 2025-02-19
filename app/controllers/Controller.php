@@ -83,4 +83,10 @@ class Controller
 		redirect('/');
 		return null;
 	}
+
+    protected function checkToken($token = null): bool
+    {
+        if (!is_null($token)) return $token == API_TOKEN;
+        return isset($_SERVER['HTTP_AUTHORIZATION']) && $_SERVER['HTTP_AUTHORIZATION'] == API_TOKEN;
+    }
 }

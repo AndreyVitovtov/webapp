@@ -57,7 +57,7 @@ class UpdateCoefficients
     function checkSubscribe(User $user, Channel $channel): bool
     {
         $result = @json_decode($this->telegram->getChatMember($user->chat_id, $channel->chat_id));
-        return $result->result->status !== 'left';
+        return $result->result->status ?? 'right' !== 'left';
     }
 
     private
