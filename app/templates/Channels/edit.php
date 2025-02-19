@@ -1,3 +1,6 @@
+<div class="mb-3 text-danger">
+    <b><?= __('bot admin') ?></b>
+</div>
 <form action="/channels/editSave" method="POST">
     <input type="hidden" name="id" value="<?= $channel->id ?? 0 ?>">
     <div class="mb-3">
