@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Channel;
 use App\Models\Draw;
 use App\Utility\Request;
 
@@ -85,10 +86,15 @@ class Draws extends Controller
         ]);
     }
 
-    public function delete($id): void
+    public function delete(Request $request): void
     {
         $this->auth();
-        (new Draw())->delete($id);
+
+        (new Channel)->query('DELETE FROM `channels` WHERE draw_id = :drawId', [
+            'drawId' => $request->id
+        ]);
+
+        (new Draw())->delete($request->id);
         redirect('/draws/all', [
             'message' => __('draw deleted')
         ]);
