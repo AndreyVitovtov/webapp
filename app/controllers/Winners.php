@@ -22,6 +22,9 @@ class Winners extends Controller
                        r.`first_name` AS referrerFirstName, 
                        r.`last_name` AS referrerLastName, 
                        w.`prize`,
+                       w.`prize_referrer`,
+                       w.`coefficient`,
+                       w.percentage_referrer,
                        w.`added`,
                        w.`updated`,
                        w.`paid_out`
@@ -44,7 +47,16 @@ class Winners extends Controller
                 $draw->title = json_decode($draw->title);
                 $draw->description = json_decode($draw->description);
                 return $draw;
-            }, $draws)
+            }, $draws),
+            'assets' => [
+//                'js' => [
+//                    'winners.js',
+//                    'dataTables.min.js'
+//                ],
+//                'css' => [
+//                    'dataTables.dataTables.min.css'
+//                ]
+            ]
         ]);
     }
 }

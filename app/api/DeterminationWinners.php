@@ -6,9 +6,9 @@ use App\Models\User;
 
 class DeterminationWinners
 {
-    public function execute(): void
+    public function execute($numberOfWinners): void
     {
-        dd($this->getWinners(2));
+        dd($this->getWinners($numberOfWinners));
     }
 
     public function getWinners($numberOfWinners): array
@@ -24,5 +24,9 @@ class DeterminationWinners
         return array_map(function ($user) {
             return (new User($user));
         }, $randomUsers);
+    }
+
+    private function getCoefficients() {
+        return [];
     }
 }

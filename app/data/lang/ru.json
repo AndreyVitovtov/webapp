@@ -108,5 +108,7 @@
   "winners": "Победители",
   "select a draw": "Выберите розыгрыш",
   "paid out": "Выплачено",
-  "percentage_referrer": "Процент от приза рефереру"
+  "percentage_referrer": "Процент от приза рефереру",
+  "prize referrer": "Приз реферрера",
+  "percentage referrer": "Процент реферрера"
 }

@@ -108,5 +108,7 @@
   "winners": "Winners",
   "select a draw": "Select a draw",
   "paid out": "Paid out",
-  "percentage_referrer": "Percentage of the prize to the referrer"
+  "percentage_referrer": "Percentage of the prize to the referrer",
+  "prize referrer": "Prize referrer",
+  "percentage referrer": "Percentage referrer"
 }
