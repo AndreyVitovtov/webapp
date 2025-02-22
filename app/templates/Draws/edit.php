@@ -27,6 +27,10 @@
         <input type="number" name="prize" value="<?= $draw->prize ?? '' ?>" class="form-control" id="prize" required>
     </div>
     <div class="mb-3">
+        <label for="winners" class="form-label"><?= __('number of winners') ?>:</label>
+        <input type="number" value="<?= $draw->winners ?? 1 ?>" step="1" class="form-control" name="winners" id="winners">
+    </div>
+    <div class="mb-3">
         <input type="submit" value="<?= __('save') ?>" class="btn">
     </div>
 </form>

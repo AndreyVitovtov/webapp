@@ -10,7 +10,7 @@ class Channels extends Controller
 {
     public function add(): void
     {
-        $draws = (new Draw)->getObjects();
+        $draws = (new Draw)->getObjects([], 'AND', 'id', 'DESC');
         $this->auth()->view('add', [
             'title' => __('add channel'),
             'pageTitle' => __('add channel'),

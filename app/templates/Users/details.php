@@ -4,7 +4,7 @@
 <table class="table mb-5">
     <tr>
         <td><?= __('username') ?>:</td>
-        <td><?= $user->username ?? '' ?></td>
+        <td><a href="https://t.me/<?= $user->username ?? '' ?>" target="_blank">@<?= $user->username ?? '' ?></a></td>
     </tr>
     <tr>
         <td><?= __('first name') ?>:</td>

@@ -22,6 +22,10 @@
         <input type="number" name="prize" class="form-control" id="prize" required>
     </div>
     <div class="mb-3">
+        <label for="winners" class="form-label">* <?= __('number of winners') ?>:</label>
+        <input type="number" step="1" class="form-control" name="winners" id="winners" required>
+    </div>
+    <div class="mb-3">
         <input type="submit" value="<?= __('add') ?>" class="btn">
     </div>
 </form>

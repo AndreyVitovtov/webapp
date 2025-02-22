@@ -10,7 +10,7 @@ CREATE TABLE `users`
     `token`         VARCHAR(255),
     `added`         DATETIME          DEFAULT CURRENT_TIMESTAMP,
     `referrer_id`   INT UNSIGNED NULL DEFAULT NULL,
-    FOREIGN KEY `users` (`referrer_id`) REFERENCES `users` (`id`)
+    FOREIGN KEY `users` (`referrer_id`) REFERENCES `users` (`id`) ON UPDATE SET NULL ON DELETE SET NULL
 );
 
 CREATE TABLE `draws`
@@ -29,7 +29,7 @@ CREATE TABLE `coefficients`
     `coefficient`       FLOAT,
     `coefficient_admin` FLOAT    DEFAULT 0,
     `updated`           DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
 );
 
 CREATE TABLE `settings`
@@ -71,16 +71,13 @@ ALTER TABLE `channels`
 
 ALTER TABLE `channels`
     ADD CONSTRAINT `fk_draw_id`
-        FOREIGN KEY (`draw_id`) REFERENCES `draws` (`id`);
+        FOREIGN KEY (`draw_id`) REFERENCES `draws` (`id`) ON UPDATE SET NULL ON DELETE SET NULL;
 
 ALTER TABLE `draws`
     ADD COLUMN `description` TEXT AFTER `title`;
 
 ALTER TABLE `draws`
     ADD COLUMN `prize` BIGINT UNSIGNED AFTER `active`;
-
-ALTER TABLE `draws`
-    ADD COLUMN `translations` TEXT AFTER `prize`;
 
 ALTER TABLE `users`
     ADD COLUMN `active` BOOLEAN DEFAULT 1 AFTER `token`;
@@ -97,3 +94,40 @@ CREATE TABLE `mailing`
     `completed` DATETIME,
     `min_id`    INT UNSIGNED DEFAULT 0
 );
+
+ALTER TABLE `draws`
+    MODIFY COLUMN `prize` FLOAT;
+
+ALTER TABLE `draws`
+    ADD COLUMN `hash` VARCHAR(255) AFTER `active`;
+
+ALTER TABLE `draws`
+    ADD COLUMN `winners` INT UNSIGNED AFTER `prize`;
+
+ALTER TABLE `draws`
+    ADD COLUMN `status` ENUM ('IN PROGRESS', 'DETERMINING WINNERS', 'COMPLETED', 'PAYOUT', 'CANCELED')
+        DEFAULT 'IN PROGRESS' AFTER `winners`;
+
+ALTER TABLE `draws`
+    ADD COLUMN `updated` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER `added`;
+
+ALTER TABLE `users`
+    ADD INDEX (`token`);
+ALTER TABLE `draws`
+    ADD INDEX (`hash`);
+
+CREATE TABLE `winners`
+(
+    `id`       INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    `draw_id`  INT UNSIGNED,
+    `user_id`  INT UNSIGNED,
+    `prize`    FLOAT,
+    `paid_out` BOOLEAN  DEFAULT 0,
+    `added`    DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated`  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`draw_id`) REFERENCES `draws` (`id`) ON UPDATE SET NULL ON DELETE SET NULL,
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE SET NULL ON DELETE SET NULL
+);
+
+INSERT INTO `settings` (`key`, value, type)
+VALUES ('percentage_referrer', 50, 'number');

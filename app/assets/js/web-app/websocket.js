@@ -65,7 +65,8 @@ function requestHandler(data) {
             setTimeout(() => {
                 webSocketSendMessage({
                     'type': 'getPage',
-                    'page': 'index'
+                    'page': 'index',
+                    'startParam': WebAppInitData['start_param'] ?? null
                 });
             }, 1000);
         } else {

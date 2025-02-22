@@ -48,7 +48,7 @@ class RequestHandler extends API
     {
         $page = $this->data->page;
         if (!empty($page)) {
-            return html('Webapp/' . $page . '.php');
+            return html('Webapp/' . $page . '.php', json_decode(json_encode($this->data), true));
         } else {
             return 'No page found';
         }

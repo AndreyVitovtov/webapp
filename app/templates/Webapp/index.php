@@ -67,7 +67,10 @@
 
 
 </style>
-
+<?php
+    $startParam = explode('_', $startParam ?? '');
+?>
+<?= $startParam[1] ?? 'no param' ?>
 <div class="app-header">
     <div class="timer">
         <div class="block-group" id="days-container">

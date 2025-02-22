@@ -102,5 +102,11 @@
   "user id": "User id",
   "result": "Result",
   "mailing log": "Mailing log",
-  "log": "Log"
+  "log": "Log",
+  "are you sure you want to remove the mailing": "Are you sure you want to remove the mailing",
+  "number of winners": "Number of winners",
+  "winners": "Winners",
+  "select a draw": "Select a draw",
+  "paid out": "Paid out",
+  "percentage_referrer": "Percentage of the prize to the referrer"
 }

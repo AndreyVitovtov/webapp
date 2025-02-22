@@ -102,5 +102,11 @@
   "user id": "ID Пользователя",
   "result": "Результат",
   "mailing log": "Лог рассылки",
-  "log": "Лог"
+  "log": "Лог",
+  "are you sure you want to remove the mailing": "Вы уверены, что хотите удалить рассылку?",
+  "number of winners": "Количество победителей",
+  "winners": "Победители",
+  "select a draw": "Выберите розыгрыш",
+  "paid out": "Выплачено",
+  "percentage_referrer": "Процент от приза рефереру"
 }

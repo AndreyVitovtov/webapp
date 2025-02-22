@@ -29,7 +29,7 @@ $menu = [
         ]
     ], [
         'title' => __('draws'),
-        'icon' => 'award-1',
+        'icon' => 'diamond',
         'controller' => 'Draws',
         'forbid' => ['guest'],
         'items' => [
@@ -59,7 +59,18 @@ $menu = [
                 'method' => 'all'
             ]
         ]
+    ], [
+        'title' => __('winners'),
+        'icon' => 'trophy',
+        'address' => '/winners',
+        'controller' => 'Winners'
     ],
+//    [
+//        'title' => __('posts'),
+//        'icon' => 'keyboard',
+//        'address' => '/posts',
+//        'controller' => 'Posts'
+//    ],
 //    [
 //		'title' => __('mailing'),
 //		'icon' => 'mail',

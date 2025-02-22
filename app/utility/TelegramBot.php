@@ -69,6 +69,7 @@ class TelegramBot
 		return (
 			$this->request->message->text ??
 			$this->request->callback_query->data ??
+			$this->request->channel_post->text ??
 			null
 		);
 	}

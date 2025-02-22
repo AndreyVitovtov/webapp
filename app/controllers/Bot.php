@@ -44,6 +44,23 @@ class Bot extends Controller
 
     private function requestHandler(): void
     {
+        if (str_starts_with($this->telegram->getChat(), '-')) {
+            if (preg_match_all('/startapp=((draw|winners)_[A-Za-z0-9]+)/', $this->telegram->getMessage(), $matches)) {
+                if (!empty($matches[1])) {
+                    $link = BOT_APP_LINK . '?startapp=' . $matches[1][0];
+                    $messageId = $this->telegram->getRequest()->channel_post->message_id ?? 0;
+                    if ($messageId) {
+                        $this->telegram->editMessageReplyMarkup($this->telegram->getChat(), $messageId, [
+                                'inline_keyboard' => [
+                                    [['text' => '🏆 Принять участие', 'url' => $link]]
+                                ]
+
+                        ]);
+                    }
+                }
+            }
+            return;
+        };
         switch ($this->telegram->getMessage()) {
             case in_array(trim($this->telegram->getMessage() ?? ''), [
                 'start',
@@ -79,6 +96,8 @@ class Bot extends Controller
         $user = (new User())->getOneObject(['chat_id' => $this->telegram->getChat()]);
         if (empty($user)) {
             $request = $this->telegram->getRequest();
+            $chatId = $request->message->from->id;
+            if(empty($chatId)) return new User;
             $user = new User();
             $user->chat_id = $request->message->from->id;
             $user->username = $request->message->from->username ?? '';

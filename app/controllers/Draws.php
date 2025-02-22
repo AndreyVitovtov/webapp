@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Api\DeterminationWinners;
 use App\Models\Channel;
 use App\Models\Draw;
 use App\Utility\Request;
@@ -41,13 +42,16 @@ class Draws extends Controller
     {
         $this->auth();
         $active = ($request->active ? 1 : 0);
-        if ($active) $this->updateActive();
+        $hash = $this->generateHash();
+//        if ($active) $this->updateActive();
         $draw = new Draw();
         $draw->title = json_encode($request->title);
         $draw->description = json_encode($request->description);
         $draw->date = $request->date;
         $draw->active = $active;
+        $draw->hash = $hash;
         $draw->prize = $request->prize;
+        $draw->winners = $request->winners;
         $draw->insert();
         redirect('/draws/all', [
             'message' => __('draw added')
@@ -72,7 +76,7 @@ class Draws extends Controller
     {
         $this->auth();
         $active = ($request->active ? 1 : 0);
-        if ($active) $this->updateActive();
+//        if ($active) $this->updateActive();
         $draw = new Draw();
         $draw->find($request->id);
         $draw->title = json_encode($request->title);
@@ -80,6 +84,7 @@ class Draws extends Controller
         $draw->date = $request->date;
         $draw->active = $active;
         $draw->prize = $request->prize;
+        $draw->winners = $request->winners;
         $draw->update();
         redirect('/draws/all', [
             'message' => __('draw edited')
@@ -99,5 +104,15 @@ class Draws extends Controller
             'message' => __('draw deleted')
         ]);
 
+    }
+
+    private function generateHash($length = 12): string
+    {
+        return substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes($length))), 0, $length);
+    }
+
+    public function execute()
+    {
+        (new DeterminationWinners)->execute();
     }
 }
