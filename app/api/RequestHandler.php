@@ -126,4 +126,28 @@ class RequestHandler extends API
             'drawId' => $activeDraw->id ?? 0
         ], true);
     }
+
+    public function pageIndex(User $user, array &$data): void
+    {
+        $data['mainButton'] = [
+            'text' => __('invite participants', [], $this->getLanguageCode($user)),
+            'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_APP_LINK . '?startapp=ref-' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
+        ];
+        $drawHash = $this->startParams['draw'] ?? null;
+        $activeDraw = $this->getActiveDraw($drawHash);
+        $drawId = $activeDraw->id ?? 0;
+        if (!empty($drawId)) {
+            $activeDraw->title = json_decode($activeDraw->title);
+            $activeDraw->description = json_decode($activeDraw->description);
+            $data['draw'] = [
+                'title' => $activeDraw->title->{$this->getLanguageCode($user)},
+                'description' => $activeDraw->description->{$this->getLanguageCode($user)},
+                'prize' => $activeDraw->prize,
+                'date' => date('Y-m-d\TH:i:s', strtotime($activeDraw->date))
+            ];
+            if (($activeDraw->status ?? '') == 'COMPLETED') {
+                $data['winners'] = $this->getWinners($activeDraw);
+            }
+        }
+    }
 }

@@ -38,41 +38,20 @@ class Websocket extends API
                     }
                     break;
                 case 'getPage':
-                    $user = (new User())->getOneObject(['token' => $handler->data->token]);
-
-                    $data = [];
-
-                    if ($handler->data->page == 'index') {
-                        $data['mainButton'] = [
-                            'text' => __('invite participants', [], $handler->getLanguageCode($user)),
-                            'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_APP_LINK . '?startapp=ref-' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $handler->getLanguageCode($user)))
-                        ];
-                        $drawHash = $handler->startParams['draw'] ?? null;
-                        $activeDraw = $handler->getActiveDraw($drawHash);
-                        $drawId = $activeDraw->id ?? 0;
-                        if (!empty($drawId)) {
-                            $activeDraw->title = json_decode($activeDraw->title);
-                            $activeDraw->description = json_decode($activeDraw->description);
-                            $data['draw'] = [
-                                'title' => $activeDraw->title->{$handler->getLanguageCode($user)},
-                                'description' => $activeDraw->description->{$handler->getLanguageCode($user)},
-                                'prize' => $activeDraw->prize,
-                                'date' => date('Y-m-d\TH:i:s', strtotime($activeDraw->date))
-                            ];
-                            if (($activeDraw->status ?? '') == 'COMPLETED') {
-                                $data['winners'] = $handler->getWinners($activeDraw);
-                            }
-                        }
+                    if (method_exists($handler::class, $method = 'page' . ucfirst($handler->data->page))) {
+                        $responseData = [];
+                        $user = (new User())->getOneObject(['token' => $handler->data->token]);
+                        $handler->$method($user, $responseData);
                     }
 
-                    $data = array_merge($data, [
+                    $responseData = array_merge($responseData ?? [], [
                         'sc' => true,
                         'type' => 'page',
                         'page' => $handler->data->page,
-                        'html' => $handler->getPage($data)
+                        'html' => $handler->getPage($responseData ?? [])
                     ]);
 
-                    $connection->send(json_encode($data));
+                    $connection->send(json_encode($responseData));
                     break;
             }
         }
