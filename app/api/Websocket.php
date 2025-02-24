@@ -53,6 +53,12 @@ class Websocket extends API
 
                     $connection->send(json_encode($responseData));
                     break;
+                default:
+                    $connection->send(json_encode([
+                        'sc' => false,
+                        'error' => 'Not found'
+                    ]));
+                    break;
             }
         }
     }
