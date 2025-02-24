@@ -113,6 +113,6 @@ class Draws extends Controller
 
     public function execute()
     {
-        (new DeterminationWinners)->execute($numberOfWinners = 2);
+        (new DeterminationWinners)->execute(2, $numberOfWinners = 2);
     }
 }

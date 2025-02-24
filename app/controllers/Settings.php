@@ -9,8 +9,8 @@ class Settings extends Controller
 	public function index(): void
 	{
 		$this->auth()->view('index', [
-			'title' => __('Settings'),
-			'pageTitle' => __('Settings'),
+			'title' => __('settings'),
+			'pageTitle' => __('settings'),
 			'settings' => (new \App\Models\Settings)->getObjects()
 		]);
 	}

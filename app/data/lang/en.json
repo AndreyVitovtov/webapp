@@ -47,7 +47,7 @@
   "there are channel subscriptions": "There are channel subscriptions",
   "check subscribe": "\uD83E\uDDD0 Check subscribe",
   "invite": "➕ Invite",
-  "invite text": "invite text",
+  "invite text": "Invite referrals and share your winnings 50/50.\" From each win of your friend, you will receive 50% and receive an increased coefficient for your chance to win (valid only for active referrals)",
   "draw": "Draw",
   "profile": "Profile",
   "referrals": "Referrals",
@@ -110,5 +110,6 @@
   "paid out": "Paid out",
   "percentage_referrer": "Percentage of the prize to the referrer",
   "prize referrer": "Prize referrer",
-  "percentage referrer": "Percentage referrer"
+  "percentage referrer": "Percentage referrer",
+  "take part": "Take part"
 }

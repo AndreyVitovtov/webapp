@@ -68,32 +68,38 @@
 
 </style>
 <?php
-    $startParam = explode('_', $startParam ?? '');
+//    $startParam = explode('_', $startParam ?? '');
 ?>
-<?= $startParam[1] ?? 'no param' ?>
-<div class="app-header">
-    <div class="timer">
-        <div class="block-group" id="days-container">
-            <div class="block" id="days-tens">0</div>
-            <div class="block" id="days-units">0</div>
-        </div>
-        <div class="separator" id="days-separator">:</div>
-        <div class="block-group">
-            <div class="block" id="hours-tens">0</div>
-            <div class="block" id="hours-units">0</div>
-        </div>
-        <div class="separator">:</div>
-        <div class="block-group">
-            <div class="block" id="minutes-tens">0</div>
-            <div class="block" id="minutes-units">0</div>
-        </div>
-        <div class="separator">:</div>
-        <div class="block-group">
-            <div class="block" id="seconds-tens">0</div>
-            <div class="block" id="seconds-units">0</div>
+<?php //= $startParam[1] ?? 'no param' ?>
+<?php if (!empty($winners)):
+    foreach ($winners as $winner): ?>
+        <?= $winner['username'] ?>
+    <?php endforeach; ?>
+<?php else: ?>
+    <div class="app-header">
+        <div class="timer">
+            <div class="block-group" id="days-container">
+                <div class="block" id="days-tens">0</div>
+                <div class="block" id="days-units">0</div>
+            </div>
+            <div class="separator" id="days-separator">:</div>
+            <div class="block-group">
+                <div class="block" id="hours-tens">0</div>
+                <div class="block" id="hours-units">0</div>
+            </div>
+            <div class="separator">:</div>
+            <div class="block-group">
+                <div class="block" id="minutes-tens">0</div>
+                <div class="block" id="minutes-units">0</div>
+            </div>
+            <div class="separator">:</div>
+            <div class="block-group">
+                <div class="block" id="seconds-tens">0</div>
+                <div class="block" id="seconds-units">0</div>
+            </div>
         </div>
     </div>
-</div>
-<div class="app-body">
+    <div class="app-body">
 
-</div>
+    </div>
+<?php endif; ?>

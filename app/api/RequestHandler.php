@@ -5,6 +5,7 @@ namespace App\Api;
 use App\Models\Coefficients;
 use App\Models\Draw;
 use App\Models\User;
+use App\Models\Winner;
 use Random\RandomException;
 use stdClass;
 
@@ -44,11 +45,12 @@ class RequestHandler extends API
         return $user ?? null;
     }
 
-    public function getPage(): string
+    public function getPage($data = []): string
     {
+        $data = array_merge((array)$this->data, $data);
         $page = $this->data->page;
         if (!empty($page)) {
-            return html('Webapp/' . $page . '.php', json_decode(json_encode($this->data), true));
+            return html('Webapp/' . $page . '.php', $data);
         } else {
             return 'No page found';
         }
@@ -95,8 +97,25 @@ class RequestHandler extends API
         return $user->language_code ?? DEFAULT_LANG;
     }
 
-    public function getActiveDraw()
+    public function getActiveDraw($drawHash = null): ?Draw
     {
-        return (new Draw())->getOneObject(['active' => 1]);
+        $params = (!empty($drawHash) ? ['hash' => $drawHash] : [
+            'active' => 1,
+            'status' => 'IN PROGRESS'
+        ]);
+        return (new Draw())->getOneObject($params, 'AND', 'date');
+    }
+
+    public function getWinners(?Draw $activeDraw): array
+    {
+        return (new Winner)->query("
+            SELECT *
+            FROM `winners` w,
+                 `users` u
+            WHERE w.`user_id` = u.`id`
+            AND w.`draw_id` = :drawId
+        ", [
+            'drawId' => $activeDraw->id ?? 0
+        ], true);
     }
 }

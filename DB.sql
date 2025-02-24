@@ -121,7 +121,7 @@ CREATE TABLE `winners`
     `id`       INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `draw_id`  INT UNSIGNED,
     `user_id`  INT UNSIGNED,
-    `prize`    FLOAT DEFAULT 0,
+    `prize`    FLOAT    DEFAULT 0,
     `paid_out` BOOLEAN  DEFAULT 0,
     `added`    DATETIME DEFAULT CURRENT_TIMESTAMP,
     `updated`  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -132,6 +132,21 @@ CREATE TABLE `winners`
 INSERT INTO `settings` (`key`, value, type)
 VALUES ('percentage_referrer', 50, 'number');
 
-ALTER TABLE `winners` ADD COLUMN `prize_referrer` FLOAT DEFAULT 0 AFTER `prize`;
-ALTER TABLE `winners` ADD COLUMN `coefficient` FLOAT DEFAULT 0 AFTER `prize_referrer`;
-ALTER TABLE `winners` ADD COLUMN `percentage_referrer` INT UNSIGNED DEFAULT 0 AFTER `coefficient`
+ALTER TABLE `winners`
+    ADD COLUMN `prize_referrer` FLOAT DEFAULT 0 AFTER `prize`;
+ALTER TABLE `winners`
+    ADD COLUMN `coefficient` FLOAT DEFAULT 0 AFTER `prize_referrer`;
+ALTER TABLE `winners`
+    ADD COLUMN `percentage_referrer` INT UNSIGNED DEFAULT 0 AFTER `coefficient`;
+
+CREATE TABLE `participants`
+(
+    `id`      INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    `user_id` INT UNSIGNED,
+    `draw_id` INT UNSIGNED,
+    `added`   DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE SET NULL ON DELETE SET NULL,
+    FOREIGN KEY (`draw_id`) REFERENCES `draws` (`id`) ON UPDATE SET NULL ON DELETE SET NULL,
+    INDEX (`user_id`),
+    INDEX (`draw_id`)
+);

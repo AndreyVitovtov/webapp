@@ -45,17 +45,22 @@ class Bot extends Controller
     private function requestHandler(): void
     {
         if (str_starts_with($this->telegram->getChat(), '-')) {
-            if (preg_match_all('/startapp=((draw|winners)_[A-Za-z0-9]+)/', $this->telegram->getMessage(), $matches)) {
-                if (!empty($matches[1])) {
-                    $link = BOT_APP_LINK . '?startapp=' . $matches[1][0];
-                    $messageId = $this->telegram->getRequest()->channel_post->message_id ?? 0;
-                    if ($messageId) {
-                        $this->telegram->editMessageReplyMarkup($this->telegram->getChat(), $messageId, [
+            $message = trim($this->telegram->getMessage());
+            $draws = (new Draw())->getObjects(['active' => 1], 'AND', 'id', 'DESC');
+            foreach ($draws as $draw) {
+                $titles = json_decode($draw->title, true);
+                foreach ($titles as $lang => $title) {
+                    if (preg_match_all('/' . trim($title) . '/', $message)) {
+                        $messageId = $this->telegram->getRequest()->channel_post->message_id ?? 0;
+                        if ($messageId) {
+                            $link = BOT_APP_LINK . '?startapp=draw_' . $draw->hash;
+                            $this->telegram->editMessageReplyMarkup($this->telegram->getChat(), $messageId, [
                                 'inline_keyboard' => [
-                                    [['text' => '🏆 Принять участие', 'url' => $link]]
+                                    [['text' => __('take part', [], $lang), 'url' => $link]]
                                 ]
-
-                        ]);
+                            ]);
+                        }
+                        return;
                     }
                 }
             }
@@ -97,7 +102,7 @@ class Bot extends Controller
         if (empty($user)) {
             $request = $this->telegram->getRequest();
             $chatId = $request->message->from->id;
-            if(empty($chatId)) return new User;
+            if (empty($chatId)) return new User;
             $user = new User();
             $user->chat_id = $request->message->from->id;
             $user->username = $request->message->from->username ?? '';

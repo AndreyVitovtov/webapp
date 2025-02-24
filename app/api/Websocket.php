@@ -40,19 +40,15 @@ class Websocket extends API
                 case 'getPage':
                     $user = (new User())->getOneObject(['token' => $handler->data->token]);
 
-                    $data = [
-                        'sc' => true,
-                        'type' => 'page',
-                        'page' => $handler->data->page,
-                        'html' => $handler->getPage()
-                    ];
+                    $data = [];
 
                     if ($handler->data->page == 'index') {
                         $data['mainButton'] = [
                             'text' => __('invite participants', [], $handler->getLanguageCode($user)),
                             'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_APP_LINK . '?startapp=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $handler->getLanguageCode($user)))
                         ];
-                        $activeDraw = $handler->getActiveDraw();
+                        $drawHash = explode('_', $handler->data->startParam ?? '')[1] ?? null;
+                        $activeDraw = $handler->getActiveDraw($drawHash);
                         $drawId = $activeDraw->id ?? 0;
                         if (!empty($drawId)) {
                             $activeDraw->title = json_decode($activeDraw->title);
@@ -63,8 +59,18 @@ class Websocket extends API
                                 'prize' => $activeDraw->prize,
                                 'date' => date('Y-m-d\TH:i:s', strtotime($activeDraw->date))
                             ];
+                            if (($activeDraw->status ?? '') == 'COMPLETED') {
+                                $data['winners'] = $handler->getWinners($activeDraw);
+                            }
                         }
                     }
+
+                    $data = array_merge($data, [
+                        'sc' => true,
+                        'type' => 'page',
+                        'page' => $handler->data->page,
+                        'html' => $handler->getPage($data)
+                    ]);
 
                     $connection->send(json_encode($data));
                     break;
