@@ -1,6 +1,8 @@
 let timerIntervals = {};
 
-function startCountdown(targetDate, containerId) {
+function startCountdown(targetDate, containerId, onEnd = () => {
+    console.log('Countdown ended');
+}) {
     function updateTimer() {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -43,6 +45,10 @@ function startCountdown(targetDate, containerId) {
 
     if (timerIntervals[containerId]) {
         clearInterval(timerIntervals[containerId]);
+        if (typeof onEnd === "function") {
+            onEnd();
+        }
+        return;
     }
 
     updateTimer();
