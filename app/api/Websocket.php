@@ -11,7 +11,7 @@ class Websocket extends API
     /**
      * @throws RandomException
      */
-    public function onMessage($data, $connection, &$clients = [])
+    public function onMessage($data, $connection, &$clients = []): void
     {
         $data = $this->webSocket($data);
         if (!empty($data)) {
