@@ -53,7 +53,7 @@ class Bot extends Controller
                     if (preg_match_all('/' . trim($title) . '/', $message)) {
                         $messageId = $this->telegram->getRequest()->channel_post->message_id ?? 0;
                         if ($messageId) {
-                            $link = BOT_APP_LINK . '?startapp=draw_' . $draw->hash;
+                            $link = BOT_APP_LINK . '?startapp=draw-' . $draw->hash;
                             $this->telegram->editMessageReplyMarkup($this->telegram->getChat(), $messageId, [
                                 'inline_keyboard' => [
                                     [['text' => __('take part', [], $lang), 'url' => $link]]

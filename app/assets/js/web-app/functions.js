@@ -15,7 +15,7 @@ function index(data) {
 async function profile(data) {
     if (typeof window.tonConnect === 'undefined') {
         window.tonConnect = new TonConnectSDK.TonConnect({
-            manifestUrl : 'https://web-app.vytovtov.pro/tonconnect-manifest.json'
+            manifestUrl: TON_CONNECT_MANIFEST
         });
         const walletsList = await window.tonConnect.getWallets();
         console.log(walletsList);
@@ -37,7 +37,10 @@ async function profile(data) {
 
     window.tonConnect.onStatusChange(walletInfo => {
         console.log("Кошелек подключен:", walletInfo);
-        Telegram.openTelegramLink(Telegram.initDataUnsafe.start_param);
+        let url = APP_URL + '?startapp=' + Telegram.initDataUnsafe.start_param;
+        setTimeout(() => {
+            Telegram.openTelegramLink(url);
+        }, 500);
     });
 }
 
@@ -91,4 +94,17 @@ function updateContent(data, direction = 'left') {
     setTimeout(() => {
         content.innerHTML = newContent.innerHTML;
     }, 500);
+}
+
+function parseParams(str) {
+    const result = {};
+    const regex = /([a-zA-Z]+)-([^_]+)|([a-zA-Z]+)-(.+)/g;
+    let match;
+
+    while ((match = regex.exec(str)) !== null) {
+        const key = match[1] || match[3];
+        result[key] = match[2] || match[4];
+    }
+
+    return result;
 }

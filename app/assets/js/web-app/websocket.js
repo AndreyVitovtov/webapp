@@ -52,21 +52,22 @@ function auth() {
         type: 'auth',
         data: {
             initData: INIT_DATA,
-            user: User,
-            referrer: WebAppInitData['start_param'] ?? null,
-        }
+            user: User
+        },
+        params: WebAppInitData['start_param'] ?? null
     });
 }
 
 function requestHandler(data) {
     if (data.sc) {
         if (data.type === 'auth') {
+            let startParams = parseParams(WebAppInitData['start_param'] ?? '');
             userToken = data.token;
             setTimeout(() => {
                 webSocketSendMessage({
                     'type': 'getPage',
-                    'page': 'index',
-                    'startParam': WebAppInitData['start_param'] ?? null
+                    'page': startParams.page ?? 'index',
+                    'params': WebAppInitData['start_param'] ?? null
                 });
             }, 1000);
         } else {

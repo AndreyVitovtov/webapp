@@ -45,9 +45,9 @@ class Websocket extends API
                     if ($handler->data->page == 'index') {
                         $data['mainButton'] = [
                             'text' => __('invite participants', [], $handler->getLanguageCode($user)),
-                            'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_APP_LINK . '?startapp=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $handler->getLanguageCode($user)))
+                            'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_APP_LINK . '?startapp=ref-' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $handler->getLanguageCode($user)))
                         ];
-                        $drawHash = explode('_', $handler->data->startParam ?? '')[1] ?? null;
+                        $drawHash = $handler->startParams['draw'] ?? null;
                         $activeDraw = $handler->getActiveDraw($drawHash);
                         $drawId = $activeDraw->id ?? 0;
                         if (!empty($drawId)) {

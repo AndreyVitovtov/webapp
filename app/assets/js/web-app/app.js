@@ -2,6 +2,8 @@ const DEV = false;
 const DESKTOP_FORBIDDEN = true;
 const HEADER_COLOR = '#262626';
 const BG_COLOR = '#F8F8F8';
+const APP_URL = 'https://t.me/WebAppFBot/app';
+const TON_CONNECT_MANIFEST = 'https://web-app.vytovtov.pro/tonconnect-manifest.json';
 
 
 let Telegram, HapticFeedback, WebAppInitData, User, INIT_DATA, userToken = null;
@@ -24,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //     Telegram.BackButton.show();
     // })
 
+    console.log(Telegram.initDataUnsafe);
 
     document.body.addEventListener('click', (event) => {
         let element = event.target;

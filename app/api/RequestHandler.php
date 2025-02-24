@@ -12,10 +12,18 @@ use stdClass;
 class RequestHandler extends API
 {
     public mixed $data;
+    public array $startParams;
 
     public function __construct($data)
     {
         $this->data = $this->webSocket($data);
+
+        $startParams = explode('_', $this->data->params);
+        $this->startParams = [];
+        foreach ($startParams as $param) {
+            $param = explode('-', $param);
+            $this->startParams[$param[0]] = $param[1];
+        }
     }
 
     /**
@@ -30,7 +38,7 @@ class RequestHandler extends API
                 $this->addCoefficient($user);
                 return $this->updateToken($user);
             } else {
-                $referrerChatId = $this->data->data->referrer ?? null;
+                $referrerChatId = $this->startParams['ref'] ?? null;
                 $referrer = new User();
                 $userReferrer = $referrer->getOneObject(['chat_id' => $referrerChatId]);
                 $referrerId = $userReferrer->id ?? null;
