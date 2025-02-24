@@ -77,28 +77,29 @@
     <?php endforeach; ?>
 <?php else: ?>
     <div class="app-header">
-        <div class="timer">
-            <div class="block-group" id="days-container">
-                <div class="block" id="days-tens">0</div>
-                <div class="block" id="days-units">0</div>
+        <div class="timer" id="timer">
+            <div class="block-group days-container">
+                <div class="block days-tens">0</div>
+                <div class="block days-units">0</div>
             </div>
-            <div class="separator" id="days-separator">:</div>
+            <div class="separator days-separator">:</div>
             <div class="block-group">
-                <div class="block" id="hours-tens">0</div>
-                <div class="block" id="hours-units">0</div>
-            </div>
-            <div class="separator">:</div>
-            <div class="block-group">
-                <div class="block" id="minutes-tens">0</div>
-                <div class="block" id="minutes-units">0</div>
+                <div class="block hours-tens">0</div>
+                <div class="block hours-units">0</div>
             </div>
             <div class="separator">:</div>
             <div class="block-group">
-                <div class="block" id="seconds-tens">0</div>
-                <div class="block" id="seconds-units">0</div>
+                <div class="block minutes-tens">0</div>
+                <div class="block minutes-units">0</div>
+            </div>
+            <div class="separator">:</div>
+            <div class="block-group">
+                <div class="block seconds-tens">0</div>
+                <div class="block seconds-units">0</div>
             </div>
         </div>
     </div>
+
     <div class="app-body">
 
     </div>
