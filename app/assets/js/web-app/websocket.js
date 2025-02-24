@@ -79,6 +79,9 @@ function requestHandler(data) {
         }
     } else {
         console.error(data);
+        Telegram.showConfirm(ERROR_GET_CONTENT, (res) => {
+            if (res) window.location.reload();
+        });
     }
 }
 

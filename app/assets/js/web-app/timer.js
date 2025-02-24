@@ -12,43 +12,69 @@ function startCountdown(targetDate, containerId, onEnd = () => {
 
         if (distance <= 0) {
             clearInterval(timerIntervals[containerId]);
-            container.querySelector(".days-container").classList.add("hidden");
-            container.querySelector(".days-separator").classList.add("hidden");
+            delete timerIntervals[containerId];
+
+            const daysContainer = container.querySelector(".days-container");
+            const daysSeparator = container.querySelector(".days-separator");
+
+            if (daysContainer) daysContainer.classList.add("hidden");
+            if (daysSeparator) daysSeparator.classList.add("hidden");
+
             ["hours-tens", "hours-units", "minutes-tens", "minutes-units", "seconds-tens", "seconds-units"].forEach(className => {
-                container.querySelector(`.${className}`).textContent = "0";
+                const el = container.querySelector(`.${className}`);
+                if (el) el.textContent = "0";
             });
+
+            // Вызываем onEnd() только при фактическом окончании отсчёта
+            if (typeof onEnd === "function" && !container.dataset.ended) {
+                container.dataset.ended = "true"; // Помечаем, что таймер завершился
+                onEnd();
+            }
             return;
         }
+
+        container.dataset.ended = "";
 
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
         const minutes = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
         const seconds = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
 
+        const daysContainer = container.querySelector(".days-container");
+        const daysSeparator = container.querySelector(".days-separator");
+
         if (days > 0) {
-            container.querySelector(".days-container").classList.remove("hidden");
-            container.querySelector(".days-separator").classList.remove("hidden");
-            container.querySelector(".days-tens").textContent = days >= 10 ? String(days)[0] : "0";
-            container.querySelector(".days-units").textContent = String(days).slice(-1);
+            if (daysContainer) daysContainer.classList.remove("hidden");
+            if (daysSeparator) daysSeparator.classList.remove("hidden");
+
+            const daysTens = container.querySelector(".days-tens");
+            const daysUnits = container.querySelector(".days-units");
+
+            if (daysTens) daysTens.textContent = days >= 10 ? String(days)[0] : "0";
+            if (daysUnits) daysUnits.textContent = String(days).slice(-1);
         } else {
-            container.querySelector(".days-container").classList.add("hidden");
-            container.querySelector(".days-separator").classList.add("hidden");
+            if (daysContainer) daysContainer.classList.add("hidden");
+            if (daysSeparator) daysSeparator.classList.add("hidden");
         }
 
-        container.querySelector(".hours-tens").textContent = hours[0];
-        container.querySelector(".hours-units").textContent = hours[1];
-        container.querySelector(".minutes-tens").textContent = minutes[0];
-        container.querySelector(".minutes-units").textContent = minutes[1];
-        container.querySelector(".seconds-tens").textContent = seconds[0];
-        container.querySelector(".seconds-units").textContent = seconds[1];
+        const timeElements = {
+            "hours-tens": hours[0],
+            "hours-units": hours[1],
+            "minutes-tens": minutes[0],
+            "minutes-units": minutes[1],
+            "seconds-tens": seconds[0],
+            "seconds-units": seconds[1]
+        };
+
+        for (const [className, value] of Object.entries(timeElements)) {
+            const el = container.querySelector(`.${className}`);
+            if (el) el.textContent = value;
+        }
     }
 
     if (timerIntervals[containerId]) {
         clearInterval(timerIntervals[containerId]);
-        if (typeof onEnd === "function") {
-            onEnd();
-        }
-        return;
+        delete timerIntervals[containerId];
     }
 
     updateTimer();

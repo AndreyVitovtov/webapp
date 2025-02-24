@@ -4,6 +4,7 @@ const HEADER_COLOR = '#262626';
 const BG_COLOR = '#F8F8F8';
 const APP_URL = 'https://t.me/WebAppFBot/app';
 const TON_CONNECT_MANIFEST = 'https://web-app.vytovtov.pro/tonconnect-manifest.json';
+const ERROR_GET_CONTENT = 'There were problems loading content. Check your connection, restart the app and try again \n\nRestart now?';
 
 
 let Telegram, HapticFeedback, WebAppInitData, User, INIT_DATA, userToken = null;
