@@ -1,8 +1,8 @@
-<form action="/winners" method="POST" class="mb-5">
+<form action="/winners" method="POST" class="mb-5 form-select-draw">
     <div class="mb-3">
-        <select name="draw-id" id="draw-id" class="form-select">
-            <option value=""><?= __('select a draw') ?></option>
-            <?php foreach ($draws as $draw): ?>
+        <select name="draw-id" id="draw-id" class="form-select select-draw">
+            <option value="0"><?= __('select a draw') ?></option>
+            <?php foreach ($draws ?? [] as $draw): ?>
                 <option value="<?= $draw->id ?>" <?= ($draw->id == ($drawId ?? 0) ? 'selected' : '') ?>><?= $draw->title->{getCurrentLang()} ?></option>
             <?php endforeach; ?>
         </select>

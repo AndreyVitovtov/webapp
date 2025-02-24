@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Draw;
 use App\Models\Winner;
 use App\Utility\Request;
 
@@ -9,7 +10,17 @@ class Winners extends Controller
 {
     public function index(Request $request): void
     {
-        $drawId = $request->get('draw-id');
+        $this->showWinners($request->get('drawId'));
+    }
+
+    public function draw($id)
+    {
+        $this->showWinners($id);
+    }
+
+    private function showWinners($drawId = null): void
+    {
+        if (is_object($drawId)) (new Errors())->error404();
         if (!empty($drawId)) {
             $winners = (new Winner())->query("
                 SELECT u.`id` AS userId, 
@@ -37,22 +48,27 @@ class Winners extends Controller
                 'drawId' => $drawId
             ], true);
         }
-        $draws = (new \App\Models\Draw())->getObjects([], 'AND', 'id', 'DESC');
+        $draws = (new Draw())->query("
+            SELECT *
+            FROM `draws`
+            WHERE `status` IN ('COMPLETED', 'PAYOUT')
+            ORDER BY `id` DESC
+        ", [], true);
         $this->view('index', [
             'title' => __('winners'),
             'pageTitle' => __('winners'),
             'drawId' => $drawId,
             'winners' => $winners ?? [],
             'draws' => array_map(function ($draw) {
-                $draw->title = json_decode($draw->title);
-                $draw->description = json_decode($draw->description);
-                return $draw;
+                $draw['title'] = json_decode($draw['title']);
+                $draw['description'] = json_decode($draw['description']);
+                return (new Draw($draw));
             }, $draws),
             'assets' => [
-//                'js' => [
-//                    'winners.js',
+                'js' => [
+                    'winners.js',
 //                    'dataTables.min.js'
-//                ],
+                ],
 //                'css' => [
 //                    'dataTables.dataTables.min.css'
 //                ]
