@@ -22,7 +22,7 @@ $wsWorker->count = 4;
 $clients = [];
 
 $wsWorker->onConnect = function ($connection) {
-    echo "New connect";
+    echo 'New connect';
 };
 
 $wsWorker->onMessage = function ($connection, $data) use ($wsWorker, &$clients) {
@@ -49,7 +49,7 @@ $wsWorker->onClose = function ($connection) use (&$clients) {
         Redis::set('wsConnections', json_encode($wsConnections));
     }
     unset($clients[$connection->id]);
-    echo "Connection close";
+    echo 'Connection close';
 };
 
 $wsWorker->onWorkerStart = function () use ($wsWorker) {
