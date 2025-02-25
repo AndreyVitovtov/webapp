@@ -75,6 +75,12 @@ function requestHandler(data) {
                 case 'page':
                     page(data);
                     break;
+                case 'ping':
+                    console.log(data);
+                    webSocketSendMessage({
+                        'type': 'pong',
+                        'key': data.key
+                    })
             }
         }
     } else {

@@ -6,6 +6,9 @@ use Workerman\Worker;
 
 require_once 'vendor/autoload.php';
 
+const PING_INTERVAL_SECONDS = 30;
+const TIME_LIFE_CONNECTION_SECONDS = 60;
+
 $wsWorker = new Worker(WEBSOCKET, [
     'ssl' => [
         'local_cert' => WEBSOCKET_LOCAL_CERT,
@@ -48,6 +51,26 @@ $wsWorker->onClose = function ($connection) use (&$clients) {
     }
     unset($clients[$connection->id]);
     echo "Connection close";
+};
+
+$wsWorker->onWorkerStart = function () use ($wsWorker) {
+    Timer::add(PING_INTERVAL_SECONDS, function () use ($wsWorker) {
+        foreach ($wsWorker->connections as $connection) {
+            $connection->send(json_encode([
+                'sc' => true,
+                'type' => 'ping',
+                'key' => $connection->id
+            ]));
+        }
+
+        $wsConnections = @json_decode(Redis::get('wsConnections'), true) ?? [];
+        foreach ($wsConnections as $key => $connection) {
+            if (time() - $connection['lastActivity'] >= TIME_LIFE_CONNECTION_SECONDS) {
+                unset($wsConnections[$key]);
+                Redis::set('wsConnections', json_encode($wsConnections));
+            }
+        }
+    });
 };
 
 Worker::runAll();

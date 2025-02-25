@@ -31,18 +31,21 @@ class Websocket extends API
                             'connection' => $connection,
                             'user' => $user
                         ];
+
+                        $wsConnections = @json_decode(Redis::get('wsConnections'), true);
+                        if (empty($wsConnections)) $wsConnections = [];
+                        $wsConnections[$connection->id] = [
+                            'connection' => $connection,
+                            'user' => (array)$user,
+                            'lastActivity' => time()
+                        ];
+                        Redis::set('wsConnections', json_encode($wsConnections));
+
                         $connection->send(json_encode([
                             'sc' => true,
                             'type' => 'auth',
                             'token' => $user->token
                         ]));
-                        $wsConnections = @json_decode(Redis::get('wsConnections'), true);
-                        if (empty($wsConnections)) $wsConnections = [];
-                        $wsConnections[$user->id] = [
-                            'connection' => $connection,
-                            'user' => $user
-                        ];
-                        Redis::set('wsConnections', json_encode($wsConnections));
                     }
                     break;
                 case 'getPage':
@@ -67,6 +70,13 @@ class Websocket extends API
                     ]);
 
                     $connection->send(json_encode($responseData));
+                    break;
+                case 'pong':
+                    $wsConnections = @json_decode(Redis::get('wsConnections'), true);
+                    if (!empty($wsConnections[$data->key])) {
+                        $wsConnections[$data->key]['lastActivity'] = time();
+                    }
+                    Redis::set('wsConnections', json_encode($wsConnections));
                     break;
                 default:
                     $connection->send(json_encode([
