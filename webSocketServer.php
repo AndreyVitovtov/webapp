@@ -35,7 +35,6 @@ $wsWorker->onMessage = function ($connection, $data) use ($wsWorker, &$clients) 
             'message' => $th->getMessage()
         ]));
     }
-
 };
 
 $wsWorker->onClose = function ($connection) use (&$clients) {
