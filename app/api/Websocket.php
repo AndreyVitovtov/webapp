@@ -41,6 +41,13 @@ class Websocket extends API
                     if (method_exists($handler::class, $method = 'page' . ucfirst($handler->data->page))) {
                         $responseData = [];
                         $user = (new User())->getOneObject(['token' => $handler->data->token]);
+                        if (empty($user)) {
+                            $connection->send(json_encode([
+                                'sc' => false,
+                                'error' => 'Not found'
+                            ]));
+                            break;
+                        }
                         $handler->$method($user, $responseData);
                     }
 
