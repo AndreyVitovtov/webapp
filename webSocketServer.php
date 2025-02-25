@@ -1,5 +1,6 @@
 <?php
 
+use App\Api\Websocket;
 use App\Utility\Redis;
 use Workerman\Timer;
 use Workerman\Worker;
@@ -7,7 +8,7 @@ use Workerman\Worker;
 require_once 'vendor/autoload.php';
 
 const PING_INTERVAL_SECONDS = 30;
-const TIME_LIFE_CONNECTION_SECONDS = 60;
+const LIFE_TIME_CONNECTION_SECONDS = 60;
 
 $wsWorker = new Worker(WEBSOCKET, [
     'ssl' => [
@@ -27,8 +28,8 @@ $wsWorker->onConnect = function ($connection) {
 
 $wsWorker->onMessage = function ($connection, $data) use ($wsWorker, &$clients) {
     try {
-        (new App\Api\Websocket())->onMessage($data, $connection, $clients);
-    } catch (\Throwable $th) {
+        (new Websocket())->onMessage($data, $connection, $clients);
+    } catch (Throwable $th) {
         $connection->send(json_encode([
             'file' => $th->getFile(),
             'line' => $th->getLine(),
@@ -64,7 +65,7 @@ $wsWorker->onWorkerStart = function () use ($wsWorker) {
 
         $wsConnections = @json_decode(Redis::get('wsConnections'), true) ?? [];
         foreach ($wsConnections as $key => $connection) {
-            if (time() - $connection['lastActivity'] >= TIME_LIFE_CONNECTION_SECONDS) {
+            if (time() - $connection['lastActivity'] >= LIFE_TIME_CONNECTION_SECONDS) {
                 unset($wsConnections[$key]);
                 Redis::set('wsConnections', json_encode($wsConnections));
             }
