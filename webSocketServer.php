@@ -73,4 +73,8 @@ $wsWorker->onWorkerStart = function () use ($wsWorker) {
     });
 };
 
+$wsWorker->onError = function ($connection, $code, $msg) {
+    echo 'Error connection (ID: ' . $connection->id . '): Code ' . $code . ', Message: ' . $msg;
+};
+
 Worker::runAll();
