@@ -25,9 +25,8 @@ function startCountdown(targetDate, containerId, onEnd = () => {
                 if (el) el.textContent = "0";
             });
 
-            // Вызываем onEnd() только при фактическом окончании отсчёта
             if (typeof onEnd === "function" && !container.dataset.ended) {
-                container.dataset.ended = "true"; // Помечаем, что таймер завершился
+                container.dataset.ended = "true";
                 onEnd();
             }
             return;

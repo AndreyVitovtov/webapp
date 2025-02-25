@@ -1,7 +1,9 @@
 function index(data) {
     if (typeof data.draw.date !== 'undefined') {
         const targetDate = new Date(data.draw.date).getTime();
-        startCountdown(targetDate, 'timer');
+        startCountdown(targetDate, 'timer', (data) => {
+            alert('Countdown ended');
+        });
     }
     Telegram.MainButton.setText(data.mainButton.text);
     Telegram.MainButton.show();
