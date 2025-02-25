@@ -3,6 +3,7 @@
 namespace App\Api;
 
 use App\Models\User;
+use App\Utility\Redis;
 use App\Utility\TelegramWebApp;
 use Random\RandomException;
 
@@ -35,6 +36,13 @@ class Websocket extends API
                             'type' => 'auth',
                             'token' => $user->token
                         ]));
+                        $wsConnections = @json_decode(Redis::get('wsConnections'), true);
+                        if (empty($wsConnections)) $wsConnections = [];
+                        $wsConnections[$user->id] = [
+                            'connection' => $connection,
+                            'user' => $user
+                        ];
+                        Redis::set('wsConnections', json_encode($wsConnections));
                     }
                     break;
                 case 'getPage':

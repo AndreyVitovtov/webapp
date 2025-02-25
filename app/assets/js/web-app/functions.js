@@ -44,7 +44,7 @@ async function profile(data) {
 }
 
 function referrals(data) {
-
+    console.log(data);
 }
 
 function updateContent(data, direction = 'left') {

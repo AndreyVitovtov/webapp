@@ -6,6 +6,7 @@ use App\Models\Coefficients;
 use App\Models\Draw;
 use App\Models\User;
 use App\Models\Winner;
+use App\Utility\Redis;
 use Random\RandomException;
 use stdClass;
 
@@ -149,5 +150,10 @@ class RequestHandler extends API
                 $data['winners'] = $this->getWinners($activeDraw);
             }
         }
+    }
+
+    public function pageReferrals(User $user, array &$data): void
+    {
+
     }
 }

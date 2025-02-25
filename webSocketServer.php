@@ -1,5 +1,7 @@
 <?php
 
+use App\Utility\Redis;
+use Workerman\Timer;
 use Workerman\Worker;
 
 require_once 'vendor/autoload.php';
@@ -34,6 +36,16 @@ $wsWorker->onMessage = function ($connection, $data) use ($wsWorker, &$clients) 
 };
 
 $wsWorker->onClose = function ($connection) use (&$clients) {
+    $wsConnections = @json_decode(Redis::get('wsConnections'), true);
+    if (!empty($wsConnections)) {
+        foreach ($wsConnections as $key => $value) {
+            if ($value['connection']->id == $connection->id) {
+                unset($wsConnections[$key]);
+                break;
+            }
+        }
+        Redis::set('wsConnections', json_encode($wsConnections));
+    }
     unset($clients[$connection->id]);
     echo "Connection close";
 };
