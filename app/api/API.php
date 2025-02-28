@@ -95,7 +95,14 @@ class API
 	{
 		if ($this->existsProperties(['id'], $data)) {
 			$user = new User();
-			return $user->getOneObject(['chat_id' => $data->id]);
+			$user = $user->getOneObject(['chat_id' => $data->id]);
+			$user->username = $data->username ?? $user->username;
+			$user->first_name = $data->first_name ?? $user->first_name;
+			$user->last_name = $data->last_name ?? $user->last_name;
+			$user->language_code = $data->language_code ?? $user->language_code;
+			$user->photo_url = $data->photo_url ?? $user->photo_url;
+			$user->update();
+			return $user;
 		} else {
 			return null;
 		}
@@ -114,7 +121,7 @@ class API
 			'language_code' => $data->language_code,
 			'photo_url' => $data->photo_url,
 			'referrer_id' => $referrerId,
-            'active' => 1
+			'active' => 1
 		]);
 		$token = $this->generateToken();
 		$user->token = $token;
