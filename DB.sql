@@ -150,3 +150,6 @@ CREATE TABLE `participants`
     INDEX (`user_id`),
     INDEX (`draw_id`)
 );
+
+ALTER TABLE `channels`
+    ADD COLUMN `type` ENUM ('channel', 'group') AFTER `draw_id`;

@@ -5,12 +5,55 @@ function index(data) {
             alert('Countdown ended');
         });
     }
-    Telegram.MainButton.setText(data.mainButton.text);
-    Telegram.MainButton.show();
-    Telegram.MainButton.onClick(function () {
+
+    const menu = document.querySelector('.app-menu');
+    if (window.getComputedStyle(menu).display === 'none') {
+        menu.style.display = 'flex';
+    }
+
+    let elementInviteUsers = document.querySelector('#invite-users');
+    if (elementInviteUsers) {
+        elementInviteUsers.addEventListener('click', () => {
+            Telegram.openTelegramLink(data.mainButton.url);
+        });
+    }
+
+    let elementCheckSubscribe = document.querySelector('#check-subscribe');
+    if (elementCheckSubscribe) {
+        elementCheckSubscribe.addEventListener('click', () => {
+            webSocketSendMessage(
+                {
+                    'type': 'indexCheckSubscribe',
+                    'drawId': data.draw.id
+                })
+        });
+    }
+
+    let elementsSubscribeTo = document.querySelectorAll('.subscribe-to');
+    if (elementsSubscribeTo) {
+        elementsSubscribeTo.forEach(element => {
+            element.addEventListener('click', () => {
+                let url = element.dataset.channel;
+                Telegram.openTelegramLink(url);
+            });
+        });
+    }
+}
+
+function share(data) {
+    document.querySelector('.invite-users').addEventListener('click', () => {
         Telegram.openTelegramLink(data.mainButton.url);
     });
-    Telegram.setBottomBarColor('#ffffff');
+
+    document.querySelector('.copy-link').addEventListener('click', (event) => {
+        navigator.clipboard.writeText(data.url).then(() => {
+            Telegram.showPopup({
+                'message': data.popupText
+            });
+        }).catch(err => {
+            alert('Failed to copy');
+        });
+    });
 }
 
 async function profile(data) {
@@ -43,10 +86,6 @@ async function profile(data) {
             Telegram.openTelegramLink(url);
         }, 500);
     });
-}
-
-function referrals(data) {
-    console.log(data);
 }
 
 function updateContent(data, direction = 'left') {
@@ -106,6 +145,29 @@ function parseParams(str) {
         const key = match[1] || match[3];
         result[key] = match[2] || match[4];
     }
-
     return result;
+}
+
+function indexCheckSubscribe(data) {
+    let images = document.querySelectorAll('.subscribe-to-image');
+    if (images) {
+        images.forEach(image => {
+            let id = image.dataset.id;
+            if (data['subscribe']['subscribeChannels'][id]) image.src = image.src.replace('check-cancel', 'check-ok');
+            else image.src = image.src.replace('check-ok', 'check-cancel');
+        });
+    }
+    if (data.subscribe.subscribe) {
+        let element = document.querySelector('#check-subscribe');
+        if (element) {
+            element.id = 'invite-users';
+            element.innerText = data.subscribe.text;
+            let elementInviteUsers = document.querySelector('#invite-users');
+            if (elementInviteUsers) {
+                elementInviteUsers.addEventListener('click', () => {
+                    Telegram.openTelegramLink(data['subscribe']['mainButton']['url']);
+                });
+            }
+        }
+    }
 }

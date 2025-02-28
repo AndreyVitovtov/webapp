@@ -231,7 +231,7 @@ function __($str, $params = [], $lang = null)
 	array_map(function ($k, $v) use (&$text) {
 		$text = preg_replace('/\{' . $k . '\}/', $v, $text);
 	}, array_keys($params), $params);
-	return $text;
+	return nl2br($text);
 }
 
 function getCurrentUrl($encodeBase64 = false): string

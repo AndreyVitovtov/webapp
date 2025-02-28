@@ -111,5 +111,21 @@
   "percentage_referrer": "Процент от приза рефереру",
   "prize referrer": "Приз реферрера",
   "percentage referrer": "Процент реферрера",
-  "take part": "✨ Принять участие"
+  "take part": "✨ Принять участие",
+  "coeff": "коэфф.",
+  "share": "Поделиться",
+  "air drop": "AirDrop",
+  "wallet": "Кошелек",
+  "winning coefficient":  "Коэффициент выигрыша",
+  "earned from referrals": "Заработано с рефералов",
+  "title share": "Приглашай друзей и \nдели победу!",
+  "description share": "За каждого реферала ты получаешь 50% от его \nвыигрыша и повышенный шанс на победу!",
+  "share-attention": "Бонус действует только для активных рефералов",
+  "subscribe to": "Подписка на {type}",
+  "type": "Тип",
+  "channel": "Канал",
+  "group": "Группа",
+  "group_": "Группу",
+  "check subscribe app": "Проверить подписку",
+  "link copied": "Ссылку скопировано"
 }

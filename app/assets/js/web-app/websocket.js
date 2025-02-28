@@ -76,11 +76,14 @@ function requestHandler(data) {
                     page(data);
                     break;
                 case 'ping':
-                    console.log(data);
                     webSocketSendMessage({
                         'type': 'pong',
                         'key': data.key
-                    })
+                    });
+                    break;
+                case 'indexCheckSubscribe':
+                    indexCheckSubscribe(data);
+                    break;
             }
         }
     } else {

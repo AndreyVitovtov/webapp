@@ -54,6 +54,7 @@ class Channels extends Controller
         $channel->chat_id = $request->chat_id;
         $channel->language = $request->language;
         $channel->draw_id = $request->draw;
+        $channel->type = $request->type;
         $channel->insert();
         redirect('/channels/all', [
             'message' => __('channel added')
@@ -86,6 +87,7 @@ class Channels extends Controller
         $channel->chat_id = $request->chat_id;
         $channel->language = $request->language;
         $channel->draw_id = $request->draw;
+        $channel->type = $request->type;
         $channel->update();
         redirect('/channels/all', [
             'message' => __('channel edited')

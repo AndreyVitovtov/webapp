@@ -111,5 +111,21 @@
   "percentage_referrer": "Percentage of the prize to the referrer",
   "prize referrer": "Prize referrer",
   "percentage referrer": "Percentage referrer",
-  "take part": "✨ Take part"
+  "take part": "✨ Take part",
+  "coeff": "coeff.",
+  "share": "Share",
+  "air drop": "AirDrop",
+  "wallet": "Wallet",
+  "winning coefficient":  "Winning coefficient",
+  "earned from referrals": "Earned from referrals",
+  "title share": "Invite your friends and share the victory!",
+  "description share": "For each referral you receive 50% of his winnings and an increased chance of winning!",
+  "share-attention": "The bonus is valid only for active referrals",
+  "subscribe to": "Subscribe to {type}",
+  "type": "Type",
+  "channel": "Channel",
+  "group": "Group",
+  "group_": "group",
+  "check subscribe app": "Check subscribe",
+  "link copied": "Link copied"
 }

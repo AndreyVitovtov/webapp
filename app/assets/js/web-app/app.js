@@ -1,7 +1,7 @@
 const DEV = false;
 const DESKTOP_FORBIDDEN = true;
-const HEADER_COLOR = '#262626';
-const BG_COLOR = '#F8F8F8';
+const HEADER_COLOR = '#141417';
+const BG_COLOR = '#1E1E1E';
 const APP_URL = 'https://t.me/WebAppFBot/app';
 const TON_CONNECT_MANIFEST = 'https://web-app.vytovtov.pro/tonconnect-manifest.json';
 const ERROR_GET_CONTENT = 'There were problems loading content. Check your connection, restart the app and try again \n\nRestart now?';
@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(Telegram.initDataUnsafe);
 
     document.body.addEventListener('click', (event) => {
-        let element = event.target;
-        if (element.className === 'app-menu-item') {
-            let page = event.target.getAttribute('data-page');
+        let element = event.target.closest('.app-menu-item');
+        if (element) {
+            let page = element.getAttribute('data-page');
             webSocketSendMessage({
                 'type': 'getPage',
                 'page': page

@@ -6,9 +6,9 @@
     <div class="mb-3">
         <label for="draw" class="form-label">* <?= __('draw') ?>:</label>
         <select name="draw" id="type" class="form-select">
-            <?php foreach ($draws ?? [] as $draw): ?>
+			<?php foreach ($draws ?? [] as $draw): ?>
                 <option value="<?= $draw->id ?>" <?= (($channel->draw_id ?? '') == $draw->id ? 'selected' : '') ?>><?= $draw->title->{getCurrentLang()} ?></option>
-            <?php endforeach; ?>
+			<?php endforeach; ?>
         </select>
     </div>
     <div class="mb-3">
@@ -28,11 +28,18 @@
                required>
     </div>
     <div class="mb-3">
+        <label for="type" class="form-label">* <?= __('type') ?>:</label>
+        <select name="type" class="form-select" id="type" required>
+            <option value="channel" <?= $channel->type == 'channel' ? 'selected' : '' ?>><?= __('channel') ?></option>
+            <option value="group" <?= $channel->type == 'group' ? 'selected' : '' ?>><?= __('group') ?></option>
+        </select>
+    </div>
+    <div class="mb-3">
         <label for="language" class="form-label"><?= __('language') ?>:</label>
         <select name="language" id="language" class="form-select">
-            <?php foreach (LANGUAGES as $abbr => $language): ?>
+			<?php foreach (LANGUAGES as $abbr => $language): ?>
                 <option value="<?= $language['abbr'] ?>" <?= ($abbr === $channel->language ?? '') ? 'selected' : '' ?>><?= $language['title'] ?></option>
-            <?php endforeach; ?>
+			<?php endforeach; ?>
         </select>
     </div>
     <div class="mb-3">

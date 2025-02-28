@@ -1,96 +1,54 @@
 <style>
-    body {
+    html, body {
+        min-height: 100vh;
         margin: 0;
         padding: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none;
+        font-family: SF Pro, sans-serif;
     }
 
-    .content {
-        position: relative;
-        overflow: hidden;
-        width: 100%;
-        height: 100vh;
-        padding: 0;
-    }
-
-    .content-wrapper {
-        display: flex;
-        width: 200%;
-        transition: transform 0.5s ease-in-out;
-    }
-
-    .old-content, .new-content {
-        width: 50%;
-        flex-shrink: 0;
-    }
-
-    .hidden {
+    ::-webkit-scrollbar {
         display: none;
     }
 
-    .old-content, .new-content {
-        width: 50%;
-        flex-shrink: 0;
+    .app-content {
+        padding: 20px;
     }
-
-    .app-menu {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        position: fixed;
-        bottom: 20px;
-        left: 0;
-        right: 0;
-    }
-
-    .app-menu > div {
-        padding: 5px;
-        cursor: pointer;
-    }
-
-
-
-
-    /* Стили для меню */
-    .app-menu {
-        display: flex;
-        justify-content: space-around;
-        background-color: #333;
-        padding: 10px 0;
-        border-radius: 5px;
-    }
-
-    .app-menu-item {
-        color: #fff;
-        font-size: 16px;
-        padding: 10px 20px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        border-radius: 5px;
-    }
-
-    /* Стиль для активного элемента */
-    .app-menu-item.active {
-        background-color: #4CAF50; /* зеленый для активного */
-        color: #fff;
-        font-weight: bold;
-    }
-
-    /* Эффект при наведении */
-    .app-menu-item:hover {
-        background-color: #575757;
-    }
-
-
-    .app-menu {
-        /*display: none;*/
-    }
-
 
     .hello {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100vh;
+    }
+
+    .app-menu {
+        display: none;
+        background-color: #1E1E1E;
+        position: fixed;
+        align-items: center;
+        justify-content: space-between;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .app-menu-item {
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+        padding: 20px 20px 35px 20px;
+        cursor: pointer;
+    }
+
+    .app-menu-item img {
+        margin-bottom: 5px;
     }
 </style>
 
@@ -101,8 +59,21 @@
         </div>
     </div>
     <div class="app-menu">
-        <div class="app-menu-item" data-page="index"><?= __('draw') ?></div>
-        <div class="app-menu-item" data-page="profile"><?= __('profile') ?></div>
-        <div class="app-menu-item" data-page="referrals"><?= __('referrals') ?></div>
+        <div class="app-menu-item" data-page="index">
+            <img src="<?= assets('images/menu/draw.svg') ?>" alt="draw">
+            <?= __('draw') ?>
+        </div>
+        <div class="app-menu-item" data-page="share">
+            <img src="<?= assets('images/menu/share.svg') ?>" alt="referrals">
+            <?= __('share') ?>
+        </div>
+        <div class="app-menu-item" data-page="airdrop">
+            <img src="<?= assets('images/menu/airdrop.svg') ?>" alt="profile">
+            <?= __('air drop') ?>
+        </div>
+        <div class="app-menu-item" data-page="wallet">
+            <img src="<?= assets('images/menu/wallet.svg') ?>" alt="profile">
+            <?= __('wallet') ?>
+        </div>
     </div>
 </div>
