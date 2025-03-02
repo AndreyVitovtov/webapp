@@ -133,5 +133,6 @@
   "wallet-attention": "Вы не сможете получить награду, если не привяжете свой кошелёк",
   "wallet connected": "Кошелёк привязан",
   "airdrop": "AirDrop",
-  "airdrops": "Air Drops"
+  "airdrops": "AirDrops",
+  "add airdrops": "Добавить AirDrop"
 }

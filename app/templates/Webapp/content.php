@@ -55,29 +55,30 @@
 <div>
     <div class="app-content">
         <div class="hello">
-            <?= $content ?? 'no content' ?>
+			<?= $content ?? 'no content' ?>
         </div>
     </div>
     <div class="app-menu">
         <div class="app-menu-item" data-page="index">
             <img src="<?= assets('images/menu/draw.svg') ?>" alt="draw">
-            <?= __('draw') ?>
+			<?= __('draw') ?>
         </div>
         <div class="app-menu-item" data-page="share">
             <img src="<?= assets('images/menu/share.svg') ?>" alt="referrals">
-            <?= __('share') ?>
+			<?= __('share') ?>
         </div>
         <div class="app-menu-item" data-page="airdrops">
             <img src="<?= assets('images/menu/airdrop.svg') ?>" alt="profile">
-            <?= __('air drop') ?>
+			<?= __('air drop') ?>
         </div>
         <div class="app-menu-item" data-page="wallet">
             <img src="<?= assets('images/menu/wallet.svg') ?>" alt="profile">
-            <?= __('wallet') ?>
+			<?= __('wallet') ?>
         </div>
     </div>
 </div>
 
 <script>
     window.cryptoCoinsLottie = <?= file_get_contents(assets('lottie/crypto-coins.json')) ?>;
+    window.starsLottie = <?= file_get_contents(assets('lottie/stars.json')) ?>;
 </script>

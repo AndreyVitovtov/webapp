@@ -30,7 +30,7 @@ $menu = [
 	], [
 		'title' => __('airdrop'),
 		'icon' => 'shuffle',
-		'controller' => 'AirDrop',
+		'controller' => 'Airdrop',
 		'forbid' => ['guest'],
 		'items' => [
 			[
