@@ -61,7 +61,7 @@ class Websocket extends API
 							]));
 							break;
 						}
-						$handler->$method($user, $responseData);
+						$handler->$method($user, $responseData, $data);
 					}
 
 					$responseData = array_merge($responseData ?? [], [

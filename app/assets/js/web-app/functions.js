@@ -2,7 +2,7 @@ function index(data) {
     if (typeof data.draw.date !== 'undefined') {
         const targetDate = new Date(data.draw.date).getTime();
         startCountdown(targetDate, 'timer', (data) => {
-            alert('Countdown ended');
+            // alert('Countdown ended');
         });
     }
 
@@ -57,31 +57,34 @@ function share(data) {
 }
 
 function wallet(data) {
-    document.querySelector('.link-wallet').addEventListener('click', async (event) => {
-        if (event.target.closest('.link-wallet')) {
-            window.tonConnect = new TonConnectSDK.TonConnect({
-                manifestUrl: TON_CONNECT_MANIFEST
-            });
-            const walletsList = await window.tonConnect.getWallets();
-            console.log(walletsList);
-
-            const walletConnectionSource = {
-                universalLink: 'https://t.me/wallet?attach=wallet',
-                bridgeUrl: 'https://walletbot.me/tonconnect-bridge/bridge',
-                returnStrategy: 'back'
-            }
-
-            const universalLink = window.tonConnect.connect(walletConnectionSource);
-            Telegram.openTelegramLink(universalLink);
-
-            window.tonConnect.onStatusChange(walletInfo => {
-                webSocketSendMessage({
-                    'type': 'linkWallet',
-                    'wallet': walletInfo
+    let linkWallet = document.querySelector('.link-wallet');
+    if (linkWallet) {
+        linkWallet.addEventListener('click', async (event) => {
+            if (event.target.closest('.link-wallet')) {
+                window.tonConnect = new TonConnectSDK.TonConnect({
+                    manifestUrl: TON_CONNECT_MANIFEST
                 });
-            });
-        }
-    });
+                const walletsList = await window.tonConnect.getWallets();
+                console.log(walletsList);
+
+                const walletConnectionSource = {
+                    universalLink: 'https://t.me/wallet?attach=wallet',
+                    bridgeUrl: 'https://walletbot.me/tonconnect-bridge/bridge',
+                    returnStrategy: 'back'
+                }
+
+                const universalLink = window.tonConnect.connect(walletConnectionSource);
+                Telegram.openTelegramLink(universalLink);
+
+                window.tonConnect.onStatusChange(walletInfo => {
+                    webSocketSendMessage({
+                        'type': 'linkWallet',
+                        'wallet': walletInfo
+                    });
+                });
+            }
+        });
+    }
 }
 
 async function profile(data) {
@@ -211,4 +214,46 @@ function linkWallet(data) {
     element.innerHTML = '';
     element.appendChild(img);
     element.appendChild(div);
+}
+
+function airdrops(data) {
+    lottie.loadAnimation({
+        container: document.querySelector('.crypto-coins'),
+        renderer: 'canvas',
+        loop: true,
+        autoplay: true,
+        animationData: window.cryptoCoinsLottie,
+        prerender: true,
+        rendererSettings: {
+            progressiveLoad: true
+        }
+    });
+
+    let airdrops = document.querySelectorAll('.airdrop');
+    if (airdrops) {
+        airdrops.forEach(airdrop => {
+            airdrop.addEventListener('click', (event) => {
+                let element = event.target.closest('.airdrop');
+                if (element) {
+                    let id = element.dataset.id;
+                    webSocketSendMessage({
+                        'type': 'getPage',
+                        'page': 'airdrop',
+                        'id': id
+                    });
+                }
+
+                Telegram.BackButton.show();
+                Telegram.BackButton.onClick(async function () {
+                    HapticFeedback.impactOccurred('medium');
+                    Telegram.BackButton.hide();
+
+                    webSocketSendMessage({
+                        'type': 'getPage',
+                        'page': 'airdrops'
+                    });
+                });
+            });
+        });
+    }
 }

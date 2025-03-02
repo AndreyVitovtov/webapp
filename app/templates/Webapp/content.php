@@ -67,7 +67,7 @@
             <img src="<?= assets('images/menu/share.svg') ?>" alt="referrals">
             <?= __('share') ?>
         </div>
-        <div class="app-menu-item" data-page="airdrop">
+        <div class="app-menu-item" data-page="airdrops">
             <img src="<?= assets('images/menu/airdrop.svg') ?>" alt="profile">
             <?= __('air drop') ?>
         </div>
@@ -77,3 +77,7 @@
         </div>
     </div>
 </div>
+
+<script>
+    window.cryptoCoinsLottie = <?= file_get_contents(assets('lottie/crypto-coins.json')) ?>;
+</script>

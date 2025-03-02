@@ -131,5 +131,7 @@
   "connect your wallet": "Connect your wallet",
   "link wallet": "Link wallet",
   "wallet-attention": "You will not be able to receive the reward if you do not link your wallet",
-  "wallet connected": "Wallet connected"
+  "wallet connected": "Wallet connected",
+  "airdrop": "AirDrop",
+  "airdrops": "Air Drops"
 }

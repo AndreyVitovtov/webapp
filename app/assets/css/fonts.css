@@ -7,3 +7,8 @@
     font-family: 'SF Pro';
     src: url('../fonts/SFPRODISPLAYREGULAR.OTF');
 }
+
+@font-face {
+    font-family: 'Zen Dots';
+    src: url('../fonts/ZenDots-Regular.ttf');
+}

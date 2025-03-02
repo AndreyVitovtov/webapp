@@ -254,4 +254,10 @@ class RequestHandler extends API
 			'text' => __('wallet connected', [], $user->language_code)
 		];
 	}
+
+	function pageAirdrop(User $user, array &$responseData, $data): void
+	{
+		$responseData['user'] = $user;
+		$responseData['id'] = $data->id;
+	}
 }

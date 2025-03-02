@@ -131,5 +131,7 @@
   "connect your wallet": "Подключите свой кошелек",
   "link wallet": "Привязать кошелёк",
   "wallet-attention": "Вы не сможете получить награду, если не привяжете свой кошелёк",
-  "wallet connected": "Кошелёк привязан"
+  "wallet connected": "Кошелёк привязан",
+  "airdrop": "AirDrop",
+  "airdrops": "Air Drops"
 }
