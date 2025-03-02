@@ -153,3 +153,15 @@ CREATE TABLE `participants`
 
 ALTER TABLE `channels`
     ADD COLUMN `type` ENUM ('channel', 'group') AFTER `draw_id`;
+
+CREATE TABLE `wallets`
+(
+    `id`      INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    `json`    BLOB,
+    `address` TEXT,
+    `updated` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `added`   DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE `wallets`
+    ADD COLUMN `user_id` INT UNSIGNED REFERENCES `users` (`id`) ON UPDATE SET NULL ON DELETE SET NULL AFTER `id`;

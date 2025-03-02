@@ -84,6 +84,9 @@ function requestHandler(data) {
                 case 'indexCheckSubscribe':
                     indexCheckSubscribe(data);
                     break;
+                case 'linkWallet':
+                    linkWallet(data);
+                    break;
             }
         }
     } else {

@@ -127,5 +127,9 @@
   "group": "Group",
   "group_": "group",
   "check subscribe app": "Check subscribe",
-  "link copied": "Link copied"
+  "link copied": "Link copied",
+  "connect your wallet": "Connect your wallet",
+  "link wallet": "Link wallet",
+  "wallet-attention": "You will not be able to receive the reward if you do not link your wallet",
+  "wallet connected": "Wallet connected"
 }

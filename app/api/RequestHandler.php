@@ -6,6 +6,7 @@ use App\Models\Channel;
 use App\Models\Coefficients;
 use App\Models\Draw;
 use App\Models\User;
+use App\Models\Wallet;
 use App\Models\Winner;
 use App\Utility\Redis;
 use App\Utility\TelegramBot;
@@ -198,6 +199,12 @@ class RequestHandler extends API
 		$data['url'] = BOT_APP_LINK . '?startapp=ref-' . $user->chat_id;
 	}
 
+	public function pageWallet(User $user, array &$data): void
+	{
+		$data['user'] = $user;
+		$data['wallet'] = (new Wallet())->getOneObject(['user_id' => $user->id]);
+	}
+
 	public function checkSubscribe($user, $drawId): array
 	{
 		$telegram = new TelegramBot(TELEGRAM_TOKEN);
@@ -222,6 +229,29 @@ class RequestHandler extends API
 				'text' => __('invite participants', [], $this->getLanguageCode($user)),
 				'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_APP_LINK . '?startapp=ref-' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
 			]
+		];
+	}
+
+	public function linkWallet(User $user, $walletInfo): array
+	{
+		$wallet = (new Wallet())->getOneObject(['user_id' => $user->id]);
+		$walletId = $wallet->id ?? null;
+
+		if (empty($walletId)) {
+			$wallet = new Wallet();
+		}
+
+		$wallet->user_id = $user->id;
+		$wallet->json = @json_encode($walletInfo);
+		$wallet->address = $walletInfo->account->address;
+		if (empty($walletId)) {
+			$wallet->insert();
+		} else {
+			$wallet->update();
+		}
+		return [
+			'src' => assets('images/wallet/check.svg'),
+			'text' => __('wallet connected', [], $user->language_code)
 		];
 	}
 }

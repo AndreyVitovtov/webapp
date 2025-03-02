@@ -56,6 +56,34 @@ function share(data) {
     });
 }
 
+function wallet(data) {
+    document.querySelector('.link-wallet').addEventListener('click', async (event) => {
+        if (event.target.closest('.link-wallet')) {
+            window.tonConnect = new TonConnectSDK.TonConnect({
+                manifestUrl: TON_CONNECT_MANIFEST
+            });
+            const walletsList = await window.tonConnect.getWallets();
+            console.log(walletsList);
+
+            const walletConnectionSource = {
+                universalLink: 'https://t.me/wallet?attach=wallet',
+                bridgeUrl: 'https://walletbot.me/tonconnect-bridge/bridge',
+                returnStrategy: 'back'
+            }
+
+            const universalLink = window.tonConnect.connect(walletConnectionSource);
+            Telegram.openTelegramLink(universalLink);
+
+            window.tonConnect.onStatusChange(walletInfo => {
+                webSocketSendMessage({
+                    'type': 'linkWallet',
+                    'wallet': walletInfo
+                });
+            });
+        }
+    });
+}
+
 async function profile(data) {
     if (typeof window.tonConnect === 'undefined') {
         window.tonConnect = new TonConnectSDK.TonConnect({
@@ -170,4 +198,17 @@ function indexCheckSubscribe(data) {
             }
         }
     }
+}
+
+function linkWallet(data) {
+    let element = document.querySelector('.link-wallet');
+    let img = document.createElement('img');
+    img.src = data.wallet.src;
+    let div = document.createElement('div');
+    div.innerHTML = data.wallet.text;
+    element.classList.remove('link-wallet');
+    element.classList.add('wallet-connected');
+    element.innerHTML = '';
+    element.appendChild(img);
+    element.appendChild(div);
 }

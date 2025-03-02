@@ -88,6 +88,14 @@ class Websocket extends API
 						'subscribe' => $handler->checkSubscribe($user, $handler->data->drawId)
 					]));
 					break;
+				case 'linkWallet':
+					$user = (new User())->getOneObject(['token' => $handler->data->token]);
+					$connection->send(json_encode([
+						'sc' => true,
+						'type' => 'linkWallet',
+						'wallet' => $handler->linkWallet($user, $handler->data->wallet)
+					]));
+					break;
 				default:
 					$connection->send(json_encode([
 						'sc' => false,
