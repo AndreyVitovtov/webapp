@@ -66,7 +66,7 @@ function requestHandler(data) {
             setTimeout(() => {
                 webSocketSendMessage({
                     'type': 'getPage',
-                    'page': startParams.page ?? 'index',
+                    'page': startParams.page ?? localStorage.getItem('page') ?? 'index',
                     'params': WebAppInitData['start_param'] ?? null
                 });
             }, 1000);

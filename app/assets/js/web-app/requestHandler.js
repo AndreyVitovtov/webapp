@@ -1,12 +1,13 @@
 function page(data) {
     if (data.sc) {
+        localStorage.setItem('page', data.page);
         let appMenuItems = document.querySelectorAll('.app-menu-item');
         if (appMenuItems) {
             appMenuItems.forEach(item => {
                 let img = item.querySelector('img');
                 img.src = img.src.replace('-active', '');
             });
-            if(data.page === 'airdrop') data.page = data.page.replace('airdrop', 'airdrops');
+            if (data.page === 'airdrop') data.page = data.page.replace('airdrop', 'airdrops');
             let menuImg = document.querySelector(`.app-menu-item[data-page="${data.page}"] img`);
             let src = menuImg.src;
             menuImg.src = src.replace('.svg', '-active.svg');
@@ -23,3 +24,4 @@ function page(data) {
         }
     }
 }
+

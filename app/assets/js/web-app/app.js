@@ -18,21 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     Telegram.disableVerticalSwipes();
     Telegram.setBackgroundColor(BG_COLOR);
+
     // Telegram.setHeaderColor(HEADER_COLOR);
-
-
-    Telegram.SettingsButton.isVisible = true;
-
-    // Telegram.onEvent('settingsButtonClicked', async () => {
-    //     Telegram.BackButton.show();
-    // })
-
-    console.log(Telegram.initDataUnsafe);
+    // Telegram.SettingsButton.isVisible = true;
+    // console.log(Telegram.initDataUnsafe);
 
     document.body.addEventListener('click', (event) => {
         let element = event.target.closest('.app-menu-item');
         if (element) {
             let page = element.getAttribute('data-page');
+            if(page !== 'airdrop') Telegram.BackButton.hide();
             webSocketSendMessage({
                 'type': 'getPage',
                 'page': page

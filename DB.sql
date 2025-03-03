@@ -169,5 +169,5 @@ ALTER TABLE `wallets`
 CREATE TABLE `airdrops`
 (
     `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    ``
+    `title` TEXT
 );
