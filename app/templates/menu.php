@@ -99,7 +99,7 @@ $menu = [
 
 <div class="logo">
     <a href="/">
-		<?= PROJECT_NAME ?>
+		<?= nl2br(PROJECT_NAME) ?>
     </a>
 </div>
 <div class="menu-items">
