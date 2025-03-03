@@ -1,38 +1,38 @@
 <div class="user-photo">
-    <img src="<?= $participant->photo_url ?? '' ?>" alt="">
+    <img src="<?= $user->photo_url ?? '' ?>" alt="">
 </div>
 <table class="table mb-5">
     <tr>
         <td><?= __('username') ?>:</td>
-        <td><a href="https://t.me/<?= $participant->username ?? '' ?>" target="_blank">@<?= $participant->username ?? '' ?></a></td>
+        <td><a href="https://t.me/<?= $user->username ?? '' ?>" target="_blank">@<?= $user->username ?? '' ?></a></td>
     </tr>
     <tr>
         <td><?= __('first name') ?>:</td>
-        <td><?= $participant->first_name ?? '' ?></td>
+        <td><?= $user->first_name ?? '' ?></td>
     </tr>
     <tr>
         <td><?= __('last name') ?>:</td>
-        <td><?= $participant->last_name ?? '' ?></td>
+        <td><?= $user->last_name ?? '' ?></td>
     </tr>
     <tr>
         <td><?= __('chat id') ?>:</td>
-        <td><?= $participant->chat_id ?? '' ?></td>
+        <td><?= $user->chat_id ?? '' ?></td>
     </tr>
     <tr>
         <td><?= __('language') ?>:</td>
-        <td><?= LANGUAGES[$participant->language_code]['title'] ?? $participant->language_code ?></td>
+        <td><?= LANGUAGES[$user->language_code]['title'] ?? $user->language_code ?></td>
     </tr>
     <tr>
         <td><?= __('active') ?>:</td>
-        <td><?= ($participant->active ? '<i class="icon-check-1"></i>' : '<i class="icon-cancel"></i>') ?></td>
+        <td><?= ($user->active ? '<i class="icon-check-1"></i>' : '<i class="icon-cancel"></i>') ?></td>
     </tr>
     <tr>
         <td><?= __('added') ?>:</td>
-        <td><?= $participant->added ?></td>
+        <td><?= $user->added ?></td>
     </tr>
     <tr>
         <td><?= __('referrer') ?>:</td>
-        <td><?= (!empty($participant->referrer['username']) ? '<a href="/users/details/' . $participant->referrer['id'] . '">' . $participant->referrer['username'] . '</a>' : '-') ?></td>
+        <td><?= (!empty($user->referrer['username']) ? '<a href="/users/details/' . $user->referrer['id'] . '">' . $user->referrer['username'] . '</a>' : '-') ?></td>
     </tr>
     <tr>
         <td><?= __('coefficient') ?>:</td>
@@ -41,7 +41,7 @@
 </table>
 <h6><?= __('coefficient') ?></h6>
 <form action="/users/addCoefficient" method="POST" class="mb-4">
-    <input type="hidden" name="id" value="<?= $participant->id ?>">
+    <input type="hidden" name="id" value="<?= $user->id ?>">
     <div class="mb-2">
         <input type="number" step="0.01" name="coefficient" value="<?= !empty($coefficientAdmin) ? $coefficientAdmin : '' ?>"
                class="form-control">
@@ -52,7 +52,7 @@
 </form>
 <h6><?= __('send message') ?></h6>
 <form action="/users/sendMessage" method="POST">
-    <input type="hidden" name="id" value="<?= $participant->id ?>">
+    <input type="hidden" name="id" value="<?= $user->id ?>">
     <div class="mb-2">
         <textarea name="text" class="form-control"></textarea>
     </div>

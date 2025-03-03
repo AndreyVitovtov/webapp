@@ -5,6 +5,7 @@ namespace App\Api;
 use App\Models\Channel;
 use App\Models\Coefficients;
 use App\Models\Draw;
+use App\Models\Participants;
 use App\Models\User;
 use App\Models\Wallet;
 use App\Models\Winner;
@@ -141,7 +142,19 @@ class RequestHandler extends API
 		$drawHash = $this->startParams['draw'] ?? null;
 		$activeDraw = $this->getActiveDraw($drawHash);
 		$drawId = $activeDraw->id ?? 0;
+
 		if (!empty($drawId)) {
+			// Add participant
+			$participant = new Participants();
+			if(empty($participant->getOne([
+				'user_id' => $user->id,
+				'draw_id' => $drawId
+			]))) {
+				$participant->user_id = $user->id;
+				$participant->draw_id = $drawId;
+				$participant->insert();
+			}
+
 			$activeDraw->title = json_decode($activeDraw->title);
 			$activeDraw->description = json_decode($activeDraw->description);
 			$data['draw'] = [
@@ -161,10 +174,21 @@ class RequestHandler extends API
 			$coefficients = (new Coefficients())->get();
 			$coefficients = array_combine(array_column($coefficients, 'user_id'), array_column($coefficients, 'coefficient'));
 			$data['participants'] = array_map(function ($user) use ($coefficients) {
+				$user = (object)$user;
 				$user->coefficient = $coefficients[$user->id] ?? 0;
 				return $user;
+			}, (new User())->query("
+				SELECT u.* 
+				FROM `users` u,
+				     `participants` p
+				WHERE u.`id` = p.`user_id`
+				AND p.`draw_id` = :drawId
+				AND u.`active` = 1
+			", [
+				'drawId' => $drawId
+			], true));
+//			}, (new User())->getObjects(['active' => 1]));
 
-			}, (new User())->getObjects(['active' => 1]));
 			$data['channels'] = (new Channel())->getObjects([
 				'draw_id' => $drawId,
 				'language' => $this->getLanguageCode($user)
