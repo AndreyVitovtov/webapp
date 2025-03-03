@@ -41,6 +41,9 @@
 </style>
 
 <div class="winners">
+    <div class="draft-text">
+		<?= __('winners', [], $user->language_code) ?>
+    </div>
 	<?php foreach ($winners ?? [] as $winner):
 		$winner = (object)$winner;
 		?>

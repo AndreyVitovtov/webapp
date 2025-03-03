@@ -129,13 +129,17 @@ class Draws extends Controller
 			ORDER BY `date`
 			LIMIT 1
 		", [], true)[0] ?? [];
-		$draw = (new Draw())->find($draw['id']);
-		$draw->status = 'DETERMINING WINNERS';
-		$draw->update();
+		if (!empty($draw)) {
+			$draw = (new Draw())->find($draw['id']);
+			$draw->status = 'DETERMINING WINNERS';
+			$draw->update();
 
-		(new DeterminationWinners)->execute($draw->id, $draw->winners);
+			(new UpdateCoefficients)->index($draw->id);
 
-		$draw->status = 'COMPLETED';
-		$draw->update();
+			(new DeterminationWinners)->execute($draw->id, $draw->winners);
+
+			$draw->status = 'COMPLETED';
+			$draw->update();
+		}
 	}
 }

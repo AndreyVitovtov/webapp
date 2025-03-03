@@ -142,5 +142,10 @@
   "we choose winners": "Определяем {winners} победителей",
   "you are participating": "Вы участвуете",
   "you are not participating": "Вы не участвуете",
-  "invite friends and increase your chances of winning": "Приглашайте друзей и увеличивайте свои шансы на победу"
+  "invite friends and increase your chances of winning": "Приглашайте друзей и увеличивайте свои шансы на победу",
+  "IN PROGRESS": "Выполняется",
+  "COMPLETED": "Завершен",
+  "DETERMINING WINNERS": "Определение победителей",
+  "CANCELED": "Отменен",
+  "status": "Статус"
 }
