@@ -76,7 +76,10 @@ class UpdateCoefficients
 	private
 	function getActiveDraw(): ?Draw
 	{
-		$draw = (new Draw())->getOneObject(['active' => 1]);
+		$draw = (new Draw())->getOneObject([
+			'active' => 1,
+			'status' => 'IN PROGRESS'
+		]);
 		$drawId = $draw->id;
 		return (!empty($drawId) ? $draw : null);
 	}
