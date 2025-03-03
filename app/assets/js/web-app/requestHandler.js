@@ -9,8 +9,10 @@ function page(data) {
             });
             if (data.page === 'airdrop') data.page = data.page.replace('airdrop', 'airdrops');
             let menuImg = document.querySelector(`.app-menu-item[data-page="${data.page}"] img`);
-            let src = menuImg.src;
-            menuImg.src = src.replace('.svg', '-active.svg');
+            if (menuImg) {
+                let src = menuImg.src;
+                menuImg.src = src.replace('.svg', '-active.svg');
+            }
         }
 
         Telegram.setHeaderColor(HEADER_COLOR);

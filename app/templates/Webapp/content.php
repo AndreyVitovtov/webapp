@@ -81,5 +81,7 @@
 <script>
     window.cryptoCoinsLottie = <?= file_get_contents(assets('lottie/crypto-coins.json')) ?>;
     window.starsLottie = <?= file_get_contents(assets('lottie/stars.json')) ?>;
+    window.diceLottie = <?= file_get_contents(assets('lottie/dice.json')) ?>;
+    window.confettiLottie = <?= file_get_contents(assets('lottie/confetti.json')) ?>;
     localStorage.setItem('page', 'index');
 </script>

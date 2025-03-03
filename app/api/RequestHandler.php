@@ -146,7 +146,7 @@ class RequestHandler extends API
 		if (!empty($drawId)) {
 			// Add participant
 			$participant = new Participants();
-			if(empty($participant->getOne([
+			if (empty($participant->getOne([
 				'user_id' => $user->id,
 				'draw_id' => $drawId
 			]))) {
@@ -165,6 +165,7 @@ class RequestHandler extends API
 				'prize' => $activeDraw->prize,
 				'sponsor_title' => $activeDraw->sponsor_title,
 				'sponsor_url' => $activeDraw->sponsor_url,
+				'winners' => $activeDraw->winners,
 				'date' => date('Y-m-d\TH:i:s', strtotime($activeDraw->date))
 			];
 			if (($activeDraw->status ?? '') == 'COMPLETED') {
@@ -198,6 +199,12 @@ class RequestHandler extends API
 				$chatMember = @json_decode($telegram->getChatMember($user->chat_id, $channel->chat_id));
 				$data['channels'][$key]->subscribe = $chatMember->result->status !== 'left';
 			}
+			$data['weChooseWinnersText'] = __('we choose winners', ['winners' => $data['draw']['winners']], $this->getLanguageCode($user));
+			$data['loadUrl'] = assets('images/load.gif');
+			$data['participate'] = [
+				'yes' => __('you are participating', [], $this->getLanguageCode($user)),
+				'no' => __('you are not participating', [], $this->getLanguageCode($user))
+			];
 		}
 	}
 
@@ -286,5 +293,18 @@ class RequestHandler extends API
 	{
 		$responseData['user'] = $user;
 		$responseData['id'] = $data->id;
+	}
+
+	function checkDrawCompleted(User $user, $drawId): ?string
+	{
+		$drawCompleted = @json_decode(Redis::get('drawCompleted'), true);
+		if (!empty($drawCompleted[$drawId] ?? [])) {
+			return html('Webapp/winners.php', [
+				'user' => $user,
+				'winners' => $drawCompleted[$drawId],
+			]);
+		} else {
+			return null;
+		}
 	}
 }

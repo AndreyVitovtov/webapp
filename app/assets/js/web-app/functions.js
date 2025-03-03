@@ -1,9 +1,58 @@
 function index(data) {
     if (typeof data.draw.date !== 'undefined') {
         const targetDate = new Date(data.draw.date).getTime();
-        startCountdown(targetDate, 'timer', (data) => {
-            // alert('Countdown ended');
-        });
+        if (typeof data.winners === 'undefined') {
+            startCountdown(targetDate, 'timer', (data) => {
+                let participate = (!!document.querySelector('.invite-users-wrapper'));
+
+                ['.subscribe-to-wrapper', '.invite-users-wrapper', '.timer'].forEach(el => {
+                    let element = document.querySelector(el);
+                    if (element) element.remove();
+                });
+                let appBody = document.querySelector('div.app-body');
+                if (appBody) {
+                    appBody.innerHTML = '';
+
+                    let dice = document.createElement('div');
+                    dice.classList.add('dice');
+                    let text = document.createElement('div');
+                    text.innerHTML = data['weChooseWinnersText'];
+                    text.classList.add('draw-text');
+                    // let participant = document.createElement('div');
+                    // let imgLoad = document.createElement('img');
+                    // imgLoad.src = data['loadUrl'];
+                    // participant.appendChild(imgLoad);
+                    // let textParticipant = document.createElement('div');
+                    // textParticipant.innerHTML = data['participate'][participate ? 'yes' : 'no'];
+                    // participant.appendChild(textParticipant);
+                    appBody.appendChild(dice);
+                    appBody.appendChild(text);
+
+                    lottie.loadAnimation({
+                        container: document.querySelector('.dice'),
+                        renderer: 'canvas',
+                        loop: true,
+                        autoplay: true,
+                        animationData: window.diceLottie,
+                        prerender: true,
+                        rendererSettings: {
+                            progressiveLoad: true
+                        }
+                    });
+
+                    let interval = setInterval(() => {
+                        if (document.querySelector('.dice')) {
+                            webSocketSendMessage({
+                                'type': 'checkDrawCompleted',
+                                'drawId': data['draw']['id']
+                            });
+                        } else clearInterval(interval);
+                    }, 10000);
+                }
+            }, data);
+        } else {
+            confetti();
+        }
     }
 
     const menu = document.querySelector('.app-menu');
@@ -38,6 +87,27 @@ function index(data) {
             });
         });
     }
+}
+
+function confetti() {
+    let body = document.querySelector('body');
+    let confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    body.appendChild(confetti);
+    setTimeout(() => {
+        confetti.remove();
+    }, 1200);
+    lottie.loadAnimation({
+        container: document.querySelector('.confetti'),
+        renderer: 'canvas',
+        loop: false,
+        autoplay: true,
+        animationData: window.confettiLottie,
+        prerender: true,
+        rendererSettings: {
+            progressiveLoad: true
+        }
+    });
 }
 
 function share(data) {
@@ -255,5 +325,28 @@ function airdrops(data) {
                 });
             });
         });
+    }
+}
+
+function dice(data) {
+    lottie.loadAnimation({
+        container: document.querySelector('.dice'),
+        renderer: 'canvas',
+        loop: true,
+        autoplay: true,
+        animationData: window.diceLottie,
+        prerender: true,
+        rendererSettings: {
+            progressiveLoad: true
+        }
+    });
+}
+
+function drawCompleted(data) {
+    let appBody = document.querySelector('div.app-body');
+    let dice = document.querySelector('.dice');
+    if (appBody && dice) {
+        appBody.innerHTML = data.html;
+        confetti();
     }
 }

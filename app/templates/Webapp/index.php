@@ -271,6 +271,22 @@
         margin-left: 10px;
     }
 
+    .dice {
+        margin-top: 10px;
+    }
+
+    .draw-text {
+        color: #fff;
+        text-align: center;
+    }
+
+    .draft-text {
+        text-align: left;
+        color: #fff;
+        margin-top: 10px;
+        font-size: 17px;
+    }
+
 </style>
 <div class="app-header">
     <div class="prize-wrapper">
@@ -328,6 +344,14 @@
 </div>
 
 <div class="app-body">
+	<?php if (!empty($winners)):
+		echo html('Webapp/winners.php', ['winners' => $winners, 'user' => $user]);
+    ?>
+    </div>
+	<?php else: ?>
+    <div class="draft-text">
+		<?= __('invite friends and increase your chances of winning', [], $user->language_code) ?>
+    </div>
 	<?php foreach ($participants ?? [] as $participant): ?>
         <div class="participant">
             <div class="participant-wrapper">
@@ -361,3 +385,4 @@
 		<?= __($subscribe ? 'invite participants' : 'check subscribe app', [], $user->language_code) ?>
     </div>
 </div>
+<?php endif; ?>

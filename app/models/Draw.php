@@ -14,6 +14,8 @@ namespace App\Models;
  * @property false|mixed|string|null $conditions
  * @property mixed|null $sponsor_title
  * @property mixed|null $sponsor_url
+ * @property mixed|string|null $status
+ * @property false|string $id
  */
 class Draw extends Model
 {

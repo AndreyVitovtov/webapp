@@ -87,6 +87,9 @@ function requestHandler(data) {
                 case 'linkWallet':
                     linkWallet(data);
                     break;
+                case 'drawCompleted':
+                    drawCompleted(data);
+                    break;
             }
         }
     } else {

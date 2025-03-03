@@ -138,5 +138,9 @@
   "conditions of the draw": "Условия розыгрыша",
   "sponsor": "Спонсор",
   "sponsor title": "Название спонсора",
-  "sponsor url": "Спонсор url"
+  "sponsor url": "Спонсор url",
+  "we choose winners": "Определяем {winners} победителей",
+  "you are participating": "Вы участвуете",
+  "you are not participating": "Вы не участвуете",
+  "invite friends and increase your chances of winning": "Приглашайте друзей и увеличивайте свои шансы на победу"
 }

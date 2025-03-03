@@ -2,7 +2,7 @@ let timerIntervals = {};
 
 function startCountdown(targetDate, containerId, onEnd = () => {
     console.log('Countdown ended');
-}) {
+}, data) {
     function updateTimer() {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -27,7 +27,7 @@ function startCountdown(targetDate, containerId, onEnd = () => {
 
             if (typeof onEnd === "function" && !container.dataset.ended) {
                 container.dataset.ended = "true";
-                onEnd();
+                onEnd(data);
             }
             return;
         }

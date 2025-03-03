@@ -96,6 +96,17 @@ class Websocket extends API
 						'wallet' => $handler->linkWallet($user, $handler->data->wallet)
 					]));
 					break;
+				case 'checkDrawCompleted':
+					$user = (new User())->getOneObject(['token' => $handler->data->token]);
+					$result = $handler->checkDrawCompleted($user, $handler->data->drawId);
+					if (!empty($result)) {
+						$connection->send(json_encode([
+							'sc' => true,
+							'type' => 'drawCompleted',
+							'html' => $result
+						]));
+					}
+					break;
 				default:
 					$connection->send(json_encode([
 						'sc' => false,
