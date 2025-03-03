@@ -47,6 +47,9 @@ class Draws extends Controller
         $draw = new Draw();
         $draw->title = json_encode($request->title);
         $draw->description = json_encode($request->description);
+        $draw->conditions = json_encode($request->conditions);
+        $draw->sponsor_title = $request->sponsor_title;
+        $draw->sponsor_url = $request->sponsor_url;
         $draw->date = $request->date;
         $draw->active = $active;
         $draw->hash = $hash;
@@ -63,8 +66,9 @@ class Draws extends Controller
         $this->auth();
         $draw = new Draw();
         $draw = $draw->find($id);
-        $draw->title = json_decode($draw->title);
-        $draw->description = json_decode($draw->description);
+        $draw->title = @json_decode($draw->title);
+        $draw->description = @json_decode($draw->description);
+        $draw->conditions = @json_decode($draw->conditions);
         $this->view('edit', [
             'title' => __('edit draw'),
             'pageTitle' => __('edit draw'),
@@ -81,6 +85,9 @@ class Draws extends Controller
         $draw->find($request->id);
         $draw->title = json_encode($request->title);
         $draw->description = json_encode($request->description);
+	    $draw->conditions = json_encode($request->conditions);
+	    $draw->sponsor_title = $request->sponsor_title;
+	    $draw->sponsor_url = $request->sponsor_url;
         $draw->date = $request->date;
         $draw->active = $active;
         $draw->prize = $request->prize;

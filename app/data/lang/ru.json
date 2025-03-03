@@ -134,5 +134,9 @@
   "wallet connected": "Кошелёк привязан",
   "airdrop": "AirDrop",
   "airdrops": "AirDrops",
-  "add airdrops": "Добавить AirDrop"
+  "add airdrops": "Добавить AirDrop",
+  "conditions of the draw": "Условия розыгрыша",
+  "sponsor": "Спонсор",
+  "sponsor title": "Название спонсора",
+  "sponsor url": "Спонсор url"
 }

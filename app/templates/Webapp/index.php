@@ -214,6 +214,11 @@
         margin-top: 10px;
     }
 
+    .sponsor a {
+        color: #fff;
+        text-decoration: none;
+    }
+
     .invite-users-wrapper {
         display: flex;
         align-items: center;
@@ -316,7 +321,8 @@
     </div>
     <div class="sponsor-wrapper">
         <div class="sponsor">
-            Спонсор
+            <a href="<?= $draw['sponsor_url'] ?>"
+               target="_blank"><?= __('sponsor', [], $user->language_code) ?> <?= $draw['sponsor_title'] ?></a>
         </div>
     </div>
 </div>

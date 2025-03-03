@@ -148,7 +148,10 @@ class RequestHandler extends API
 				'id' => $drawId,
 				'title' => $activeDraw->title->{$this->getLanguageCode($user)},
 				'description' => $activeDraw->description->{$this->getLanguageCode($user)},
+				'conditions' => $activeDraw->conditions->{$this->getLanguageCode($user)},
 				'prize' => $activeDraw->prize,
+				'sponsor_title' => $activeDraw->sponsor_title,
+				'sponsor_url' => $activeDraw->sponsor_url,
 				'date' => date('Y-m-d\TH:i:s', strtotime($activeDraw->date))
 			];
 			if (($activeDraw->status ?? '') == 'COMPLETED') {

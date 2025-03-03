@@ -166,8 +166,17 @@ CREATE TABLE `wallets`
 ALTER TABLE `wallets`
     ADD COLUMN `user_id` INT UNSIGNED REFERENCES `users` (`id`) ON UPDATE SET NULL ON DELETE SET NULL AFTER `id`;
 
+ALTER TABLE `draws`
+    ADD COLUMN `conditions` TEXT AFTER `description`;
+
+ALTER TABLE `draws`
+    ADD COLUMN `sponsor_title` TEXT AFTER `conditions`;
+
+ALTER TABLE `draws`
+    ADD COLUMN `sponsor_url` TEXT AFTER `sponsor_title`;
+
 CREATE TABLE `airdrops`
 (
-    `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    `id`    INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `title` TEXT
 );
