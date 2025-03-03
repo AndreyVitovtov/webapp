@@ -16,7 +16,7 @@
         <td><?= $draw->date ?></td>
         <td><?= ($draw->active ? '<i class="icon-check-1"></i>' : '<i class="icon-cancel"></i>') ?></td>
         <td><?= $draw->prize ?></td>
-        <td><?= __($draw->status) ?></td>
+        <td><?= ($draw->active ? __($draw->status) : '') ?></td>
         <td class="table-actions">
             <a href="/draws/edit/<?= $draw->id ?>" class="btn">
                 <i class="icon-edit"></i>
