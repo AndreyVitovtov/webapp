@@ -21,6 +21,6 @@ class Draw extends Model
 {
 	protected $table = 'draws';
 	protected $fields = [
-		'date', 'active', 'prize', 'title', 'description', 'hash', 'winners', 'status', 'conditions', 'sponsor_title', 'sponsor_url'
+		'date', 'active', 'prize', 'title', 'description', 'hash', 'winners', 'status'
 	];
 }

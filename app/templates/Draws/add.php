@@ -10,20 +10,7 @@
             <textarea name="description[<?= $abbr ?>]" id="description-<?= $abbr ?>" class="form-control"
                       required></textarea>
         </div>
-        <div class="mb-3">
-            <label for="conditions-<?= $abbr ?>" class="form-label">* <?= __('conditions of the draw') ?> (<?= $language['title'] ?>
-                ):</label>
-            <textarea name="conditions[<?= $abbr ?>]" id="conditions-<?= $abbr ?>" class="form-control" required></textarea>
-        </div>
 	<?php endforeach; ?>
-    <div class="mb-3">
-        <label for="sponsor-title" class="form-label">* <?= __('sponsor title') ?>:</label>
-        <input type="text" name="sponsor_title" class="form-control" id="sponsor-title" required>
-    </div>
-    <div class="mb-3">
-        <label for="sponsor-url" class="form-label">* <?= __('sponsor url') ?>:</label>
-        <input type="text" name="sponsor_url" class="form-control" id="sponsor-url" required>
-    </div>
     <div class="mb-3">
         <label for="date" class="form-label">* <?= __('date') ?>:</label>
         <input type="datetime-local" class="form-control" name="date" id="date" required>

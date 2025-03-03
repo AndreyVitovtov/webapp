@@ -147,5 +147,6 @@
   "COMPLETED": "Completed",
   "DETERMINING WINNERS": "Determining winners",
   "CANCELED": "Canceled",
-  "status": "Status"
+  "status": "Status",
+  "no active giveaways": "No active giveaways"
 }

@@ -1,5 +1,5 @@
 function index(data) {
-    if (typeof data.draw.date !== 'undefined') {
+    if (typeof data.draw !== 'undefined' && typeof data.draw.date !== 'undefined') {
         const targetDate = new Date(data.draw.date).getTime();
         if (typeof data.winners === 'undefined') {
             startCountdown(targetDate, 'timer', (data) => {

@@ -147,5 +147,6 @@
   "COMPLETED": "Завершен",
   "DETERMINING WINNERS": "Определение победителей",
   "CANCELED": "Отменен",
-  "status": "Статус"
+  "status": "Статус",
+  "no active giveaways": "Нет активных розыгрышей"
 }
