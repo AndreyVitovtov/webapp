@@ -47,6 +47,7 @@ class Users extends Controller
         $this->auth();
         $user = (new User())->find($id);
         $referrer = $user->referrer_id;
+		$photoUrl = $user->photo_url;
         if (!empty($referrer)) {
             $referrer = (new User())->find($referrer);
             $user->referrer = [
@@ -54,6 +55,7 @@ class Users extends Controller
                 'username' => $referrer->username,
             ];
         }
+		if(empty($photoUrl)) $user->photo_url = assets('images/no-image.jpg');
         $coefficients = (new Coefficients())->getOneObject(['user_id' => $user->id]);
         $coefficientAdmin = $coefficients->coefficient_admin ?? '';
         $coefficient = $coefficients->coefficient;

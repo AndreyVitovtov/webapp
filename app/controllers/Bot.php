@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\BotMessages;
 use App\Models\Channel;
+use App\Models\Coefficients;
 use App\Models\Draw;
 use App\Models\User;
 use App\Utility\TelegramBot;
@@ -111,9 +112,26 @@ class Bot extends Controller
             $user->language_code = $request->message->from->first_name ?? '';
             $user->photo_url = $request->message->from->photo_url ?? '';
             $user->insert();
+
+			$this->addCoefficient($user);
             return $user;
         } else return $user;
     }
+
+	private function addCoefficient(User $user)
+	{
+		$coefficients = (new Coefficients())->getOneObject(['user_id' => $user->id]);
+		$coefficientsId = $coefficients->id ?? null;
+		if (!empty($coefficientsId)) return $coefficients->coefficient;
+		else {
+			$coefficients = new Coefficients();
+			$coefficients->user_id = $user->id;
+			$coefficients->coefficient = settings('coefficient');
+			$coefficients->coefficient_admin = 0;
+			$coefficients->insert();
+			return $coefficients->coefficient;
+		}
+	}
 
     private function getLanguageCode(): string
     {

@@ -18,9 +18,9 @@ class DeterminationWinners
 			$winner->draw_id = $drawId;
 			$winner->user_id = $w['id'];
 			$winner->prize = $w['prize'];
-			$winner->prize_referrer = $w['referrer_prize'];
+			$winner->prize_referrer = $w['referrer_prize'] ?? 0;
 			$winner->coefficient = $w['coefficient'];
-			$winner->percentage_referrer = $w['percentage_referrer'];
+			$winner->percentage_referrer = $w['percentage_referrer'] ?? 0;
 			$winner->insert();
 		}
 
@@ -47,7 +47,7 @@ class DeterminationWinners
 		if (empty($users)) return [];
 		$users = array_combine(array_column($users, 'id'), $users);
 		shuffle($users);
-		$randomKeys = array_rand($users, $numberOfWinners);
+		$randomKeys = array_rand($users, min([count($users), $numberOfWinners]));
 		$randomUsers = [];
 		foreach ($randomKeys as $key) {
 			$randomUsers[] = $users[$key];
