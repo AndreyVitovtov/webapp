@@ -94,19 +94,20 @@ function confetti() {
     let confetti = document.createElement('div');
     confetti.classList.add('confetti');
     body.appendChild(confetti);
-    setTimeout(() => {
-        confetti.remove();
-    }, 1200);
-    lottie.loadAnimation({
+    let animation = lottie.loadAnimation({
         container: document.querySelector('.confetti'),
         renderer: 'canvas',
         loop: false,
         autoplay: true,
-        animationData: window.confettiLottie,
+        animationData: window.trophyLottie,
         prerender: true,
         rendererSettings: {
             progressiveLoad: true
         }
+    });
+
+    animation.addEventListener('complete', function() {
+        document.querySelector('.confetti')?.remove();
     });
 }
 
