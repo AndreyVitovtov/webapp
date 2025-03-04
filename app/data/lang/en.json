@@ -148,5 +148,6 @@
   "DETERMINING WINNERS": "Determining winners",
   "CANCELED": "Canceled",
   "status": "Status",
-  "no active giveaways": "No active giveaways"
+  "no active giveaways": "No active giveaways",
+  "bot determined winners": "Bot {link} automatically determined {number_winners} winners from {number_participants} participants"
 }

@@ -38,11 +38,27 @@
         left: 0;
         z-index: 99999;
     }
+
+    .winner-prize-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .winner-prize-wrapper img {
+        width: 17px;
+        height: 17px;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
 </style>
 
 <div class="winners">
     <div class="draft-text">
-		<?= __('winners', [], $user->language_code) ?>
+		<?= __('bot determined winners', [
+			'link' => '<a href="' . BOT_APP_LINK . '" class="link" target="_blank">' . BOT_APP_NAME . '</a>',
+			'number_winners' => count($winners ?? []),
+			'number_participants' => $participants
+		], $user->language_code) ?>
     </div>
 	<?php foreach ($winners ?? [] as $winner):
 		$winner = (object)$winner;
@@ -52,7 +68,12 @@
                 <div class="winner-img" style="background-image: url(<?= $winner->photo_url ?>)"></div>
                 <div class="winner-username"><?= $winner->username ?></div>
             </div>
-            <div class="winner-prize">+ <?= $winner->prize ?> <?= __('', [], $user->language_code) ?></div>
+            <div class="winner-prize-wrapper">
+                <div class="winner-prize">
+                    + <?= $winner->prize ?> <?= __('', [], $user->language_code) ?>
+                </div>
+                <img src="<?= assets('images/index/ton.svg') ?>" alt="ton">
+            </div>
         </div>
 	<?php endforeach; ?>
 </div>

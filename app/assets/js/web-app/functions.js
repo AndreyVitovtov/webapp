@@ -1,4 +1,5 @@
 function index(data) {
+    console.log(data);
     if (typeof data.draw !== 'undefined' && typeof data.draw.date !== 'undefined') {
         const targetDate = new Date(data.draw.date).getTime();
         if (typeof data.winners === 'undefined') {

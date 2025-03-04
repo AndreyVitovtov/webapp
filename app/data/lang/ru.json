@@ -116,7 +116,7 @@
   "share": "Поделиться",
   "air drop": "AirDrop",
   "wallet": "Кошелек",
-  "winning coefficient":  "Коэффициент выигрыша",
+  "winning coefficient": "Коэффициент выигрыша",
   "earned from referrals": "Заработано с рефералов",
   "title share": "Приглашай друзей и \nдели победу!",
   "description share": "За каждого реферала ты получаешь 50% от его \nвыигрыша и повышенный шанс на победу!",
@@ -148,5 +148,6 @@
   "DETERMINING WINNERS": "Определение победителей",
   "CANCELED": "Отменен",
   "status": "Статус",
-  "no active giveaways": "Нет активных розыгрышей"
+  "no active giveaways": "Нет активных розыгрышей",
+  "bot determined winners": "Бот {link} автоматически определил {number_winners} победителей среди {number_participants} участников"
 }

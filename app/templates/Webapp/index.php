@@ -356,7 +356,11 @@
 
     <div class="app-body">
 	<?php if (!empty($winners)):
-		echo html('Webapp/winners.php', ['winners' => $winners, 'user' => $user]);
+		echo html('Webapp/winners.php', [
+			'winners' => $winners,
+			'participants' => $participants,
+			'user' => $user
+		]);
 		?>
         </div>
 	<?php else: ?>

@@ -168,17 +168,26 @@ class RequestHandler extends API
 				'winners' => $activeDraw->winners,
 				'date' => date('Y-m-d\TH:i:s', strtotime($activeDraw->date))
 			];
-			if (($activeDraw->status ?? '') == 'COMPLETED') {
+			$status = $activeDraw->status;
+			if ($status == 'COMPLETED') {
+				$data['participants'] = (new Participants())->query("
+					SELECT COUNT(*) as number
+					FROM `participants` p,
+					     `users` u
+					WHERE p.`user_id` = u.`id`
+					AND p.`draw_id` = :drawId
+				", [
+					'drawId' => $drawId
+				], true)[0]['number'] ?? 0;
 				$data['winners'] = $this->getWinners($activeDraw);
-			}
-
-			$coefficients = (new Coefficients())->get();
-			$coefficients = array_combine(array_column($coefficients, 'user_id'), array_column($coefficients, 'coefficient'));
-			$data['participants'] = array_map(function ($user) use ($coefficients) {
-				$user = (object)$user;
-				$user->coefficient = $coefficients[$user->id] ?? 0;
-				return $user;
-			}, (new User())->query("
+			} else {
+				$coefficients = (new Coefficients())->get();
+				$coefficients = array_combine(array_column($coefficients, 'user_id'), array_column($coefficients, 'coefficient'));
+				$data['participants'] = array_map(function ($user) use ($coefficients) {
+					$user = (object)$user;
+					$user->coefficient = $coefficients[$user->id] ?? 0;
+					return $user;
+				}, (new User())->query("
 				SELECT u.* 
 				FROM `users` u,
 				     `participants` p
@@ -186,25 +195,26 @@ class RequestHandler extends API
 				AND p.`draw_id` = :drawId
 				AND u.`active` = 1
 			", [
-				'drawId' => $drawId
-			], true));
+					'drawId' => $drawId
+				], true));
 //			}, (new User())->getObjects(['active' => 1]));
 
-			$data['channels'] = (new Channel())->getObjects([
-				'draw_id' => $drawId,
-				'language' => $this->getLanguageCode($user)
-			]);
-			$telegram = new TelegramBot(TELEGRAM_TOKEN);
-			foreach ($data['channels'] as $key => $channel) {
-				$chatMember = @json_decode($telegram->getChatMember($user->chat_id, $channel->chat_id));
-				$data['channels'][$key]->subscribe = $chatMember->result->status !== 'left';
+				$data['channels'] = (new Channel())->getObjects([
+					'draw_id' => $drawId,
+					'language' => $this->getLanguageCode($user)
+				]);
+				$telegram = new TelegramBot(TELEGRAM_TOKEN);
+				foreach ($data['channels'] as $key => $channel) {
+					$chatMember = @json_decode($telegram->getChatMember($user->chat_id, $channel->chat_id));
+					$data['channels'][$key]->subscribe = $chatMember->result->status !== 'left';
+				}
+				$data['weChooseWinnersText'] = __('we choose winners', ['winners' => $data['draw']['winners']], $this->getLanguageCode($user));
+				$data['loadUrl'] = assets('images/load.gif');
+				$data['participate'] = [
+					'yes' => __('you are participating', [], $this->getLanguageCode($user)),
+					'no' => __('you are not participating', [], $this->getLanguageCode($user))
+				];
 			}
-			$data['weChooseWinnersText'] = __('we choose winners', ['winners' => $data['draw']['winners']], $this->getLanguageCode($user));
-			$data['loadUrl'] = assets('images/load.gif');
-			$data['participate'] = [
-				'yes' => __('you are participating', [], $this->getLanguageCode($user)),
-				'no' => __('you are not participating', [], $this->getLanguageCode($user))
-			];
 		}
 	}
 
