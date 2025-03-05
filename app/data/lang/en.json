@@ -151,5 +151,6 @@
   "no active giveaways": "No active giveaways",
   "bot determined winners": "Bot {link} automatically determined {number_winners} winners from {number_participants} participants",
   "participants_number": "Number of participants on the giveaway page",
-  "more participants": "and {number} more participants"
+  "more participants": "and {number} more participants",
+  "link for draw copied": "Link for draw copied \n{link}"
 }

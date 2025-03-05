@@ -65,21 +65,6 @@
                     <i class="icon-menu"></i>
                 </div>
                 <div class="user flex-between">
-<!--                    <div class="dropdown search">-->
-<!--                        <div class="dropdown-toggle" type="button" id="search" data-bs-toggle="dropdown">-->
-<!--                            <i class="icon-search"></i>-->
-<!--                        </div>-->
-<!--                        <div class="dropdown-menu w-auto dropdown-menu-search" aria-labelledby="search">-->
-<!--                            <form action="/search" method="GET">-->
-<!--                                <div class="flex">-->
-<!--                                    <label>-->
-<!--                                        <input type="search" name="search" placeholder="--><?php //= __('search') ?><!--">-->
-<!--                                    </label>-->
-<!--                                    <button><i class="icon-search"></i></button>-->
-<!--                                </div>-->
-<!--                            </form>-->
-<!--                        </div>-->
-<!--                    </div>-->
                     <a href="/theme/change/<?= (theme() == 'dark' ? 'light' : 'dark') ?>/<?= getCurrentUrl(true) ?>">
                         <div class="theme <?= theme() ?>">
                             <div><i class="icon-sun"></i></div>

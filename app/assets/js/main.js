@@ -67,3 +67,17 @@ $(document).ready(() => {
         $('.theme').toggleClass('dark').toggleClass('light');
     });
 });
+
+function showMessage(message, type = 'success') {
+    let content = document.querySelector('.content');
+
+    let div = document.createElement('div');
+    div.classList.add('alert', 'alert-' + type, 'position-absolute', 'alert-message');
+    div.innerHTML = message;
+    content.prepend(div);
+
+    let alertMessage = $('.alert-message');
+    alertMessage.fadeIn('slow');
+    setTimeout(() => alertMessage.fadeOut('slow'), 2500);
+    setTimeout(() => alertMessage.remove(), 3000);
+}

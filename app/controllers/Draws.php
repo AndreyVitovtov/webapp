@@ -19,8 +19,12 @@ class Draws extends Controller
 			'draws' => array_map(function ($draw) {
 				$draw->title = json_decode($draw->title);
 				$draw->description = json_decode($draw->description);
+				$draw->link = BOT_APP_LINK . '?startapp=draw-' . $draw->hash;
 				return $draw;
-			}, $draws)
+			}, $draws),
+			'assets' => [
+				'js' => 'draws.js'
+			]
 		]);
 	}
 
