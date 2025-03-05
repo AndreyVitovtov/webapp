@@ -114,9 +114,9 @@ class RequestHandler extends API
 	{
 		$params = (!empty($drawHash) ? ['hash' => $drawHash] : [
 			'active' => 1,
-			'status' => 'IN PROGRESS'
+//			'status' => 'IN PROGRESS'
 		]);
-		return (new Draw())->getOneObject($params, 'AND', 'date');
+		return (new Draw())->getOneObject($params, 'AND', 'date', 'DESC');
 	}
 
 	public function getWinners(?Draw $activeDraw, User $user): array
@@ -148,6 +148,8 @@ class RequestHandler extends API
 		$drawId = $activeDraw->id ?? 0;
 
 		if (!empty($drawId)) {
+			$data['noActiveDraw'] = (empty($drawHash) && $activeDraw->status == 'COMPLETED');
+
 			// Add participant
 			$participant = new Participants();
 			if (empty($participant->getOne([

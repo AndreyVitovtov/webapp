@@ -328,6 +328,12 @@
         margin-left: 50px;
     }
 
+    .conditions-draw a.no-active-draw {
+        color: #0d6efd;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
 </style>
 
 <?php if (empty($draw)) { ?>
@@ -379,7 +385,8 @@
         </div>
 
         <div class="conditions-draw">
-            <a href="<?= CHANNEL_APP_LINK ?>" target="_blank"><?= __('conditions of the draw') ?></a>
+            <a href="<?= CHANNEL_APP_LINK ?>"
+               target="_blank" class="<?= $noActiveDraw ? 'no-active-draw' : '' ?>"><?= __(($noActiveDraw ? 'information about new giveaways on our channel' : 'conditions of the draw')) ?></a>
         </div>
         <div class="sponsor-wrapper">
             <div class="sponsor">

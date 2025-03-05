@@ -312,7 +312,25 @@
     </div>
     <div class="text-center">Airdrop</div>
     <div class="timer text-center">
-        00:00:00
+        <div class="block-group days-container">
+            <div class="block days-tens">0</div>
+            <div class="block days-units">0</div>
+        </div>
+        <div class="separator days-separator">:</div>
+        <div class="block-group">
+            <div class="block hours-tens">0</div>
+            <div class="block hours-units">0</div>
+        </div>
+        <div class="separator">:</div>
+        <div class="block-group">
+            <div class="block minutes-tens">0</div>
+            <div class="block minutes-units">0</div>
+        </div>
+        <div class="separator">:</div>
+        <div class="block-group">
+            <div class="block seconds-tens">0</div>
+            <div class="block seconds-units">0</div>
+        </div>
     </div>
     <div class="airdrop-foot">
         <div class="airdrop-total">
@@ -440,6 +458,6 @@
         </div>
     </div>
     <div class="airdrop-invite-participants">
-        <?= __('invite participants') ?>...
+		<?= __('invite participants') ?>...
     </div>
 </div>
