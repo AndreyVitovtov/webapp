@@ -330,9 +330,9 @@
 
 </style>
 
-<?php if (empty($draw)): ?>
+<?php if (empty($draw)) { ?>
     <div class="no-active-giveaways"><?= __('no active giveaways', [], $user->language_code) ?></div>
-<?php else: ?>
+<?php } else { ?>
 
     <div class="app-header">
         <div class="prize-wrapper">
@@ -389,7 +389,7 @@
     </div>
 
     <div class="app-body">
-	<?php if (!empty($winners)):
+	<?php if (!empty($winners)) {
 		echo html('Webapp/winners.php', [
 			'winners' => $winners,
 			'participants' => $participants,
@@ -397,7 +397,7 @@
 		]);
 		?>
         </div>
-	<?php else: ?>
+	<?php } else { ?>
         <div class="draft-text">
 			<?= __('invite friends and increase your chances of winning', [], $user->language_code) ?>
         </div>
@@ -410,18 +410,21 @@
                 <div class="participant-coefficient"><?= $participant->coefficient ?> <?= __('coeff', [], $user->language_code) ?></div>
             </div>
 		<?php endforeach; ?>
-        <div class="other-participants">
-			<?php foreach ($participantsOther as $participant): ?>
-                <div class="other-participant">
-                    <img src="<?= $participant->photo_url ?>" alt="photo">
+
+		<?php if (!empty($participantsOther)) { ?>
+            <div class="other-participants">
+				<?php foreach ($participantsOther as $participant): ?>
+                    <div class="other-participant">
+                        <img src="<?= $participant->photo_url ?>" alt="photo">
+                    </div>
+				<?php endforeach; ?>
+                <div class="other-participants-text">
+					<?= __('more participants', [
+						'number' => count($participantsOther)
+					], $user->language_code) ?>
                 </div>
-			<?php endforeach; ?>
-            <div class="other-participants-text">
-				<?= (!empty($participantsOther) ? __('more participants', [
-					'number' => count($participantsOther)
-				], $user->language_code) : '') ?>
             </div>
-        </div>
+		<?php } ?>
         </div>
 
         <div class="subscribe-to-wrapper">
@@ -446,5 +449,5 @@
 				<?= __($subscribe ? 'invite participants' : 'check subscribe app', [], $user->language_code) ?>
             </div>
         </div>
-	<?php endif;
-endif; ?>
+	<?php }
+} ?>
