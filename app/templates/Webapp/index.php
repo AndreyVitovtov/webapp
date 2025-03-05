@@ -328,10 +328,16 @@
         margin-left: 50px;
     }
 
-    .conditions-draw a.no-active-draw {
+    .no-active-draw {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .no-active-draw a {
         color: #0d6efd;
         margin-bottom: 10px;
-        font-size: 16px;
+        font-size: 17px;
     }
 
 </style>
@@ -384,9 +390,9 @@
             </div>
         </div>
 
-        <div class="conditions-draw">
+        <div class="<?= ($noActiveDraw ? 'no-active-draw' : 'conditions-draw') ?>">
             <a href="<?= CHANNEL_APP_LINK ?>"
-               target="_blank" class="<?= $noActiveDraw ? 'no-active-draw' : '' ?>"><?= __(($noActiveDraw ? 'information about new giveaways on our channel' : 'conditions of the draw')) ?></a>
+               target="_blank"><?= __(($noActiveDraw ? 'information about new giveaways on our channel' : 'conditions of the draw')) ?></a>
         </div>
         <div class="sponsor-wrapper">
             <div class="sponsor">
