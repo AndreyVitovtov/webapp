@@ -294,6 +294,40 @@
         margin-top: 50px;
     }
 
+    .other-participants {
+        position: relative;
+        margin-top: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }
+
+    .other-participant {
+        position: absolute;
+    }
+
+    .other-participant:nth-child(2) {
+        margin-left: 10px;
+    }
+
+    .other-participant:nth-child(3) {
+        margin-left: 20px;
+    }
+
+    .other-participant img {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: solid 1px #fff;
+    }
+
+    .other-participants-text {
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
+        margin-left: 50px;
+    }
+
 </style>
 
 <?php if (empty($draw)): ?>
@@ -376,6 +410,18 @@
                 <div class="participant-coefficient"><?= $participant->coefficient ?> <?= __('coeff', [], $user->language_code) ?></div>
             </div>
 		<?php endforeach; ?>
+        <div class="other-participants">
+			<?php foreach ($participantsOther as $participant): ?>
+                <div class="other-participant">
+                    <img src="<?= $participant->photo_url ?>" alt="photo">
+                </div>
+			<?php endforeach; ?>
+            <div class="other-participants-text">
+				<?= (!empty($participantsOther) ? __('more participants', [
+					'number' => count($participantsOther)
+				], $user->language_code) : '') ?>
+            </div>
+        </div>
         </div>
 
         <div class="subscribe-to-wrapper">

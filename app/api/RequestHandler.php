@@ -119,9 +119,9 @@ class RequestHandler extends API
 		return (new Draw())->getOneObject($params, 'AND', 'date');
 	}
 
-	public function getWinners(?Draw $activeDraw): array
+	public function getWinners(?Draw $activeDraw, User $user): array
 	{
-		return (new Winner)->query("
+		$winners = (new Winner)->query("
             SELECT *
             FROM `winners` w,
                  `users` u
@@ -130,6 +130,10 @@ class RequestHandler extends API
         ", [
 			'drawId' => $activeDraw->id ?? 0
 		], true);
+
+		$winner = array_filter($winners, fn($w) => $w['user_id'] === $user->id);
+		$otherWinners = array_filter($winners, fn($w) => $w['user_id'] !== $user->id);
+		return array_merge($winner, $otherWinners);
 	}
 
 	public function pageIndex(User $user, array &$data): void
@@ -179,11 +183,11 @@ class RequestHandler extends API
 				", [
 					'drawId' => $drawId
 				], true)[0]['number'] ?? 0;
-				$data['winners'] = $this->getWinners($activeDraw);
+				$data['winners'] = $this->getWinners($activeDraw, $user);
 			} else {
 				$coefficients = (new Coefficients())->get();
 				$coefficients = array_combine(array_column($coefficients, 'user_id'), array_column($coefficients, 'coefficient'));
-				$data['participants'] = array_map(function ($user) use ($coefficients) {
+				$participants = array_map(function ($user) use ($coefficients) {
 					$user = (object)$user;
 					$user->coefficient = $coefficients[$user->id] ?? 0;
 					return $user;
@@ -194,10 +198,16 @@ class RequestHandler extends API
 				WHERE u.`id` = p.`user_id`
 				AND p.`draw_id` = :drawId
 				AND u.`active` = 1
-			", [
+				", [
 					'drawId' => $drawId
 				], true));
-//			}, (new User())->getObjects(['active' => 1]));
+
+				$participant = array_filter($participants, fn($p) => $p->id === $user->id);
+				$otherParticipants = array_filter($participants, fn($p) => $p->id !== $user->id);
+				$participants = array_merge($participant, $otherParticipants);
+				$data['participantsNumber'] = count($participants);
+				$data['participants'] = array_slice($participants, 0, settings('participants_number'));
+				$data['participantsOther'] = array_slice($participants, settings('participants_number'), 3);
 
 				$data['channels'] = (new Channel())->getObjects([
 					'draw_id' => $drawId,

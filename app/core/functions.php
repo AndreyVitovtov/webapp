@@ -323,8 +323,13 @@ function js($fileName): string
 
 function settings($key, $value = null)
 {
-	$settings = (new \App\Models\Settings())->getOneObject([
-		'key' => $key
-	]);
-	return $settings->value ?? $value;
+	$settingsRedis = @json_decode(\App\Utility\Redis::get('settings'), true);
+	if (empty($settingsRedis)) {
+		$settings = (new \App\Models\Settings())->getOneObject([
+			'key' => $key
+		]);
+		return $settings->value ?? $value;
+	} else {
+		return $settingsRedis[$key] ?? $value;
+	}
 }

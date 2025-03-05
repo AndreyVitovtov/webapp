@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Utility\Redis;
 use App\Utility\Request;
 
 class Settings extends Controller
@@ -17,13 +18,16 @@ class Settings extends Controller
 
 	public function save(Request $request): void
 	{
-        $this->auth();
+		$this->auth();
 		$request = $request->get();
+		$settings = [];
 		foreach ($request as $key => $value) {
-			$settings = (new \App\Models\Settings())->getOneObject(['key' => $key]);
-			$settings->value = $value;
-			$settings->update();
+			$setting = (new \App\Models\Settings())->getOneObject(['key' => $key]);
+			$setting->value = $value;
+			$setting->update();
+			$settings[$key] = $value;
 		}
+		Redis::set('settings', json_encode($settings));
 		redirect('/settings', [
 			'message' => __('changes saved')
 		]);

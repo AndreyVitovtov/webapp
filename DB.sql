@@ -171,3 +171,6 @@ CREATE TABLE `airdrops`
     `id`    INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `title` TEXT
 );
+
+INSERT INTO `settings` (`key`, `value`, `type`)
+VALUES ('participants_number', 10, 'number');
