@@ -152,5 +152,6 @@
   "bot determined winners": "Бот {link} автоматически определил {number_winners} победителей среди {number_participants} участников",
   "participants_number": "Количество участников на странице розыгрыша",
   "more participants": "и еще {number} участников",
-  "link for draw copied": "Ссылка на розыгрыш скопирована \n{link}"
+  "link for draw copied": "Ссылка на розыгрыш скопирована \n{link}",
+  "link": "Ссылка"
 }
