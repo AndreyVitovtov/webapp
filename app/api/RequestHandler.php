@@ -151,14 +151,16 @@ class RequestHandler extends API
 			$data['noActiveDraw'] = (empty($drawHash) && $activeDraw->status == 'COMPLETED');
 
 			// Add participant
-			$participant = new Participants();
-			if (empty($participant->getOne([
-				'user_id' => $user->id,
-				'draw_id' => $drawId
-			]))) {
-				$participant->user_id = $user->id;
-				$participant->draw_id = $drawId;
-				$participant->insert();
+			if ($activeDraw->status == 'IN PROGRESS') {
+				$participant = new Participants();
+				if (empty($participant->getOne([
+					'user_id' => $user->id,
+					'draw_id' => $drawId
+				]))) {
+					$participant->user_id = $user->id;
+					$participant->draw_id = $drawId;
+					$participant->insert();
+				}
 			}
 
 			$activeDraw->title = json_decode($activeDraw->title);

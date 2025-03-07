@@ -154,5 +154,7 @@
   "more participants": "и еще {number} участников",
   "link for draw copied": "Ссылка на розыгрыш скопирована \n{link}",
   "link": "Ссылка",
-  "information about new giveaways on our channel": "Информация о новых розыгрышах на нашем канале"
+  "information about new giveaways on our channel": "Информация о новых розыгрышах на нашем канале",
+  "participants": "Участники",
+  "select draw": "Выберите розыгрыш"
 }

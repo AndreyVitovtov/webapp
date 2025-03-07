@@ -76,6 +76,11 @@ $menu = [
 			]
 		]
 	], [
+		'title' => __('participants'),
+		'icon' => 'group-circled',
+		'address' => '/participants',
+		'controller' => 'Participants'
+	], [
 		'title' => __('winners'),
 		'icon' => 'trophy',
 		'address' => '/winners',
