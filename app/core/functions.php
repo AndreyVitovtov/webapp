@@ -209,6 +209,7 @@ function getCurrentLang()
 
 function getLocalization($lang = null)
 {
+	if(!is_null($lang) && !in_array($lang, LANGUAGES)) $lang = DEFAULT_LANG;
 	global $localization;
 	if (!empty($localization)) return $localization;
 	if ($lang) {

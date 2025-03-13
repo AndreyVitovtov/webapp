@@ -23,11 +23,11 @@ class RequestHandler extends API
 	{
 		$this->data = $this->webSocket($data);
 
-		$startParams = explode('_', $this->data->params);
+		$startParams = explode('_', ($this->data->params ?? ''));
 		$this->startParams = [];
 		foreach ($startParams as $param) {
 			$param = explode('-', $param);
-			$this->startParams[$param[0]] = $param[1];
+			$this->startParams[$param[0]] = ($param[1] ?? null);
 		}
 	}
 

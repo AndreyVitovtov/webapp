@@ -118,7 +118,7 @@
 </div>
 
 <div class="wallet-connected-wrapper">
-	<?php $walletAddress = $wallet->address;
+	<?php $walletAddress = ($wallet->address ?? null);
 	if (!empty($walletAddress)): ?>
         <div class="wallet-connected">
             <img src="<?= assets('images/wallet/check.svg') ?>" alt="wallet">
