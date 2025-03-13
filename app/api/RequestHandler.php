@@ -116,7 +116,7 @@ class RequestHandler extends API
 			'active' => 1,
 //			'status' => 'IN PROGRESS'
 		]);
-		return (new Draw())->getOneObject($params, 'AND', 'date', 'DESC');
+		return (new Draw())->getOneObject($params, 'AND', 'date');
 	}
 
 	public function getWinners(?Draw $activeDraw, User $user): array
@@ -174,7 +174,7 @@ class RequestHandler extends API
 				'sponsor_title' => $activeDraw->sponsor_title,
 				'sponsor_url' => $activeDraw->sponsor_url,
 				'winners' => $activeDraw->winners,
-				'date' => date('Y-m-d\TH:i:s', strtotime($activeDraw->date))
+				'date' => gmdate('Y-m-d\TH:i:s\Z', strtotime($activeDraw->date))
 			];
 			$status = $activeDraw->status;
 			if ($status == 'COMPLETED') {
