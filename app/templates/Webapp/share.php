@@ -102,9 +102,6 @@
     }
 
     .referrals {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         padding: 10px 0;
         color: #fff;
         margin-top: 15px;
@@ -119,6 +116,7 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        padding: 10px 0;
     }
 
     .referral-img {

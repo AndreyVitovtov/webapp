@@ -96,6 +96,7 @@ class API
 		if ($this->existsProperties(['id'], $data)) {
 			$user = new User();
 			$user = $user->getOneObject(['chat_id' => $data->id]);
+			if(empty($user)) return null;
 			$user->username = $data->username ?? $user->username;
 			$user->first_name = $data->first_name ?? $user->first_name;
 			$user->last_name = $data->last_name ?? $user->last_name;

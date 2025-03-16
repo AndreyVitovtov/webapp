@@ -32,7 +32,7 @@ class Participants extends Controller
 				$draw->title = json_decode($draw->title);
 				$draw->description = json_decode($draw->description);
 				return $draw;
-			}, (new Draw())->getObjects(['active' => 1], 'AND', 'id', 'DESC')),
+			}, (new Draw())->getObjects([], 'AND', 'id', 'DESC')),
 			'assets' => [
 				'css' => 'dataTables.dataTables.min.css',
 				'js' => [

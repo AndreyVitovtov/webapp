@@ -51,7 +51,7 @@ class Channels extends Controller
         $channel = new Channel();
         $channel->title = $request->title;
         $channel->url = $request->url;
-        $channel->chat_id = $request->chat_id;
+        $channel->chat_id = trim($request->chat_id);
         $channel->language = $request->language;
         $channel->draw_id = $request->draw;
         $channel->type = $request->type;
@@ -84,7 +84,7 @@ class Channels extends Controller
         $channel->find($request->id);
         $channel->title = $request->title;
         $channel->url = $request->url;
-        $channel->chat_id = $request->chat_id;
+        $channel->chat_id = trim($request->chat_id);
         $channel->language = $request->language;
         $channel->draw_id = $request->draw;
         $channel->type = $request->type;

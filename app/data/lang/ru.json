@@ -156,5 +156,7 @@
   "link": "Ссылка",
   "information about new giveaways on our channel": "Информация о новых розыгрышах на нашем канале",
   "participants": "Участники",
-  "select draw": "Выберите розыгрыш"
+  "select draw": "Выберите розыгрыш",
+  "user deleted": "Пользователь удален",
+  "are you sure you want to remove the user": "Вы уверены, что хотите удалить пользователя?"
 }

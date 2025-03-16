@@ -45,9 +45,11 @@ class RequestHandler extends API
 			} else {
 				$referrerChatId = $this->startParams['ref'] ?? null;
 				$referrer = new User();
-				$userReferrer = $referrer->getOneObject(['chat_id' => $referrerChatId]);
-				$referrerId = $userReferrer->id ?? null;
-				$user = $this->register($this->data->data->user, $referrerId);
+				if(!empty($referrerChatId)) {
+					$userReferrer = $referrer->getOneObject(['chat_id' => $referrerChatId]);
+					$referrerId = $userReferrer->id ?? null;
+				}
+				$user = $this->register($this->data->data->user, $referrerId ?? null);
 				$userId = $user->id;
 				if (!empty($userId)) {
 					$this->addCoefficient($user);
@@ -112,11 +114,21 @@ class RequestHandler extends API
 
 	public function getActiveDraw($drawHash = null): ?Draw
 	{
-		$params = (!empty($drawHash) ? ['hash' => $drawHash] : [
+		$params = (!empty($drawHash) ? [
+			'hash' => $drawHash,
+			'active' => 1
+		] : [
 			'active' => 1,
-//			'status' => 'IN PROGRESS'
+			'status' => 'IN PROGRESS'
 		]);
-		return (new Draw())->getOneObject($params, 'AND', 'date');
+		$draw = (new Draw())->getOneObject($params, 'AND', 'date');
+
+		if (!empty($drawHash) && empty($draw)) {
+			$draw = (new Draw())->getOneObject(['active' => 1], 'AND', 'date');
+		} elseif(empty($drawHash) && empty($draw)) {
+			$draw = (new Draw())->getOneObject(['active' => 1, 'status' => 'COMPLETED'], 'AND', 'date', 'DESC');
+		}
+		return $draw;
 	}
 
 	public function getWinners(?Draw $activeDraw, User $user): array
@@ -171,6 +183,7 @@ class RequestHandler extends API
 				'description' => $activeDraw->description->{$this->getLanguageCode($user)},
 				'conditions' => $activeDraw->conditions->{$this->getLanguageCode($user)},
 				'prize' => $activeDraw->prize,
+				'status' => $activeDraw->status,
 				'sponsor_title' => $activeDraw->sponsor_title,
 				'sponsor_url' => $activeDraw->sponsor_url,
 				'winners' => $activeDraw->winners,
@@ -219,7 +232,7 @@ class RequestHandler extends API
 				]);
 				$telegram = new TelegramBot(TELEGRAM_TOKEN);
 				foreach ($data['channels'] as $key => $channel) {
-					$chatMember = @json_decode($telegram->getChatMember($user->chat_id, $channel->chat_id));
+					$chatMember = @json_decode($telegram->getChatMember(trim($user->chat_id), trim($channel->chat_id)));
 					$data['channels'][$key]->subscribe = $chatMember->result->status !== 'left';
 				}
 				$data['weChooseWinnersText'] = __('we choose winners', ['winners' => $data['draw']['winners']], $this->getLanguageCode($user));
@@ -273,7 +286,7 @@ class RequestHandler extends API
 		$subscribe = true;
 		$subscribeChannel = [];
 		foreach ($channels as $channel) {
-			$chatMember = @json_decode($telegram->getChatMember($user->chat_id, $channel->chat_id));
+			$chatMember = @json_decode($telegram->getChatMember(trim($user->chat_id), trim($channel->chat_id)));
 			if ($chatMember->result->status == 'left') {
 				$subscribeChannel[$channel->id] = false;
 				$subscribe = false;

@@ -48,9 +48,10 @@ class DeterminationWinners
 		$users = array_combine(array_column($users, 'id'), $users);
 		shuffle($users);
 		$randomKeys = array_rand($users, min([count($users), $numberOfWinners]));
+		$randomKeys = (is_array($randomKeys) ? $randomKeys : [0]);
 		$randomUsers = [];
 		foreach ($randomKeys as $key) {
-			$randomUsers[] = $users[$key];
+			if (isset($users[$key])) $randomUsers[] = $users[$key];
 		}
 		return $randomUsers;
 	}

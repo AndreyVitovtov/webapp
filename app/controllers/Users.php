@@ -94,4 +94,12 @@ class Users extends Controller
             'message' => __('message sent')
         ]);
     }
+
+	public function delete(Request $request)
+	{
+		(new User)->delete($request->id);
+		redirect('/users', [
+			'message' => __('user deleted')
+		]);
+	}
 }

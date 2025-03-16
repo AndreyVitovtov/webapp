@@ -18,7 +18,7 @@ class UpdateCoefficients
 		$this->telegram = new TelegramBot(TELEGRAM_TOKEN);
 	}
 
-	public function index($drawId = null): void
+	public function index($drawId): void
 	{
 		set_time_limit(0);
 
@@ -26,7 +26,7 @@ class UpdateCoefficients
 			$users = array_map(function ($user) {
 				return (new User($user));
 			}, (new User())->query("
-				SELECT *
+				SELECT u.*
 				FROM `users` u,
 				     `participants` p
 				WHERE u.`id` = p.`user_id`
@@ -47,6 +47,7 @@ class UpdateCoefficients
 						'url' => $channel->url,
 						'subscribe' => true
 					];
+
 					if (!$this->checkSubscribe($user, $channel)) {
 						$active = 0;
 						$subscribeChannels[$key]['subscribe'] = false;
@@ -58,6 +59,7 @@ class UpdateCoefficients
 					$result = $this->telegram->sendMessage($user->chat_id, __('does not participate in the drawing', [], $language), $buttons);
 					$this->updateBotMessage($user, $result);
 				}
+
 				$this->updateCoefficient($user, $active);
 				$user->active = $active;
 				$user->update();
@@ -69,8 +71,8 @@ class UpdateCoefficients
 	private
 	function checkSubscribe(User $user, Channel $channel): bool
 	{
-		$result = @json_decode($this->telegram->getChatMember($user->chat_id, $channel->chat_id));
-		return $result->result->status ?? 'right' !== 'left';
+		$result = @json_decode($this->telegram->getChatMember(trim($user->chat_id), trim($channel->chat_id)));
+		return ($result->result->status ?? 'right') !== 'left';
 	}
 
 	private
@@ -80,14 +82,14 @@ class UpdateCoefficients
 			'active' => 1,
 			'status' => 'IN PROGRESS'
 		]);
-		$drawId = $draw->id;
+		$drawId = $draw->id ?? null;
 		return (!empty($drawId) ? $draw : null);
 	}
 
 	private
 	function getChannelsWithDraw(User $user, $drawId = null): array
 	{
-		if (!empty($drawId)) {
+		if (!empty($drawId) && !is_object($drawId)) {
 			$activeDraw = (new Draw())->getOneObject(['id' => $drawId]);
 		} else {
 			$activeDraw = $this->getActiveDraw();
@@ -144,7 +146,7 @@ class UpdateCoefficients
 
 	private function getIdSendMessage($result)
 	{
-		return $result->result->message_id;
+		return ($result->result->message_id ?? null);
 	}
 
 	private function updateBotMessage(User $user, $result): void
