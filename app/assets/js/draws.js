@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     });
 
-    let table = $('.table-winners').DataTable();
+    let table = $('.table-winners').DataTable({
+        order: [[1, 'asc']]
+    });
 
     let selectedUsers = {};
 

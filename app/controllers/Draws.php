@@ -44,9 +44,7 @@ class Draws extends Controller
 					'dataTables.dataTables.min.css'
 				]
 			],
-			'users' => (new \App\Models\User())->getObjects([
-				'active' => 1
-			])
+			'users' => (new \App\Models\User())->getObjects()
 		]);
 	}
 
@@ -108,9 +106,7 @@ class Draws extends Controller
 					'dataTables.dataTables.min.css'
 				]
 			],
-			'users' => (new \App\Models\User())->getObjects([
-				'active' => 1
-			]),
+			'users' => (new \App\Models\User())->getObjects(),
 			'winnersDraw' => (new WinnersDraw())->query(
 				"SELECT u.`id`, 
        						u.`username`, 
