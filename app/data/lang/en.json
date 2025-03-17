@@ -158,5 +158,8 @@
   "participants": "Participants",
   "select draw": "Select draw",
   "user deleted": "User deleted",
-  "are you sure you want to remove the user": "Are you sure you want to remove the user"
+  "are you sure you want to remove the user": "Are you sure you want to remove the user",
+  "close": "Close",
+  "select winners": "Select winners",
+  "select": "Select"
 }

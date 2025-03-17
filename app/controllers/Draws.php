@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Api\DeterminationWinners;
 use App\Models\Channel;
 use App\Models\Draw;
+use App\Models\WinnersDraw;
 use App\Utility\Request;
 
 class Draws extends Controller
@@ -32,7 +33,20 @@ class Draws extends Controller
 	{
 		$this->auth()->view('add', [
 			'title' => __('add draw'),
-			'pageTitle' => __('add draw')
+			'pageTitle' => __('add draw'),
+			'assets' => [
+				'js' => [
+					'draws.js',
+					'dataTables.min.js'
+				],
+				'css' => [
+					'users.css',
+					'dataTables.dataTables.min.css'
+				]
+			],
+			'users' => (new \App\Models\User())->getObjects([
+				'active' => 1
+			])
 		]);
 	}
 
@@ -57,6 +71,17 @@ class Draws extends Controller
 		$draw->prize = $request->prize;
 		$draw->winners = $request->winners;
 		$draw->insert();
+
+		$selectedWinners = $request->get('selected-winners');
+		if (!empty($selectedWinners)) {
+			foreach ($selectedWinners as $winner) {
+				$winnersDraw = (new WinnersDraw());
+				$winnersDraw->draw_id = $draw->id;
+				$winnersDraw->user_id = $winner;
+				$winnersDraw->insert();
+			}
+		}
+
 		redirect('/draws/all', [
 			'message' => __('draw added')
 		]);
@@ -72,7 +97,32 @@ class Draws extends Controller
 		$this->view('edit', [
 			'title' => __('edit draw'),
 			'pageTitle' => __('edit draw'),
-			'draw' => $draw
+			'draw' => $draw,
+			'assets' => [
+				'js' => [
+					'draws.js',
+					'dataTables.min.js'
+				],
+				'css' => [
+					'users.css',
+					'dataTables.dataTables.min.css'
+				]
+			],
+			'users' => (new \App\Models\User())->getObjects([
+				'active' => 1
+			]),
+			'winnersDraw' => (new WinnersDraw())->query(
+				"SELECT u.`id`, 
+       						u.`username`, 
+       						u.`first_name`, 
+       						u.`last_name`
+				FROM `winners_draw` d,
+				     `users` u
+				WHERE d.`user_id` = u.`id`
+	          	AND d.`draw_id` = :drawId
+			", [
+				'drawId' => $id
+			], true)
 		]);
 	}
 
@@ -90,6 +140,24 @@ class Draws extends Controller
 		$draw->prize = $request->prize;
 		$draw->winners = $request->winners;
 		$draw->update();
+
+		(new WinnersDraw())->query("
+			DELETE FROM `winners_draw` 
+       		WHERE draw_id = :drawId
+        ", [
+			'drawId' => $draw->id
+		]);
+
+		$selectedWinners = $request->get('selected-winners');
+		if (!empty($selectedWinners)) {
+			foreach ($selectedWinners as $winner) {
+				$winnersDraw = (new WinnersDraw());
+				$winnersDraw->draw_id = $draw->id;
+				$winnersDraw->user_id = $winner;
+				$winnersDraw->insert();
+			}
+		}
+
 		redirect('/draws/all', [
 			'message' => __('draw edited')
 		]);

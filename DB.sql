@@ -174,3 +174,14 @@ CREATE TABLE `airdrops`
 
 INSERT INTO `settings` (`key`, `value`, `type`)
 VALUES ('participants_number', 10, 'number');
+
+/* NEW */
+
+CREATE TABLE `winners_draw`
+(
+    `id`      INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    `draw_id` INT UNSIGNED,
+    `user_id` INT UNSIGNED,
+    `added`   DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

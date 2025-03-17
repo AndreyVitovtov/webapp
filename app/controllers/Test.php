@@ -12,15 +12,7 @@ class Test extends Controller
 {
 	public function index()
 	{
-		$data['channels'] = (new Channel())->getObjects([
-			'draw_id' => 29,
-			'language' => 'ru'
-		]);
-		$telegram = new TelegramBot(TELEGRAM_TOKEN);
-		foreach ($data['channels'] as $key => $channel) {
-			$chatMember = @json_decode($telegram->getChatMember(trim('847669358'), trim($channel->chat_id)));
-			$data['channels'][$key]->subscribe = $chatMember->result->status !== 'left';
-		}
-		dd($data);
+		$loc = getLocalization('uk');
+		dd($loc);
 	}
 }

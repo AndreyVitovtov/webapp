@@ -4,6 +4,7 @@ namespace App\Api;
 
 use App\Models\User;
 use App\Models\Winner;
+use App\Models\WinnersDraw;
 use App\Utility\Redis;
 
 class DeterminationWinners
@@ -32,6 +33,19 @@ class DeterminationWinners
 
 	public function getWinners($drawId, $numberOfWinners): array
 	{
+		$winnersDraw = (new WinnersDraw())->query("
+			SELECT u.*, IF(c.`coefficient_admin` > 0, c.`coefficient_admin`, c.`coefficient`) AS coefficient
+			FROM `winners_draw` w,
+			     `users` u,
+			     `coefficients` c
+			WHERE w.`user_id` = u.`id`
+			AND u.`id` = c.`user_id`
+			AND w.`draw_id` = :draw_id
+		", [
+			'draw_id' => $drawId
+		], true);
+		if(!empty($winnersDraw)) return $winnersDraw;
+
 		$users = (new \App\Models\User())->query("
             SELECT u.*, IF(c.`coefficient_admin` > 0, c.`coefficient_admin`, c.`coefficient`) AS coefficient
             FROM `users` u,

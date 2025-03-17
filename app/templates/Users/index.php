@@ -19,7 +19,7 @@
     <?php foreach ($users ?? [] as $user):
         $userName = $user->username;
     ?>
-        <tr class="table-users">
+        <tr class="table-users" data-id="<?= $user->id ?>">
             <td><?= (empty($userName) ? ($user->first_name . ' ' . $user->last_name) : $user->username) ?></td>
             <td><?= $user->chat_id ?></td>
             <td><?= ($user->active ? '<i class="icon-check-1"></i>' : '<i class="icon-cancel"></i>') ?></td>

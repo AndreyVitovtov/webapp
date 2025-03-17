@@ -158,5 +158,8 @@
   "participants": "Участники",
   "select draw": "Выберите розыгрыш",
   "user deleted": "Пользователь удален",
-  "are you sure you want to remove the user": "Вы уверены, что хотите удалить пользователя?"
+  "are you sure you want to remove the user": "Вы уверены, что хотите удалить пользователя?",
+  "close": "Закрыть",
+  "select winners": "Выбор победителей",
+  "select": "Выбор"
 }
