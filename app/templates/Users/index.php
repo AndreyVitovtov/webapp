@@ -1,3 +1,9 @@
+<style>
+    .text-right {
+        text-align: end!important;
+    }
+</style>
+
 <table class="table table-hover table-responsive table-striped">
     <thead>
     <tr>
@@ -6,7 +12,7 @@
         <th><?= __('active') ?></th>
         <th><?= __('referrals') ?></th>
         <th><?= __('added') ?></th>
-        <th><?= __('actions') ?></th>
+        <th class="text-right"><?= __('actions') ?></th>
     </tr>
     </thead>
     <tbody>
@@ -19,7 +25,7 @@
             <td><?= ($user->active ? '<i class="icon-check-1"></i>' : '<i class="icon-cancel"></i>') ?></td>
             <td><?= $user->referrals ?></td>
             <td><?= $user->added ?></td>
-            <td class="table-actions">
+            <td class="table-actions text-right">
                 <button form="delete-user-<?= $user->id ?>" class="btn">
                     <i class="icon-trash"></i>
                     <span class="desk"><?= __('delete') ?></span>
