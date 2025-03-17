@@ -1,3 +1,9 @@
+<style>
+    .text-right {
+        text-align: end!important;
+    }
+</style>
+
 <table class="table table-draws table-striped table-hover table-responsive">
     <thead>
     <tr>
@@ -7,7 +13,7 @@
         <th><?= __('prize') ?></th>
         <th><?= __('status') ?></th>
         <th><?= __('link') ?></th>
-        <th><?= __('actions') ?></th>
+        <th class="text-right"><?= __('actions') ?></th>
     </tr>
     </thead>
     <tbody>
@@ -23,7 +29,7 @@
                     'link' => $draw->link
                 ]) ?>"><i class="icon-docs"></i></div>
             </td>
-            <td class="table-actions">
+            <td class="table-actions text-right">
                 <a href="/draws/edit/<?= $draw->id ?>" class="btn">
                     <i class="icon-edit"></i>
                     <span class="desk"><?= __('edit') ?></span>
