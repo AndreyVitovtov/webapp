@@ -24,7 +24,13 @@ class Draws extends Controller
 				return $draw;
 			}, $draws),
 			'assets' => [
-				'js' => 'draws.js'
+				'js' => [
+					'draws.js',
+					'dataTables.min.js'
+				],
+				'css' => [
+					'dataTables.dataTables.min.css'
+				]
 			]
 		]);
 	}

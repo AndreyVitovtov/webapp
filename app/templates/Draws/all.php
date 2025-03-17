@@ -1,4 +1,4 @@
-<table class="table table-striped table-hover table-responsive">
+<table class="table table-draws table-striped table-hover table-responsive">
     <thead>
     <tr>
         <th><?= __('title') ?></th>
