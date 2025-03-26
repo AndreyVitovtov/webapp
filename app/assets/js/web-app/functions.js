@@ -176,7 +176,6 @@ function wallet(data) {
                 }
             });
         } else if (event.target.closest('.balance-withdraw.active')) {
-            event.target.classList.remove('active');
             webSocketSendMessage({
                 'type': 'withdrawBalance'
             });
