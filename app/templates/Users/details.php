@@ -38,6 +38,14 @@
         <td><?= __('coefficient') ?>:</td>
         <td><?= (!empty($coefficientAdmin) ? $coefficientAdmin : ($coefficient ?? settings('coefficient'))) ?></td>
     </tr>
+    <tr>
+        <td><?= __('balance') ?>:</td>
+        <td><?= ($user->balance->balance ?? 0) ?></td>
+    </tr>
+    <tr>
+        <td><?= __('wallet') ?></td>
+        <td><?= $user->wallet->address ?? '-' ?></td>
+    </tr>
 </table>
 <h6><?= __('coefficient') ?></h6>
 <form action="/users/addCoefficient" method="POST" class="mb-4">

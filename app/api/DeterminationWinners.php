@@ -2,6 +2,7 @@
 
 namespace App\Api;
 
+use App\Models\Balance;
 use App\Models\User;
 use App\Models\Winner;
 use App\Models\WinnersDraw;
@@ -23,6 +24,32 @@ class DeterminationWinners
 			$winner->coefficient = $w['coefficient'];
 			$winner->percentage_referrer = $w['percentage_referrer'] ?? 0;
 			$winner->insert();
+
+			// Update winner balance
+			$balance = (new Balance())->getOneObject(['user_id' => $w['id']]);
+			if (!empty($balance)) {
+				$balance->balance += ($w['prize'] ?? 0);
+				$balance->update();
+			} else {
+				$balance = new Balance();
+				$balance->user_id = $w['id'];
+				$balance->balance = ($w['prize'] ?? 0);
+				$balance->insert();
+			}
+
+			// Update referrer balance
+			if (!empty($w['referrer_prize'] ?? 0)) {
+				$balance = (new Balance())->getOneObject(['user_id' => $w['referrer_id']]);
+				if (!empty($balance)) {
+					$balance->balance += ($w['referrer_prize'] ?? 0);
+					$balance->update();
+				} else {
+					$balance = new Balance();
+					$balance->user_id = $w['referrer_id'];
+					$balance->balance = ($w['prize'] ?? 0);
+					$balance->insert();
+				}
+			}
 		}
 
 		$drawCompleted = @json_decode(Redis::get('drawCompleted'), true) ?? [];
@@ -44,7 +71,7 @@ class DeterminationWinners
 		", [
 			'draw_id' => $drawId
 		], true);
-		if(!empty($winnersDraw)) return $winnersDraw;
+		if (!empty($winnersDraw)) return $winnersDraw;
 
 		$users = (new \App\Models\User())->query("
             SELECT u.*, IF(c.`coefficient_admin` > 0, c.`coefficient_admin`, c.`coefficient`) AS coefficient
