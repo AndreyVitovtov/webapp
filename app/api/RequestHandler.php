@@ -156,7 +156,7 @@ class RequestHandler extends API
 		$data['user'] = $user;
 		$data['mainButton'] = [
 			'text' => __('invite participants', [], $this->getLanguageCode($user)),
-			'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_APP_LINK . '?startapp=ref-' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
+			'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
 		];
 		$drawHash = $this->startParams['draw'] ?? null;
 		$activeDraw = $this->getActiveDraw($drawHash);
@@ -264,13 +264,13 @@ class RequestHandler extends API
 
 		$data['mainButton'] = [
 			'text' => __('invite participants', [], $this->getLanguageCode($user)),
-			'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_APP_LINK . '?startapp=ref-' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
+			'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
 		];
 		$data['referrals'] = (new User())->getObjects([
 			'referrer_id' => $user->id
 		]);
 		$data['popupText'] = __('link copied', [], $this->getLanguageCode($user));
-		$data['url'] = BOT_APP_LINK . '?startapp=ref-' . $user->chat_id;
+		$data['url'] = BOT_LINK . '?start=' . $user->chat_id;
 	}
 
 	public function pageWallet(User $user, array &$data): void
@@ -304,7 +304,7 @@ class RequestHandler extends API
 			'text' => __($subscribe ? 'invite participants' : 'check subscribe app', [], $user->language_code),
 			'mainButton' => [
 				'text' => __('invite participants', [], $this->getLanguageCode($user)),
-				'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_APP_LINK . '?startapp=ref-' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
+				'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
 			]
 		];
 	}
