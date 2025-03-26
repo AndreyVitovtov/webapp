@@ -87,6 +87,15 @@ function requestHandler(data) {
                 case 'linkWallet':
                     linkWallet(data);
                     break;
+                case 'disconnectWallet':
+                    webSocketSendMessage({
+                        'type': 'getPage',
+                        'page': 'wallet'
+                    });
+                    break;
+                case 'withdrawBalance':
+                    withdrawBalance(data);
+                    break;
                 case 'drawCompleted':
                     drawCompleted(data);
                     break;

@@ -96,6 +96,21 @@ class Websocket extends API
 						'wallet' => $handler->linkWallet($user, $handler->data->wallet)
 					]));
 					break;
+				case 'disconnectWallet':
+					$user = (new User())->getOneObject(['token' => $handler->data->token]);
+					$handler->disconnectWallet($user);
+					$connection->send(json_encode([
+						'sc' => true,
+						'type' => 'disconnectWallet'
+					]));
+					break;
+				case 'withdrawBalance':
+					$user = (new User())->getOneObject(['token' => $handler->data->token]);
+					$connection->send(json_encode(array_merge([
+						'sc' => true,
+						'type' => 'withdrawBalance'
+					], $handler->withdrawBalance($user))));
+					break;
 				case 'checkDrawCompleted':
 					$user = (new User())->getOneObject(['token' => $handler->data->token]);
 					$result = $handler->checkDrawCompleted($user, $handler->data->drawId);

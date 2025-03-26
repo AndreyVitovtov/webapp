@@ -107,7 +107,7 @@ function confetti() {
         }
     });
 
-    animation.addEventListener('complete', function() {
+    animation.addEventListener('complete', function () {
         document.querySelector('.confetti')?.remove();
     });
 }
@@ -130,6 +130,14 @@ function share(data) {
 
 function wallet(data) {
     let linkWallet = document.querySelector('.link-wallet');
+
+    if (window.walletController) {
+        window.walletController.abort();
+    }
+
+    window.walletController = new AbortController();
+    let {signal} = window.walletController;
+
     if (linkWallet) {
         linkWallet.addEventListener('click', async (event) => {
             if (event.target.closest('.link-wallet')) {
@@ -155,8 +163,25 @@ function wallet(data) {
                     });
                 });
             }
-        });
+        }, {signal});
     }
+
+    document.body.addEventListener('click', (event) => {
+        if (event.target.closest('.wallet-disconnect')) {
+            Telegram.showConfirm(data['warningDisconnectWallet'], (ok) => {
+                if (ok) {
+                    webSocketSendMessage({
+                        'type': 'disconnectWallet'
+                    });
+                }
+            });
+        } else if (event.target.closest('.balance-withdraw.active')) {
+            event.target.classList.remove('active');
+            webSocketSendMessage({
+                'type': 'withdrawBalance'
+            });
+        }
+    }, {signal});
 }
 
 async function profile(data) {
@@ -183,7 +208,7 @@ async function profile(data) {
     }
 
     window.tonConnect.onStatusChange(walletInfo => {
-        console.log("Кошелек подключен:", walletInfo);
+        console.log("Wallet connected:", walletInfo);
         let url = APP_URL + '?startapp=' + Telegram.initDataUnsafe.start_param;
         setTimeout(() => {
             Telegram.openTelegramLink(url);
@@ -276,16 +301,22 @@ function indexCheckSubscribe(data) {
 }
 
 function linkWallet(data) {
-    let element = document.querySelector('.link-wallet');
-    let img = document.createElement('img');
-    img.src = data.wallet.src;
-    let div = document.createElement('div');
-    div.innerHTML = data.wallet.text;
-    element.classList.remove('link-wallet');
-    element.classList.add('wallet-connected');
-    element.innerHTML = '';
-    element.appendChild(img);
-    element.appendChild(div);
+    webSocketSendMessage({
+        'type': 'getPage',
+        'page': 'wallet'
+    });
+}
+
+function withdrawBalance(data) {
+    if (data.status) {
+        Telegram.showAlert(data.message);
+        webSocketSendMessage({
+            'type': 'getPage',
+            'page': 'wallet'
+        });
+    } else {
+        Telegram.showAlert(data.message);
+    }
 }
 
 function airdrops(data) {

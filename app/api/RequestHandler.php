@@ -2,6 +2,8 @@
 
 namespace App\Api;
 
+use App\Controllers\Withdrawals;
+use App\Models\Balance;
 use App\Models\Channel;
 use App\Models\Coefficients;
 use App\Models\Draw;
@@ -9,6 +11,7 @@ use App\Models\Participants;
 use App\Models\User;
 use App\Models\Wallet;
 use App\Models\Winner;
+use App\Utility\Database;
 use App\Utility\Redis;
 use App\Utility\TelegramBot;
 use Random\RandomException;
@@ -45,7 +48,7 @@ class RequestHandler extends API
 			} else {
 				$referrerChatId = $this->startParams['ref'] ?? null;
 				$referrer = new User();
-				if(!empty($referrerChatId)) {
+				if (!empty($referrerChatId)) {
 					$userReferrer = $referrer->getOneObject(['chat_id' => $referrerChatId]);
 					$referrerId = $userReferrer->id ?? null;
 				}
@@ -125,7 +128,7 @@ class RequestHandler extends API
 
 		if (!empty($drawHash) && empty($draw)) {
 			$draw = (new Draw())->getOneObject(['active' => 1], 'AND', 'date');
-		} elseif(empty($drawHash) && empty($draw)) {
+		} elseif (empty($drawHash) && empty($draw)) {
 			$draw = (new Draw())->getOneObject(['active' => 1, 'status' => 'COMPLETED'], 'AND', 'date', 'DESC');
 		}
 		return $draw;
@@ -274,6 +277,9 @@ class RequestHandler extends API
 	{
 		$data['user'] = $user;
 		$data['wallet'] = (new Wallet())->getOneObject(['user_id' => $user->id]);
+		$balance = (new Balance())->getOneObject(['user_id' => $user->id]);
+		$data['balance'] = ($balance->balance ?? '0');
+		$data['warningDisconnectWallet'] = __('warning disconnect wallet', [], $this->getLanguageCode($user));
 	}
 
 	public function checkSubscribe($user, $drawId): array
@@ -342,6 +348,58 @@ class RequestHandler extends API
 			]);
 		} else {
 			return null;
+		}
+	}
+
+	public function disconnectWallet(User $user): void
+	{
+		$wallet = (new Wallet())->getOneObject(['user_id' => $user->id]);
+		if ($wallet) $wallet->delete();
+	}
+
+	public function withdrawBalance(User $user): array
+	{
+		$balance = (new Balance())->getOneObject(['user_id' => $user->id]);
+		$userBalance = $balance->balance ?? 0;
+		$minimumBalance = settings('min_balance_withdrawals');
+		if (empty($balance) || $userBalance < $minimumBalance) {
+			return [
+				'status' => false,
+				'message' => __('minimum balance for withdrawal', [
+					'balance' => $minimumBalance
+				], $user->language_code)
+			];
+		} else {
+			try {
+				$db = Database::instance()->getDbh();
+				$db->beginTransaction();
+
+				$wallet = (new Wallet())->getOneObject(['user_id' => $user->id]);
+				$address = $wallet->address ?? null;
+				if (empty($address)) return [
+					'status' => false,
+					'message' => __('wallet not connected', [], $user->language_code)
+				];
+
+				$withdrawals = new \App\Models\Withdrawals();
+				$withdrawals->user_id = $user->id;
+				$withdrawals->balance = $userBalance;
+				$withdrawals->wallet = $address;
+				$withdrawals->insert();
+
+				$balance->balance = 0;
+				$balance->update();
+
+				$db->commit();
+				return [
+					'status' => true,
+					'message' => __('balance withdrawal request successfully created', [], $user->language_code)
+				];
+
+			} catch (\Exception $e) {
+				$db->rollBack();
+				return ['status' => false, 'message' => __('error withdrawal', [], $user->language_code)];
+			}
 		}
 	}
 }

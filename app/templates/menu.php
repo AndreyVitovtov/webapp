@@ -86,6 +86,22 @@ $menu = [
 		'address' => '/winners',
 		'controller' => 'Winners'
 	], [
+		'title' => __('withdrawals'),
+		'icon' => 'wallet',
+		'controller' => 'Withdrawals',
+		'forbid' => ['guest'],
+		'items' => [
+			[
+				'title' => __('new'),
+				'address' => '/withdrawals/new',
+				'method' => 'new'
+			], [
+				'title' => __('archive'),
+				'address' => '/withdrawals/archive',
+				'method' => 'archive'
+			]
+		]
+	], [
 		'title' => __('administrators'),
 		'icon' => 'star',
 		'address' => '/administrators',

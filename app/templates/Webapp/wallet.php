@@ -25,7 +25,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: start;
+        margin-top: 100px;
     }
 
     .app-header {
@@ -56,7 +57,7 @@
         margin-bottom: 25px;
     }
 
-    .link-wallet {
+    .link-wallet, .balance-withdraw.active {
         width: 100%;
         background: linear-gradient(to right, #30B5FD 0%, #3258FF 100%);
         border-radius: 10px;
@@ -76,6 +77,7 @@
 
     .wallet-connected-wrapper {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         position: fixed;
@@ -86,7 +88,11 @@
         padding: 0 20px;
     }
 
-    .wallet-connected {
+    .wallet-connected-wrapper > div:nth-child(2) {
+        margin-top: 10px;
+    }
+
+    .wallet-connected, .balance-withdraw {
         width: 100%;
         background: #1A1A20;
         border-radius: 10px;
@@ -99,30 +105,70 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+    .balance-block {
+        min-width: 60%;
+        border-radius: 10px;
+        border: solid 1px #00D4FF;
+        text-align: center;
+        padding: 15px 10px;
+    }
+
+    .wallet-balance {
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .balance-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .balance-wrapper img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .balance {
+        font-size: 32px;
+        color: #fff;
+        margin-right: 10px;
+    }
 </style>
 
 <div class="wallet">
-    <div class="app-header">
-        <div class="image-ton">
+    <div class="balance-block">
+        <span class="wallet-balance">
+            <?= __('balance') ?>
+        </span>
+        <div class="balance-wrapper">
+            <div class="balance">
+				<?= number_format($balance ?? 0, 2, ',', ' '); ?>
+            </div>
             <img src="<?= assets('images/wallet/ton.svg') ?>" alt="ton">
-            <div class="image-ton-shadow"></div>
         </div>
     </div>
 
-    <div class="app-body">
-        <h3><?= __('connect your wallet', [], $user->language_code) ?></h3>
-        <div class="app-wallet-attention">
-			<?= __('wallet-attention', [], $user->language_code) ?>
+	<?php $walletAddress = ($wallet->address ?? null);
+	if (empty($walletAddress)): ?>
+        <div class="app-body">
+            <h3><?= __('connect your wallet', [], $user->language_code) ?></h3>
+            <div class="app-wallet-attention">
+				<?= __('wallet-attention', [], $user->language_code) ?>
+            </div>
         </div>
-    </div>
+	<?php endif; ?>
 </div>
 
 <div class="wallet-connected-wrapper">
 	<?php $walletAddress = ($wallet->address ?? null);
 	if (!empty($walletAddress)): ?>
-        <div class="wallet-connected">
-            <img src="<?= assets('images/wallet/check.svg') ?>" alt="wallet">
-            <div><?= __('wallet connected', [], $user->language_code) ?></div>
+        <div class="balance-withdraw <?= (($balance ?? 0) > 0 ? 'active' : '') ?>">
+            <div><?= __('withdraw', [], $user->language_code) ?></div>
+        </div>
+        <div class="wallet-connected wallet-disconnect">
+            <div><?= __('wallet disconnect', [], $user->language_code) ?></div>
         </div>
 	<?php else: ?>
         <div class="link-wallet">
