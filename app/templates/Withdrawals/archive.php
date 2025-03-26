@@ -11,7 +11,7 @@
     }
 </style>
 
-<table class="table table-striped table-bordered table-hover">
+<table class="table table-striped table-hover">
     <thead>
     <tr>
         <th><?= __('username') ?></th>
