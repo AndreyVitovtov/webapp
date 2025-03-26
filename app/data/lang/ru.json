@@ -179,5 +179,6 @@
   "copied": "Скопировано",
   "paid": "Выплачено",
   "are you sure you want to remove the withdrawal": "Вы уверены, что хотите удалить вывод?",
-  "withdrawal deleted": "Вывод удален"
+  "withdrawal deleted": "Вывод удален",
+  "amount": "Сумма"
 }

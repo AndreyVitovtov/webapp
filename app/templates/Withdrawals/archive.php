@@ -15,7 +15,7 @@
     <thead>
     <tr>
         <th><?= __('username') ?></th>
-        <th><?= __('balance') ?></th>
+        <th><?= __('amount') ?></th>
         <th><?= __('wallet') ?></th>
         <th><?= __('status') ?></th>
         <th>

@@ -179,5 +179,6 @@
   "copied": "Copied",
   "paid": "Paid",
   "are you sure you want to remove the withdrawal": "Are you sure you want to remove the withdrawal?",
-  "withdrawal deleted": "Withdrawal deleted"
+  "withdrawal deleted": "Withdrawal deleted",
+  "amount": "Amount"
 }
