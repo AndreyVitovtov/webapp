@@ -28,7 +28,7 @@ class DeterminationWinners
 			// Update winner balance
 			$balance = (new Balance())->getOneObject(['user_id' => $w['id']]);
 			if (!empty($balance)) {
-				$balance->balance += ($w['prize'] ?? 0);
+				$balance->balance = ($balance->balance + ($w['prize'] ?? 0));
 				$balance->update();
 			} else {
 				$balance = new Balance();
@@ -41,12 +41,12 @@ class DeterminationWinners
 			if (!empty($w['referrer_prize'] ?? 0)) {
 				$balance = (new Balance())->getOneObject(['user_id' => $w['referrer_id']]);
 				if (!empty($balance)) {
-					$balance->balance += ($w['referrer_prize'] ?? 0);
+					$balance->balance = ($balance->balance + ($w['referrer_prize'] ?? 0));
 					$balance->update();
 				} else {
 					$balance = new Balance();
 					$balance->user_id = $w['referrer_id'];
-					$balance->balance = ($w['prize'] ?? 0);
+					$balance->balance = ($w['referrer_prize'] ?? 0);
 					$balance->insert();
 				}
 			}
