@@ -19,7 +19,7 @@ class Bot extends Controller
 
 	public function __construct()
 	{
-		$activeDraw = (new Draw())->getOneObject(['active' => 1]);
+		$activeDraw = (new Draw())->getOneObject(['active' => 1, 'status' => 'IN PROGRESS']);
 		$this->telegram = new TelegramBot(TELEGRAM_TOKEN);
 		$channel = new Channel();
 		$channels = [];
