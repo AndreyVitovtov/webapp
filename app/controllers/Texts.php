@@ -19,8 +19,8 @@ class Texts extends Controller
 	private function languages($lang): void
 	{
 		$this->auth()->view('index', [
-			'title' => 'Texts',
-			'pageTitle' => 'Texts',
+			'title' => __('texts'),
+			'pageTitle' => __('texts'),
 			'lang' => $lang,
 			'texts' => json_decode(file_get_contents(data('lang/' . $lang . '.json'))),
 			'assets' => [
