@@ -95,7 +95,7 @@ $menu = [
 				'title' => __('new'),
 				'address' => '/withdrawals/new',
 				'method' => 'new',
-                'number' => ($numberNewWithdrawals ?? 0)
+				'number' => ($numberNewWithdrawals ?? 0)
 			], [
 				'title' => __('archive'),
 				'address' => '/withdrawals/archive',
@@ -108,6 +108,18 @@ $menu = [
 		'address' => '/administrators',
 		'controller' => 'Administrators',
 		'assets' => ['superadmin']
+	], [
+		'title' => __('texts'),
+		'icon' => 'doc-text',
+		'controller' => 'Texts',
+		'forbid' => ['guest'],
+		'items' => array_map(function ($lang) {
+			return [
+				'title' => $lang['title'],
+				'address' => '/texts/' . $lang['abbr'],
+				'method' => $lang['abbr']
+			];
+		}, LANGUAGES)
 	], [
 		'title' => __('settings'),
 		'icon' => 'cogs',
