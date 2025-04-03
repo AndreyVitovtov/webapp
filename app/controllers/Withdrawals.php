@@ -66,7 +66,8 @@ class Withdrawals extends Controller
 		$withdrawals->update();
 		echo json_encode([
 			'status' => true,
-			'message' => __('changes saved')
+			'message' => __('changes saved'),
+			'numberNewWithdrawals' => count((new \App\Models\Withdrawals())->get(['status' => 'NEW']))
 		]);
 	}
 

@@ -340,6 +340,12 @@ a.menu-item, div.menu-item, .menu-roll a div {
     transition: transform var(--time) ease;
 }
 
+.menu-roll-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .menu-angle.active {
     transform: rotate(90deg);
 }
@@ -363,4 +369,18 @@ a.menu-item, div.menu-item, .menu-roll a div {
 .footer .copyright {
     width: 100%;
     text-align: center;
+}
+
+.menu-number {
+    background: #df4242;
+    color: #fff;
+    padding: 5px;
+    height: 20px;
+    min-width: 20px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

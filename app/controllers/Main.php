@@ -8,6 +8,7 @@ class Main extends Controller
 {
     public function __construct()
     {
+		parent::__construct();
 //		$this->forbid = [
 //			'guest' => 'ALL'
 //		];

@@ -4,6 +4,15 @@ namespace App\Controllers;
 
 class Controller
 {
+	private $numberItems;
+
+	public function __construct()
+	{
+		$this->numberItems = [
+			'numberNewWithdrawals' => count((new \App\Models\Withdrawals())->get(['status' => 'NEW']))
+		];
+	}
+
 
 	/* EXAMPLE
 			$this->access = [
@@ -46,6 +55,7 @@ class Controller
 		$params['theme'] = theme();
 		extract(getSessionParams());
 		extract($params);
+		if(!empty($this->numberItems)) extract($this->numberItems);
 		$template = ucfirst($template);
 		require_once 'app/templates/main.php';
 		return $this;
@@ -84,9 +94,9 @@ class Controller
 		return null;
 	}
 
-    protected function checkToken($token = null): bool
-    {
-        if (!is_null($token)) return $token == API_TOKEN;
-        return isset($_SERVER['HTTP_AUTHORIZATION']) && $_SERVER['HTTP_AUTHORIZATION'] == API_TOKEN;
-    }
+	protected function checkToken($token = null): bool
+	{
+		if (!is_null($token)) return $token == API_TOKEN;
+		return isset($_SERVER['HTTP_AUTHORIZATION']) && $_SERVER['HTTP_AUTHORIZATION'] == API_TOKEN;
+	}
 }

@@ -279,7 +279,10 @@ function menuRoll($title, $icon, $controller, $items = [], $access = [], $forbid
 	$menuItems = '';
 	foreach ($items as $item) {
 		$menuItems .= '<a href="' . $item['address'] . '" class="' . menuIsActive($controller, $item['method']) . '">
-                <div>' . $item['title'] . '</div>
+                <div class="menu-roll-item">
+                	<span>' . $item['title'] . '</span>
+                	' . (!empty($item['number']) ? '<span class="menu-number">' . $item['number'] . '</span>' : '') . '
+                </div>
             </a>';
 	}
 	return '<div class="menu-item">

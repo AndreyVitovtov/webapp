@@ -94,7 +94,8 @@ $menu = [
 			[
 				'title' => __('new'),
 				'address' => '/withdrawals/new',
-				'method' => 'new'
+				'method' => 'new',
+                'number' => ($numberNewWithdrawals ?? 0)
 			], [
 				'title' => __('archive'),
 				'address' => '/withdrawals/archive',

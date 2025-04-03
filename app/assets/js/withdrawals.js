@@ -19,6 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 showMessage(response.message);
                 let tr = event.target.closest('tr');
                 tr.remove();
+                let menuNumber = document.querySelector('.menu-number');
+                if (response['numberNewWithdrawals'] === 0) {
+                    if (menuNumber) menuNumber.remove();
+                } else {
+                    if (menuNumber) menuNumber.innerHTML = response['numberNewWithdrawals'];
+                }
             });
         });
 
