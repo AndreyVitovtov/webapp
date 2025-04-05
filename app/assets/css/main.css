@@ -372,10 +372,11 @@ a.menu-item, div.menu-item, .menu-roll a div {
 }
 
 .menu-number {
-    background: #df4242;
+    background: #4291df;
     color: #fff;
     padding: 5px;
     height: 18px;
+    line-height: 18px;
     min-width: 18px;
     text-align: center;
     border-radius: 50%;

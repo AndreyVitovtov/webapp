@@ -12,7 +12,9 @@ class Test extends Controller
 {
 	public function index()
 	{
-		$loc = getLocalization('uk');
-		dd($loc);
+		$user = (new User)->find(1);
+		$user->language_code = 'ru';
+		if (!in_array($user->language_code, array_keys(LANGUAGES))) echo DEFAULT_LANG;
+		echo $user->language_code ?? DEFAULT_LANG;
 	}
 }

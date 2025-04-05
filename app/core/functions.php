@@ -209,9 +209,7 @@ function getCurrentLang()
 
 function getLocalization($lang = null)
 {
-	if(!is_null($lang) && !in_array($lang, LANGUAGES)) $lang = DEFAULT_LANG;
-	global $localization;
-	if (!empty($localization)) return $localization;
+	if(!is_null($lang) && !in_array($lang, array_keys(LANGUAGES))) $lang = DEFAULT_LANG;
 	if ($lang) {
 		$localization = json_decode(file_get_contents(ABSOLUTE_PATH . 'data/lang/' . $lang . '.json'), true);
 	} else {

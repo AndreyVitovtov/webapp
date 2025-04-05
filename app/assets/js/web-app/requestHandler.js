@@ -1,5 +1,9 @@
 function page(data) {
     if (data.sc) {
+        if (typeof data['menu'] !== 'undefined') {
+            document.querySelector('.app-menu').innerHTML = data['menu'];
+        }
+
         localStorage.setItem('page', data.page);
         let appMenuItems = document.querySelectorAll('.app-menu-item');
         if (appMenuItems) {

@@ -63,10 +63,10 @@ class RequestHandler extends API
 		return $user ?? null;
 	}
 
-	public function getPage($data = []): string
+	public function getPage($data = [], $page = null): string
 	{
 		$data = array_merge((array)$this->data, $data);
-		$page = $this->data->page;
+		if(empty($page)) $page = $this->data->page;
 		if (!empty($page)) {
 			return html('Webapp/' . $page . '.php', $data);
 		} else {
@@ -153,6 +153,9 @@ class RequestHandler extends API
 
 	public function pageIndex(User $user, array &$data): void
 	{
+		$data['menu'] = $this->getPage([
+			'languageCode' => $this->getLanguageCode($user)
+		], 'menu');
 		$data['user'] = $user;
 		$data['mainButton'] = [
 			'text' => __('invite participants', [], $this->getLanguageCode($user)),
