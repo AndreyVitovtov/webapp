@@ -392,7 +392,7 @@
 
         <div class="<?= ($noActiveDraw ? 'no-active-draw' : 'conditions-draw') ?>">
             <a href="<?= CHANNEL_APP_LINK ?>"
-               target="_blank"><?= __(($noActiveDraw ? 'information about new giveaways on our channel' : 'conditions of the draw')) ?></a>
+               target="_blank"><?= __(($noActiveDraw ? 'information about new giveaways on our channel' : 'conditions of the draw'), [], $user->language_code) ?></a>
         </div>
         <div class="sponsor-wrapper">
             <div class="sponsor">
