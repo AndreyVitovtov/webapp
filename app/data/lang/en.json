@@ -183,5 +183,22 @@
   "amount": "Amount",
   "texts": "Texts",
   "line break": "line break",
-  "texts saved": "Texts saved"
+  "texts saved": "Texts saved",
+  "logo": "Logo",
+  "total": "Total",
+  "per user": "Per user",
+  "max winners": "Max winners",
+  "channel draw": "Channel draw",
+  "channel project draw": "Channel project draw",
+  "group project draw": "Group project draw",
+  "insert link": "Insert link",
+  "are you sure you want to remove the airdrop": "Are you sure you want to remove the airdrop?",
+  "airdrop deleted": "Airdrop deleted",
+  "add airdrop": "Add airdrop",
+  "edit airdrop": "Edit airdrop",
+  "airdrop edited": "Airdrop edited",
+  "lottery": "Lottery",
+  "quests": "Quests",
+  "subscribe to the sponsor's channel": "Subscribe to the sponsor's channel",
+  "subscribe to the sponsor group": "Subscribe to the sponsor group"
 }

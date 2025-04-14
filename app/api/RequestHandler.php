@@ -3,6 +3,7 @@
 namespace App\Api;
 
 use App\Controllers\Withdrawals;
+use App\Models\Airdrop;
 use App\Models\Balance;
 use App\Models\Channel;
 use App\Models\Coefficients;
@@ -66,7 +67,7 @@ class RequestHandler extends API
 	public function getPage($data = [], $page = null): string
 	{
 		$data = array_merge((array)$this->data, $data);
-		if(empty($page)) $page = $this->data->page;
+		if (empty($page)) $page = $this->data->page;
 		if (!empty($page)) {
 			return html('Webapp/' . $page . '.php', $data);
 		} else {
@@ -335,10 +336,23 @@ class RequestHandler extends API
 		];
 	}
 
+	function pageAirdrops(User $user, array &$responseData, $data): void
+	{
+		$responseData['user'] = $user;
+		$responseData['airdrops'] = (new Airdrop())->get(['active' => 1]);
+	}
+
 	function pageAirdrop(User $user, array &$responseData, $data): void
 	{
 		$responseData['user'] = $user;
 		$responseData['id'] = $data->id;
+		$responseData['airdrop'] = (new Airdrop())->getOneObject(['id' => $data->id]);
+		$responseData['airdrop']->description = (json_decode($responseData['airdrop']->description))->{$this->getLanguageCode($user)} ?? '';
+		$responseData['date'] = gmdate('Y-m-d\TH:i:s\Z', strtotime($responseData['airdrop']->date));
+		$responseData['mainButton'] = [
+			'text' => __('invite participants', [], $this->getLanguageCode($user)),
+			'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
+		];
 	}
 
 	function checkDrawCompleted(User $user, $drawId): ?string

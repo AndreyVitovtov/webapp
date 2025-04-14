@@ -144,43 +144,40 @@
 </style>
 
 <div class="crypto-coins"></div>
-<div class="airdrops-title"><?= __('airdrops') ?></div>
+<div class="airdrops-title"><?= __('airdrops', [], $user->language_code) ?></div>
 <div class="airdrops">
-	<?php foreach ($airdrops ?? [
-            '', '', '', '', ''
-    ] as $key => $airdrop) : ?>
-        <div class="airdrop" data-id="<?= $key ?>">
+	<?php foreach ($airdrops as $airdrop) : ?>
+        <div class="airdrop" data-id="<?= $airdrop['id'] ?>">
             <div class="airdrop-head">
                 <div class="airdrop-image">
-<!--                    <img src="--><?php //= data('images/airdrop/' . $airdrop->image ?? '') ?><!--" alt="airdrop-image">-->
-                    <img src="<?= assets('images/airdrops/gallery.svg') ?>" alt="airdrop-image">
+                    <img src="<?= assets('images/airdrops/' . $airdrop['logo']) ?>" alt="airdrop-image">
                 </div>
                 <div class="airdrop-info">
-                    <div class="airdrop-title"><?= __('Название дропа') ?></div>
+                    <div class="airdrop-title"><?= $airdrop['title'] ?></div>
                     <div class="airdrop-drop">DROP</div>
                     <div class="airdrop-info-bottom">
-                        <div class="airdrop-status"><?= __('Закончен') ?></div>
-                        <div class="airdrop-lottery"><?= __('Лотерея') ?></div>
+                        <div class="airdrop-status"><?= __($airdrop['status'], [], $user->language_code) ?></div>
+                        <div class="airdrop-lottery"><?= __('lottery', [], $user->language_code) ?></div>
                     </div>
                 </div>
             </div>
             <div class="airdrop-foot">
                 <div class="airdrop-total">
-                    <div class="airdrop-foot-label">Total</div>
+                    <div class="airdrop-foot-label"><?= __('total', [], $user->language_code) ?></div>
                     <div class="airdrop-foot-value">
-                        1 M DROP
+                        <?= $airdrop['total'] ?>
                     </div>
                 </div>
                 <div class="airdrop-per-user">
-                    <div class="airdrop-foot-label">Per user</div>
+                    <div class="airdrop-foot-label"><?= __('per user', [], $user->language_code) ?></div>
                     <div class="airdrop-foot-value">
-                        50 DROP
+                        <?= $airdrop['per_user'] ?>
                     </div>
                 </div>
                 <div class="airdrop-max-winners">
-                    <div class="airdrop-foot-label">Max Winners</div>
+                    <div class="airdrop-foot-label"><?= __('max winners', [], $user->language_code) ?></div>
                     <div class="airdrop-foot-value">
-                        20000
+                        <?= $airdrop['max_winners'] ?>
                     </div>
                 </div>
             </div>

@@ -19,6 +19,7 @@
 
     .hello {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         height: 100vh;
@@ -55,7 +56,10 @@
 <div>
     <div class="app-content">
         <div class="hello">
-			<?= $content ?? 'no content' ?>
+            <div class="dice"></div>
+            <div>
+				<?= $content ?? 'no content' ?>
+            </div>
         </div>
     </div>
     <div class="app-menu">
@@ -85,4 +89,16 @@
     //window.confettiLottie = <?php //= file_get_contents(assets('lottie/confetti.json')) ?>//;
     window.trophyLottie = <?= file_get_contents(assets('lottie/trophy.json')) ?>;
     localStorage.setItem('page', 'index');
+
+    lottie.loadAnimation({
+        container: document.querySelector('.dice'),
+        renderer: 'canvas',
+        loop: true,
+        autoplay: true,
+        animationData: window.diceLottie,
+        prerender: true,
+        rendererSettings: {
+            progressiveLoad: true
+        }
+    });
 </script>

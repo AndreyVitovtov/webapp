@@ -7,7 +7,7 @@
         background-color: #0A0A0C;
     }
 
-    .airdrop {
+    .airdrop-details {
         margin-bottom: 100px;
     }
 
@@ -16,6 +16,10 @@
         align-items: start;
         justify-content: space-between;
         padding: 10px;
+    }
+
+    .airdrop-title {
+        color: #fff;
     }
 
     .airdrop-foot {
@@ -266,6 +270,10 @@
         margin-top: 10px;
     }
 
+    .airdrop-task-button:hover {
+        color: #fff;
+    }
+
     .airdrop-task-button > div:nth-child(1), .airdrop-task-button > div:nth-child(3) {
         width: 30px;
     }
@@ -296,22 +304,22 @@
         padding: 12px;
         border-radius: 10px;
         background: linear-gradient(#CE6A00 0%, #FF9500 100%);
+        cursor: pointer;
     }
 </style>
 
-<div class="airdrop">
+<div class="airdrop-details">
     <div class="airdrop-head">
-        <div class="airdrop-status"><?= __('Закончен') ?></div>
+        <div class="airdrop-status"><?= __($airdrop->status, [], $user->language_code) ?></div>
         <div class="airdrop-image">
-            <img src="<?= assets('images/airdrops/gallery.svg') ?>" alt="airdrop image">
+            <img src="<?= assets('images/airdrops/' . $airdrop->logo) ?>" alt="airdrop image">
         </div>
-        <div class="airdrop-lottery"><?= __('Лотерея') ?></div>
+        <div class="airdrop-lottery"><?= __('lottery', [], $user->language_code) ?></div>
     </div>
-    <div class="text-center">
-		<?= __('Airdrop') ?>
+    <div class="text-center mb-4 airdrop-title">
+		<?= $airdrop->title ?>
     </div>
-    <div class="text-center">Airdrop</div>
-    <div class="timer text-center">
+    <div class="timer text-center" id="timer">
         <div class="block-group days-container">
             <div class="block days-tens">0</div>
             <div class="block days-units">0</div>
@@ -334,130 +342,111 @@
     </div>
     <div class="airdrop-foot">
         <div class="airdrop-total">
-            <div class="airdrop-foot-label">Total</div>
+            <div class="airdrop-foot-label"><?= __('total', [], $user->language_code) ?></div>
             <div class="airdrop-foot-value">
-                1 M DROP
+				<?= $airdrop->total ?>
             </div>
         </div>
         <div class="airdrop-per-user">
-            <div class="airdrop-foot-label">Per user</div>
+            <div class="airdrop-foot-label"><?= __('per user', [], $user->language_code) ?></div>
             <div class="airdrop-foot-value">
-                50 DROP
+				<?= $airdrop->per_user ?>
             </div>
         </div>
         <div class="airdrop-max-winners">
-            <div class="airdrop-foot-label">Max Winners</div>
+            <div class="airdrop-foot-label"><?= __('max winners', [], $user->language_code) ?></div>
             <div class="airdrop-foot-value">
-                20000
+				<?= $airdrop->max_winners ?>
             </div>
         </div>
     </div>
-    <div class="airdrop-info">
-        <div class="airdrop-symbol-net">
-            <div class="airdrop-symbol">
-                <div>
-					<?= __('Символ') ?>
-                </div>
-                <div class="airdrop-drop">
-                    DROP
-                </div>
-            </div>
-            <div class="airdrop-net">
-                <div>
-					<?= __('Сеть') ?>
-                </div>
-                <div class="airdrop-ton">
-                    TON
-                </div>
-            </div>
+    <!--    <div class="airdrop-info">-->
+    <!--        <div class="airdrop-symbol-net">-->
+    <!--            <div class="airdrop-symbol">-->
+    <!--                <div>-->
+    <!--					--><?php //= __('Символ') ?>
+    <!--                </div>-->
+    <!--                <div class="airdrop-drop">-->
+    <!--                    DROP-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="airdrop-net">-->
+    <!--                <div>-->
+    <!--					--><?php //= __('Сеть') ?>
+    <!--                </div>-->
+    <!--                <div class="airdrop-ton">-->
+    <!--                    TON-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="airdrop-spend-win">-->
+    <!--            <div class="airdrop-spend">-->
+    <!--                <div>Вы тратите</div>-->
+    <!--                <div>15K Points</div>-->
+    <!--            </div>-->
+    <!--            <div>-->
+    <!--                <img src="--><?php //= assets('images/airdrops/arrows.svg') ?><!--" alt="">-->
+    <!--            </div>-->
+    <!--            <div class="airdrop-win">-->
+    <!--                <div>Вы можете выиграть</div>-->
+    <!--                <div>150 <span class="airdrop-drop">DROP</span></div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="airdrop-distribution-invite">-->
+    <!--            <div class="airdrop-distribution">-->
+    <!--                <div>Общее распределение</div>-->
+    <!--                <div>500 <span class="airdrop-drop">DROP</span></div>-->
+    <!--            </div>-->
+    <!--            <div class="airdrop-invite">-->
+    <!--                <div>Пригласить друзей</div>-->
+    <!--                <div>3</div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="airdrop-smart-contract-address">-->
+    <!--            <div>-->
+    <!--                <div>-->
+    <!--					--><?php //= __('Smart contract Адрес') ?>
+    <!--                </div>-->
+    <!--                <div>-->
+    <!--                    0x582d872alb094fc48f5de3ld3b73f2dlb094fc48f5de3l-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div>-->
+    <!--                <img src="--><?php //= assets('images/airdrops/copy.svg') ?><!--" alt="copy">-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <a href="<?= $airdrop->channel_draw ?>" target="_blank">
+        <div class="airdrop-channel-drop">
+            <img src="<?= assets('images/airdrops/telegram-logo.svg') ?>" alt="telegram logo">
         </div>
-        <div class="airdrop-spend-win">
-            <div class="airdrop-spend">
-                <div>Вы тратите</div>
-                <div>15K Points</div>
-            </div>
-            <div>
-                <img src="<?= assets('images/airdrops/arrows.svg') ?>" alt="">
-            </div>
-            <div class="airdrop-win">
-                <div>Вы можете выиграть</div>
-                <div>150 <span class="airdrop-drop">DROP</span></div>
-            </div>
-        </div>
-        <div class="airdrop-distribution-invite">
-            <div class="airdrop-distribution">
-                <div>Общее распределение</div>
-                <div>500 <span class="airdrop-drop">DROP</span></div>
-            </div>
-            <div class="airdrop-invite">
-                <div>Пригласить друзей</div>
-                <div>3</div>
-            </div>
-        </div>
-        <div class="airdrop-smart-contract-address">
-            <div>
-                <div>
-					<?= __('Smart contract Адрес') ?>
-                </div>
-                <div>
-                    0x582d872alb094fc48f5de3ld3b73f2dlb094fc48f5de3l
-                </div>
-            </div>
-            <div>
-                <img src="<?= assets('images/airdrops/copy.svg') ?>" alt="copy">
-            </div>
-        </div>
-    </div>
-    <div class="airdrop-channel-drop">
-        <img src="<?= assets('images/airdrops/telegram-logo.svg') ?>" alt="telegram logo">
-    </div>
+    </a>
     <div class="airdrop-tasks">
-        <div><?= __('Задания') ?></div>
-        <div class="airdrop-task-button">
+        <div><?= __('quests', [], $user->language_code) ?></div>
+        <a class="airdrop-task-button" href="<?= $airdrop->channel_project_draw ?>" target="_blank">
             <div>
                 <img src="<?= assets('images/airdrops/telegram-logo.svg') ?>" alt="telegram logo">
             </div>
-            <div><?= __('Подписка на канал спонсора') ?></div>
+            <div><?= __('subscribe to the sponsor\'s channel', [], $user->language_code) ?></div>
             <div>
                 <i class="icon-right-open-big"></i>
             </div>
-        </div>
-        <div class="airdrop-task-button">
+        </a>
+        <a class="airdrop-task-button" href="<?= $airdrop->group_project_draw ?>" target="_blank">
             <div>
                 <img src="<?= assets('images/airdrops/telegram-logo.svg') ?>" alt="telegram logo">
             </div>
-            <div><?= __('Подписка на группу спонсора') ?></div>
+            <div><?= __('subscribe to the sponsor group', [], $user->language_code) ?></div>
             <div>
                 <i class="icon-right-open-big"></i>
             </div>
-        </div>
+        </a>
     </div>
     <div class="airdrop-description">
-        <div><?= __('Описание') ?></div>
-        <div>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at cumque dolor doloribus ducimus error
-                eveniet hic illo molestias nobis nostrum nulla quae quidem, quos repudiandae similique vitae! Quo,
-                reprehenderit.
-            </div>
-            <div>Consectetur esse eum incidunt pariatur quam sunt tempora veritatis! Earum necessitatibus quae vel
-                voluptatum. Culpa est officia similique totam unde! Harum odio, voluptatem. Ab doloribus laborum magni
-                maxime provident ullam!
-            </div>
-            <div>Aliquam amet animi asperiores aspernatur, aut consequatur culpa deserunt ducimus error hic in iure
-                laboriosam magni natus optio placeat possimus provident quaerat quasi quidem recusandae sapiente,
-                tempora unde velit veniam!
-            </div>
-            <div>Alias aspernatur aut autem commodi cum dolorem dolorum eos, fugit illum in ipsam, nemo nesciunt nihil
-                odio officiis, quo ratione repellendus saepe suscipit tempora tenetur ullam vel veniam voluptatibus
-                voluptatum.
-            </div>
-            <div>Consequatur delectus distinctio dolore dolorum fuga fugiat harum illo ipsa itaque laudantium magnam
-                neque nesciunt, nisi nostrum possimus qui quis repellendus repudiandae saepe sed similique tempora vero
-                vitae voluptatem voluptatum?
-            </div>
-        </div>
+        <div><?= __('description', [], $user->language_code) ?></div>
+		<div><?= $airdrop->description ?></div>
     </div>
     <div class="airdrop-invite-participants">
-		<?= __('invite participants') ?>...
+		<?= __('invite participants', [], $user->language_code) ?>
     </div>
 </div>

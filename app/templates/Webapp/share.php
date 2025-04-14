@@ -89,6 +89,7 @@
         width: 100%;
         padding: 10px;
         border-radius: 10px;
+        cursor: pointer;
     }
 
     .copy-link {
@@ -99,6 +100,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
     }
 
     .referrals {

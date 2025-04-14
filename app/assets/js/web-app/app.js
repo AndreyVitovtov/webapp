@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     User = WebAppInitData.user;
     INIT_DATA = Telegram.initData;
 
+    if(!Telegram.isExpanded) Telegram.expand();
     Telegram.disableVerticalSwipes();
     Telegram.setBackgroundColor(BG_COLOR);
 

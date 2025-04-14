@@ -240,6 +240,7 @@
         width: 100%;
         padding: 10px;
         border-radius: 10px;
+        cursor: pointer;
     }
 
     .subscribe-to-wrapper {

@@ -183,5 +183,22 @@
   "amount": "Сумма",
   "texts": "Тексты",
   "line break": "перенос строки",
-  "texts saved": "Тексты сохранены"
+  "texts saved": "Тексты сохранены",
+  "logo": "Логотип",
+  "total": "Общий банк",
+  "per user": "Сумма выигрыша",
+  "max winners": "Максимальное количество победителей",
+  "channel draw": "Канал розыгрыша",
+  "channel project draw": "Канал проекта",
+  "group project draw": "Группа проекта",
+  "insert link": "Вставить ссылку",
+  "are you sure you want to remove the airdrop": "Вы уверены, что хотите удалить airdrop?",
+  "airdrop deleted": "Airdrop удален",
+  "add airdrop": "Добавить airdrop",
+  "edit airdrop": "Редактировать airdrop",
+  "airdrop edited": "Airdrop редактирован",
+  "lottery": "Лотерея",
+  "quests": "Задания",
+  "subscribe to the sponsor's channel": "Подписка на канал спонсора",
+  "subscribe to the sponsor group": "Подписка на группу спонсора"
 }

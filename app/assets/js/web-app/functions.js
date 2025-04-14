@@ -1,11 +1,8 @@
 function index(data) {
-    console.log(data);
     if (typeof data.draw !== 'undefined' && typeof data.draw.date !== 'undefined') {
         const targetDate = new Date(data.draw.date).getTime();
         if (typeof data.winners === 'undefined') {
             startCountdown(targetDate, 'timer', (data) => {
-                let participate = (!!document.querySelector('.invite-users-wrapper'));
-
                 ['.subscribe-to-wrapper', '.invite-users-wrapper', '.timer'].forEach(el => {
                     let element = document.querySelector(el);
                     if (element) element.remove();
@@ -19,13 +16,7 @@ function index(data) {
                     let text = document.createElement('div');
                     text.innerHTML = data['weChooseWinnersText'];
                     text.classList.add('draw-text');
-                    // let participant = document.createElement('div');
-                    // let imgLoad = document.createElement('img');
-                    // imgLoad.src = data['loadUrl'];
-                    // participant.appendChild(imgLoad);
-                    // let textParticipant = document.createElement('div');
-                    // textParticipant.innerHTML = data['participate'][participate ? 'yes' : 'no'];
-                    // participant.appendChild(textParticipant);
+
                     appBody.appendChild(dice);
                     appBody.appendChild(text);
 
@@ -356,6 +347,15 @@ function airdrops(data) {
                     });
                 });
             });
+        });
+    }
+
+    const targetDate = new Date(data.date).getTime();
+    startCountdown(targetDate, 'timer');
+
+    if (typeof (data.mainButton) !== 'undefined' && typeof (data.mainButton.url) !== 'undefined') {
+        document.querySelector('.airdrop-invite-participants').addEventListener('click', () => {
+            Telegram.openTelegramLink(data.mainButton.url);
         });
     }
 }

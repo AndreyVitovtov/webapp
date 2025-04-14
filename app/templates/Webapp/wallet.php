@@ -140,7 +140,7 @@
 <div class="wallet">
     <div class="balance-block">
         <span class="wallet-balance">
-            <?= __('balance') ?>
+            <?= __('balance', [], $user->language_code) ?>
         </span>
         <div class="balance-wrapper">
             <div class="balance">

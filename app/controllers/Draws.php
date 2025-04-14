@@ -177,7 +177,6 @@ class Draws extends Controller
 		redirect('/draws/all', [
 			'message' => __('draw deleted')
 		]);
-
 	}
 
 	private function generateHash($length = 12): string

@@ -205,10 +205,29 @@ CREATE TABLE `withdrawals`
     `balance` FLOAT,
     `wallet`  VARCHAR(255),
     `status`  ENUM ('NEW', 'PAID', 'CANCELED') DEFAULT 'NEW',
-    `added`   DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `updated` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `added`   DATETIME                         DEFAULT CURRENT_TIMESTAMP,
+    `updated` DATETIME                         DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
 );
 
 INSERT INTO `settings` (`key`, `value`, `type`)
 VALUES ('min_balance_withdrawals', 10, 'number');
+
+CREATE TABLE `airdrops`
+(
+    `id`                   INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    `title`                TEXT,
+    `logo`                 VARCHAR(255),
+    `date`                 DATETIME,
+    `total`                INT UNSIGNED,
+    `per_user`             INT UNSIGNED,
+    `max_winners`          INT UNSIGNED,
+    `channel_draw`         TEXT,
+    `channel_project_draw` TEXT,
+    `group_project_draw`   TEXT,
+    `description`          MEDIUMTEXT,
+    `status`               ENUM ('IN PROGRESS', 'COMPLETED') DEFAULT 'IN PROGRESS',
+    `active`               BOOLEAN                           DEFAULT 0,
+    `added`                DATETIME                          DEFAULT CURRENT_TIMESTAMP,
+    `updated`              DATETIME                          DEFAULT CURRENT_TIMESTAMP
+);
