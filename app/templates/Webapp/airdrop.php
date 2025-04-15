@@ -306,6 +306,20 @@
         background: linear-gradient(#CE6A00 0%, #FF9500 100%);
         cursor: pointer;
     }
+
+    .airdrop-image img {
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+    }
+
+    .airdrop-image {
+        margin-right: 10px;
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+        background: #4a4a4a;
+    }
 </style>
 
 <div class="airdrop-details">
