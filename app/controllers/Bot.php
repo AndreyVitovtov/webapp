@@ -111,8 +111,8 @@ class Bot extends Controller
 			$user->chat_id = $request->message->from->id;
 			$user->username = $request->message->from->username ?? '';
 			$user->first_name = $request->message->from->first_name ?? '';
-			$user->last_name = $request->message->from->first_name ?? '';
-			$user->language_code = $request->message->from->first_name ?? '';
+			$user->last_name = $request->message->from->last_name ?? '';
+			$user->language_code = $request->message->from->language_code ?? '';
 			$user->photo_url = $request->message->from->photo_url ?? '';
 			if (!empty($referrer)) {
 				$user->referrer_id = $referrer->id;
