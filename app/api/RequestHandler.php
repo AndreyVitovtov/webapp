@@ -159,8 +159,8 @@ class RequestHandler extends API
 		], 'menu');
 		$data['user'] = $user;
 		$data['mainButton'] = [
-			'text' => __('invite participants', [], $this->getLanguageCode($user)),
-			'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
+			'text' => __('invite participants', [], DEFAULT_LANG),
+			'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], DEFAULT_LANG))
 		];
 		$drawHash = $this->startParams['draw'] ?? null;
 		$activeDraw = $this->getActiveDraw($drawHash);
@@ -242,11 +242,11 @@ class RequestHandler extends API
 					$chatMember = @json_decode($telegram->getChatMember(trim($user->chat_id), trim($channel->chat_id)));
 					$data['channels'][$key]->subscribe = $chatMember->result->status !== 'left';
 				}
-				$data['weChooseWinnersText'] = __('we choose winners', ['winners' => $data['draw']['winners']], $this->getLanguageCode($user));
+				$data['weChooseWinnersText'] = __('we choose winners', ['winners' => $data['draw']['winners']], DEFAULT_LANG);
 				$data['loadUrl'] = assets('images/load.gif');
 				$data['participate'] = [
-					'yes' => __('you are participating', [], $this->getLanguageCode($user)),
-					'no' => __('you are not participating', [], $this->getLanguageCode($user))
+					'yes' => __('you are participating', [], DEFAULT_LANG),
+					'no' => __('you are not participating', [], DEFAULT_LANG)
 				];
 			}
 		}
@@ -267,13 +267,13 @@ class RequestHandler extends API
 		], true)[0]['earned'] ?? 0;
 
 		$data['mainButton'] = [
-			'text' => __('invite participants', [], $this->getLanguageCode($user)),
-			'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
+			'text' => __('invite participants', [], DEFAULT_LANG),
+			'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], DEFAULT_LANG))
 		];
 		$data['referrals'] = (new User())->getObjects([
 			'referrer_id' => $user->id
 		]);
-		$data['popupText'] = __('link copied', [], $this->getLanguageCode($user));
+		$data['popupText'] = __('link copied', [], DEFAULT_LANG);
 		$data['url'] = BOT_LINK . '?start=' . $user->chat_id;
 	}
 
@@ -283,7 +283,7 @@ class RequestHandler extends API
 		$data['wallet'] = (new Wallet())->getOneObject(['user_id' => $user->id]);
 		$balance = (new Balance())->getOneObject(['user_id' => $user->id]);
 		$data['balance'] = ($balance->balance ?? '0');
-		$data['warningDisconnectWallet'] = __('warning disconnect wallet', [], $this->getLanguageCode($user));
+		$data['warningDisconnectWallet'] = __('warning disconnect wallet', [], DEFAULT_LANG);
 	}
 
 	public function checkSubscribe($user, $drawId): array
@@ -305,10 +305,10 @@ class RequestHandler extends API
 		return [
 			'subscribe' => $subscribe,
 			'subscribeChannels' => $subscribeChannel,
-			'text' => __($subscribe ? 'invite participants' : 'check subscribe app', [], $user->language_code),
+			'text' => __($subscribe ? 'invite participants' : 'check subscribe app', [], DEFAULT_LANG),
 			'mainButton' => [
-				'text' => __('invite participants', [], $this->getLanguageCode($user)),
-				'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
+				'text' => __('invite participants', [], DEFAULT_LANG),
+				'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], DEFAULT_LANG))
 			]
 		];
 	}
@@ -332,7 +332,7 @@ class RequestHandler extends API
 		}
 		return [
 			'src' => assets('images/wallet/check.svg'),
-			'text' => __('wallet connected', [], $user->language_code)
+			'text' => __('wallet connected', [], DEFAULT_LANG)
 		];
 	}
 
@@ -350,8 +350,8 @@ class RequestHandler extends API
 		$responseData['airdrop']->description = (json_decode($responseData['airdrop']->description))->{$this->getLanguageCode($user)} ?? '';
 		$responseData['date'] = gmdate('Y-m-d\TH:i:s\Z', strtotime($responseData['airdrop']->date));
 		$responseData['mainButton'] = [
-			'text' => __('invite participants', [], $this->getLanguageCode($user)),
-			'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], $this->getLanguageCode($user)))
+			'text' => __('invite participants', [], DEFAULT_LANG),
+			'url' => 'https://t.me/share/url?url=' . rawurlencode(BOT_LINK . '?start=' . $user->chat_id) . '&text=' . rawurlencode(__('invite text', [], DEFAULT_LANG))
 		];
 	}
 
@@ -384,7 +384,7 @@ class RequestHandler extends API
 				'status' => false,
 				'message' => __('minimum balance for withdrawal', [
 					'balance' => $minimumBalance
-				], $user->language_code)
+				], DEFAULT_LANG)
 			];
 		} else {
 			try {
@@ -395,7 +395,7 @@ class RequestHandler extends API
 				$address = $wallet->address ?? null;
 				if (empty($address)) return [
 					'status' => false,
-					'message' => __('wallet not connected', [], $user->language_code)
+					'message' => __('wallet not connected', [], DEFAULT_LANG)
 				];
 
 				$withdrawals = new \App\Models\Withdrawals();
@@ -410,12 +410,12 @@ class RequestHandler extends API
 				$db->commit();
 				return [
 					'status' => true,
-					'message' => __('balance withdrawal request successfully created', [], $user->language_code)
+					'message' => __('balance withdrawal request successfully created', [], DEFAULT_LANG)
 				];
 
 			} catch (\Exception $e) {
 				$db->rollBack();
-				return ['status' => false, 'message' => __('error withdrawal', [], $user->language_code)];
+				return ['status' => false, 'message' => __('error withdrawal', [], DEFAULT_LANG)];
 			}
 		}
 	}

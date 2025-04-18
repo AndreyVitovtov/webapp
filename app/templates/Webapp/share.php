@@ -165,7 +165,7 @@
     <div class="coefficient">
         <div><?= $coefficient ?></div>
         <div>
-            <?= __('winning coefficient', [], $user->language_code) ?>
+            <?= __('winning coefficient', [], DEFAULT_LANG) ?>
         </div>
     </div>
     <div class="earned">
@@ -174,18 +174,18 @@
             <img src="<?= assets('images/index/ton.svg') ?>" alt="ton">
         </div>
         <div>
-            <?= __('earned from referrals', [], $user->language_code) ?>
+            <?= __('earned from referrals', [], DEFAULT_LANG) ?>
         </div>
     </div>
 </div>
-<h3 class="title-share"><?= __('title share', [], $user->language_code) ?></h3>
+<h3 class="title-share"><?= __('title share', [], DEFAULT_LANG) ?></h3>
 <p class="description-share">
     <?= __('description share', [
         'percent' => settings('percentage_referrer', 50)
-    ], $user->language_code) ?>
+    ], DEFAULT_LANG) ?>
 </p>
 <div class="share-attention">
-    <?= __('share-attention', [], $user->language_code) ?>
+    <?= __('share-attention', [], DEFAULT_LANG) ?>
 </div>
 
 <div class="referrals">
@@ -196,7 +196,7 @@
                 <div class="referral-username"><?= $referral->username ?></div>
             </div>
             <div class="referral-active-no-active">
-                <?= ($referral->active == 1 ? __('active') : __('no active')) ?>
+                <?= ($referral->active == 1 ? __('active', [], DEFAULT_LANG) : __('no active', [], DEFAULT_LANG)) ?>
                 <div class="referral-<?= ($referral->active == 1 ? 'active' : 'no-active') ?>"></div>
             </div>
         </div>
@@ -205,7 +205,7 @@
 
 <div class="invite-users-wrapper">
     <div class="invite-users">
-        <?= __('invite participants', [], $user->language_code) ?>
+        <?= __('invite participants', [], DEFAULT_LANG) ?>
     </div>
     <div class="copy-link">
         <img src="<?= assets('images/index/copy.svg') ?>" alt="copy">

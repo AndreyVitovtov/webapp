@@ -231,3 +231,6 @@ CREATE TABLE `airdrops`
     `added`                DATETIME                          DEFAULT CURRENT_TIMESTAMP,
     `updated`              DATETIME                          DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO `settings` (`key`, `value`, `type`)
+VALUES ('link_admin', 'https://t.me/', 'text');

@@ -344,7 +344,7 @@
 </style>
 
 <?php if (empty($draw)) { ?>
-    <div class="no-active-giveaways"><?= __('no active giveaways', [], $user->language_code) ?></div>
+    <div class="no-active-giveaways"><?= __('no active giveaways', [], DEFAULT_LANG) ?></div>
 <?php } else { ?>
 
     <div class="app-header">
@@ -393,7 +393,7 @@
 
         <div class="<?= ($noActiveDraw ? 'no-active-draw' : 'conditions-draw') ?>">
             <a href="<?= CHANNEL_APP_LINK ?>"
-               target="_blank"><?= __(($noActiveDraw ? 'information about new giveaways on our channel' : 'conditions of the draw'), [], $user->language_code) ?></a>
+               target="_blank"><?= __(($noActiveDraw ? 'information about new giveaways on our channel' : 'conditions of the draw'), [], DEFAULT_LANG) ?></a>
         </div>
         <div class="sponsor-wrapper">
             <div class="sponsor">
@@ -413,7 +413,7 @@
         </div>
 	<?php } else { ?>
         <div class="draft-text">
-			<?= __('invite friends and increase your chances of winning', [], $user->language_code) ?>
+			<?= __('invite friends and increase your chances of winning', [], DEFAULT_LANG) ?>
         </div>
 		<?php foreach ($participants ?? [] as $participant): ?>
             <div class="participant">
@@ -421,7 +421,7 @@
                     <div class="participant-img" style="background-image: url(<?= $participant->photo_url ?>)"></div>
                     <div class="participant-username"><?= $participant->username ?></div>
                 </div>
-                <div class="participant-coefficient"><?= $participant->coefficient ?> <?= __('coeff', [], $user->language_code) ?></div>
+                <div class="participant-coefficient"><?= $participant->coefficient ?> <?= __('coeff', [], DEFAULT_LANG) ?></div>
             </div>
 		<?php endforeach; ?>
 
@@ -435,7 +435,7 @@
                 <div class="other-participants-text">
 					<?= __('more participants', [
 						'number' => count($participantsOther)
-					], $user->language_code) ?>
+					], DEFAULT_LANG) ?>
                 </div>
             </div>
 		<?php } ?>
@@ -450,8 +450,8 @@
 				?>
                 <div class="subscribe-to" data-channel="<?= $channel->url ?>">
 					<?= __('subscribe to', [
-						'type' => mb_strtolower($channel->type == 'channel' ? __('channel') : __('group_'))
-					], $user->language_code) ?>
+						'type' => mb_strtolower($channel->type == 'channel' ? __('channel', [], DEFAULT_LANG) : __('group_', [], DEFAULT_LANG))
+					], DEFAULT_LANG) ?>
                     <img src="<?= assets('images/index/' . ($channel->subscribe ? 'check-ok' : 'check-cancel') . '.svg') ?>"
                          class="subscribe-to-image" alt="subscribe" data-id="<?= $channel->id ?>">
                 </div>
@@ -460,7 +460,7 @@
 
         <div class="invite-users-wrapper">
             <div class="invite-users" id="<?= $subscribe ? 'invite-users' : 'check-subscribe' ?>">
-				<?= __($subscribe ? 'invite participants' : 'check subscribe app', [], $user->language_code) ?>
+				<?= __($subscribe ? 'invite participants' : 'check subscribe app', [], DEFAULT_LANG) ?>
             </div>
         </div>
 	<?php }

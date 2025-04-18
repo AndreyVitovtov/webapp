@@ -200,5 +200,8 @@
   "lottery": "Lottery",
   "quests": "Quests",
   "subscribe to the sponsor's channel": "Subscribe to the sponsor's channel",
-  "subscribe to the sponsor group": "Subscribe to the sponsor group"
+  "subscribe to the sponsor group": "Subscribe to the sponsor group",
+  "payout via admin": "Payout can be made in USDT via {admin}",
+  "admin": "admin",
+  "link_admin": "Link admin"
 }

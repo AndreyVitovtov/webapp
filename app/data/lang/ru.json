@@ -200,5 +200,8 @@
   "lottery": "Лотерея",
   "quests": "Задания",
   "subscribe to the sponsor's channel": "Подписка на канал спонсора",
-  "subscribe to the sponsor group": "Подписка на группу спонсора"
+  "subscribe to the sponsor group": "Подписка на группу спонсора",
+  "payout via admin": "Выплату можно произвести в USDT через {admin}",
+  "admin": "администратора",
+  "link_admin": "Ссылка администратора"
 }

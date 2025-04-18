@@ -58,7 +58,7 @@
 			'link' => '<a href="' . BOT_APP_LINK . '" class="link" target="_blank">' . BOT_APP_NAME . '</a>',
 			'number_winners' => count($winners ?? []),
 			'number_participants' => $participants
-		], $user->language_code) ?>
+		], DEFAULT_LANG) ?>
     </div>
 	<?php foreach ($winners ?? [] as $winner):
 		$winner = (object)$winner;
@@ -70,7 +70,7 @@
             </div>
             <div class="winner-prize-wrapper">
                 <div class="winner-prize">
-                    + <?= $winner->prize ?> <?= __('', [], $user->language_code) ?>
+                    + <?= $winner->prize ?> <?= __('', [], DEFAULT_LANG) ?>
                 </div>
                 <img src="<?= assets('images/index/ton.svg') ?>" alt="ton">
             </div>

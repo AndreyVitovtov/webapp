@@ -57,6 +57,11 @@
         margin-bottom: 25px;
     }
 
+    .link-admin {
+        color: #3258FF;
+        text-decoration: none;
+    }
+
     .link-wallet, .balance-withdraw.active {
         width: 100%;
         background: linear-gradient(to right, #30B5FD 0%, #3258FF 100%);
@@ -140,7 +145,7 @@
 <div class="wallet">
     <div class="balance-block">
         <span class="wallet-balance">
-            <?= __('balance', [], $user->language_code) ?>
+            <?= __('balance', [], DEFAULT_LANG) ?>
         </span>
         <div class="balance-wrapper">
             <div class="balance">
@@ -153,9 +158,14 @@
 	<?php $walletAddress = ($wallet->address ?? null);
 	if (empty($walletAddress)): ?>
         <div class="app-body">
-            <h3><?= __('connect your wallet', [], $user->language_code) ?></h3>
+            <h3><?= __('connect your wallet', [], DEFAULT_LANG) ?></h3>
             <div class="app-wallet-attention">
-				<?= __('wallet-attention', [], $user->language_code) ?>
+				<?= __('wallet-attention', [], DEFAULT_LANG) ?>
+            </div>
+            <div class="app-wallet-attention">
+				<?= __('payout via admin', [
+                    'admin' => '<a href="' . settings('link_admin') . '" target="_blank" class="link-admin">' . __('admin', [], DEFAULT_LANG) . '</a>'
+                ], DEFAULT_LANG) ?>
             </div>
         </div>
 	<?php endif; ?>
@@ -165,15 +175,15 @@
 	<?php $walletAddress = ($wallet->address ?? null);
 	if (!empty($walletAddress)): ?>
         <div class="balance-withdraw <?= (($balance ?? 0) > 0 ? 'active' : '') ?>">
-            <div><?= __('withdraw', [], $user->language_code) ?></div>
+            <div><?= __('withdraw', [], DEFAULT_LANG) ?></div>
         </div>
         <div class="wallet-connected wallet-disconnect">
-            <div><?= __('wallet disconnect', [], $user->language_code) ?></div>
+            <div><?= __('wallet disconnect', [], DEFAULT_LANG) ?></div>
         </div>
 	<?php else: ?>
         <div class="link-wallet">
             <img src="<?= assets('images/wallet/link-wallet.svg') ?>" alt="wallet">
-            <div><?= __('link wallet', [], $user->language_code) ?></div>
+            <div><?= __('link wallet', [], DEFAULT_LANG) ?></div>
         </div>
 	<?php endif; ?>
 </div>

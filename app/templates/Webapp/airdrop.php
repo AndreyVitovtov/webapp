@@ -324,11 +324,11 @@
 
 <div class="airdrop-details">
     <div class="airdrop-head">
-        <div class="airdrop-status"><?= __($airdrop->status, [], $user->language_code) ?></div>
+        <div class="airdrop-status"><?= __($airdrop->status, [], DEFAULT_LANG) ?></div>
         <div class="airdrop-image">
             <img src="<?= assets('images/airdrops/' . $airdrop->logo) ?>" alt="airdrop image">
         </div>
-        <div class="airdrop-lottery"><?= __('lottery', [], $user->language_code) ?></div>
+        <div class="airdrop-lottery"><?= __('lottery', [], DEFAULT_LANG) ?></div>
     </div>
     <div class="text-center mb-4 airdrop-title">
 		<?= $airdrop->title ?>
@@ -356,19 +356,19 @@
     </div>
     <div class="airdrop-foot">
         <div class="airdrop-total">
-            <div class="airdrop-foot-label"><?= __('total', [], $user->language_code) ?></div>
+            <div class="airdrop-foot-label"><?= __('total', [], DEFAULT_LANG) ?></div>
             <div class="airdrop-foot-value">
 				<?= $airdrop->total ?>
             </div>
         </div>
         <div class="airdrop-per-user">
-            <div class="airdrop-foot-label"><?= __('per user', [], $user->language_code) ?></div>
+            <div class="airdrop-foot-label"><?= __('per user', [], DEFAULT_LANG) ?></div>
             <div class="airdrop-foot-value">
 				<?= $airdrop->per_user ?>
             </div>
         </div>
         <div class="airdrop-max-winners">
-            <div class="airdrop-foot-label"><?= __('max winners', [], $user->language_code) ?></div>
+            <div class="airdrop-foot-label"><?= __('max winners', [], DEFAULT_LANG) ?></div>
             <div class="airdrop-foot-value">
 				<?= $airdrop->max_winners ?>
             </div>
@@ -436,12 +436,12 @@
         </div>
     </a>
     <div class="airdrop-tasks">
-        <div><?= __('quests', [], $user->language_code) ?></div>
+        <div><?= __('quests', [], DEFAULT_LANG) ?></div>
         <a class="airdrop-task-button" href="<?= $airdrop->channel_project_draw ?>" target="_blank">
             <div>
                 <img src="<?= assets('images/airdrops/telegram-logo.svg') ?>" alt="telegram logo">
             </div>
-            <div><?= __('subscribe to the sponsor\'s channel', [], $user->language_code) ?></div>
+            <div><?= __('subscribe to the sponsor\'s channel', [], DEFAULT_LANG) ?></div>
             <div>
                 <i class="icon-right-open-big"></i>
             </div>
@@ -450,17 +450,17 @@
             <div>
                 <img src="<?= assets('images/airdrops/telegram-logo.svg') ?>" alt="telegram logo">
             </div>
-            <div><?= __('subscribe to the sponsor group', [], $user->language_code) ?></div>
+            <div><?= __('subscribe to the sponsor group', [], DEFAULT_LANG) ?></div>
             <div>
                 <i class="icon-right-open-big"></i>
             </div>
         </a>
     </div>
     <div class="airdrop-description">
-        <div><?= __('description', [], $user->language_code) ?></div>
+        <div><?= __('description', [], DEFAULT_LANG) ?></div>
 		<div><?= $airdrop->description ?></div>
     </div>
     <div class="airdrop-invite-participants">
-		<?= __('invite participants', [], $user->language_code) ?>
+		<?= __('invite participants', [], DEFAULT_LANG) ?>
     </div>
 </div>

@@ -144,7 +144,7 @@
 </style>
 
 <div class="crypto-coins"></div>
-<div class="airdrops-title"><?= __('airdrops', [], $user->language_code) ?></div>
+<div class="airdrops-title"><?= __('airdrops', [], DEFAULT_LANG) ?></div>
 <div class="airdrops">
 	<?php foreach ($airdrops as $airdrop) : ?>
         <div class="airdrop" data-id="<?= $airdrop['id'] ?>">
@@ -156,26 +156,26 @@
                     <div class="airdrop-title"><?= $airdrop['title'] ?></div>
                     <div class="airdrop-drop">DROP</div>
                     <div class="airdrop-info-bottom">
-                        <div class="airdrop-status"><?= __($airdrop['status'], [], $user->language_code) ?></div>
-                        <div class="airdrop-lottery"><?= __('lottery', [], $user->language_code) ?></div>
+                        <div class="airdrop-status"><?= __($airdrop['status'], [], DEFAULT_LANG) ?></div>
+                        <div class="airdrop-lottery"><?= __('lottery', [], DEFAULT_LANG) ?></div>
                     </div>
                 </div>
             </div>
             <div class="airdrop-foot">
                 <div class="airdrop-total">
-                    <div class="airdrop-foot-label"><?= __('total', [], $user->language_code) ?></div>
+                    <div class="airdrop-foot-label"><?= __('total', [], DEFAULT_LANG) ?></div>
                     <div class="airdrop-foot-value">
                         <?= $airdrop['total'] ?>
                     </div>
                 </div>
                 <div class="airdrop-per-user">
-                    <div class="airdrop-foot-label"><?= __('per user', [], $user->language_code) ?></div>
+                    <div class="airdrop-foot-label"><?= __('per user', [], DEFAULT_LANG) ?></div>
                     <div class="airdrop-foot-value">
                         <?= $airdrop['per_user'] ?>
                     </div>
                 </div>
                 <div class="airdrop-max-winners">
-                    <div class="airdrop-foot-label"><?= __('max winners', [], $user->language_code) ?></div>
+                    <div class="airdrop-foot-label"><?= __('max winners', [], DEFAULT_LANG) ?></div>
                     <div class="airdrop-foot-value">
                         <?= $airdrop['max_winners'] ?>
                     </div>

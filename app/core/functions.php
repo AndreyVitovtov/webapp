@@ -116,7 +116,6 @@ function getRole()
 {
 	return $_SESSION['role'] ?? 'guest';
 }
-
 function assets($path): string
 {
 	$absolutePath = $_SERVER['DOCUMENT_ROOT'] . '/app/assets/' . $path;
