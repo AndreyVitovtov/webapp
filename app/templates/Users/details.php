@@ -68,3 +68,13 @@
         <input type="submit" value="<?= __('send') ?>" class="btn">
     </div>
 </form>
+<h6><?= __('write off from balance') ?></h6>
+<form action="/users/writeOffFromBalance" method="POST">
+    <input type="hidden" name="id" value="<?= $user->id ?>">
+    <div class="mb-2">
+        <input type="number" name="amount" class="form-control">
+    </div>
+    <div class="mb-3">
+        <input type="submit" value="<?= __('write off') ?>" class="btn">
+    </div>
+</form>

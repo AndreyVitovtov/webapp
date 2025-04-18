@@ -203,5 +203,8 @@
   "subscribe to the sponsor group": "Подписка на группу спонсора",
   "payout via admin": "Выплату можно произвести в USDT через {admin}",
   "admin": "администратора",
-  "link_admin": "Ссылка администратора"
+  "link_admin": "Ссылка администратора",
+  "write off from balance": "Списать с баланса",
+  "write off": "Списать",
+  "written off from balance": "С баланса списано {amount}"
 }

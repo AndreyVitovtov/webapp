@@ -203,5 +203,8 @@
   "subscribe to the sponsor group": "Subscribe to the sponsor group",
   "payout via admin": "Payout can be made in USDT via {admin}",
   "admin": "admin",
-  "link_admin": "Link admin"
+  "link_admin": "Link admin",
+  "write off from balance": "Write off from balance",
+  "write off": "Write off",
+  "written off from balance": "Written off from balance {amount}"
 }

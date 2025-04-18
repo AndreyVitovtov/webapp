@@ -108,4 +108,17 @@ class Users extends Controller
 			'message' => __('user deleted')
 		]);
 	}
+
+	public function writeOffFromBalance(Request $request): void
+	{
+		$this->auth();
+		$balance = (new Balance())->getOneObject(['user_id' => $request->id]);
+		$amount = $balance->balance - $request->amount;
+		if($amount < 0) $amount = 0;
+		$balance->balance = $amount;
+		$balance->update();
+		redirect('/users/details/' . $request->id, [
+			'message' => __('written off from balance', ['amount' => $request->amount])
+		]);
+	}
 }
