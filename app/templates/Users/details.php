@@ -72,7 +72,7 @@
 <form action="/users/writeOffFromBalance" method="POST">
     <input type="hidden" name="id" value="<?= $user->id ?>">
     <div class="mb-2">
-        <input type="number" name="amount" class="form-control">
+        <input type="number" name="amount" step="any" required class="form-control">
     </div>
     <div class="mb-3">
         <input type="submit" value="<?= __('write off') ?>" class="btn">
