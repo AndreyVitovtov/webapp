@@ -159,9 +159,9 @@
 	if (empty($walletAddress)): ?>
         <div class="app-body">
             <h3><?= __('connect your wallet', [], DEFAULT_LANG) ?></h3>
-            <div class="app-wallet-attention">
-				<?= __('wallet-attention', [], DEFAULT_LANG) ?>
-            </div>
+<!--            <div class="app-wallet-attention">-->
+<!--				--><?php //= __('wallet-attention', [], DEFAULT_LANG) ?>
+<!--            </div>-->
             <div class="app-wallet-attention">
 				<?= __('payout via admin', [
                     'admin' => '<a href="' . settings('link_admin') . '" target="_blank" class="link-admin">' . __('admin', [], DEFAULT_LANG) . '</a>'

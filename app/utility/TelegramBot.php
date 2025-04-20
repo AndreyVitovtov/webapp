@@ -104,8 +104,7 @@ class TelegramBot
 		$data = [
 			'chat_id' => $chat,
 			'photo' => $imgUrl,
-			'caption' => $caption,
-			'parse_mode' => $params['parse_mode'] ?? 'HTML'
+			'caption' => $caption
 		];
 
 		if ($buttons) {
