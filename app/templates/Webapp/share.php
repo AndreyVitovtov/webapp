@@ -171,7 +171,7 @@
     <div class="earned">
         <div>
             <?= $earned ?>
-            <img src="<?= assets('images/index/ton.svg') ?>" alt="ton">
+            <img src="<?= assets('images/index/usdt.svg') ?>" alt="usdt">
         </div>
         <div>
             <?= __('earned from referrals', [], DEFAULT_LANG) ?>
@@ -193,7 +193,7 @@
         <div class="referral">
             <div class="referral-wrapper">
                 <div class="referral-img" style="background-image: url(<?= $referral->photo_url ?>)"></div>
-                <div class="referral-username"><?= $referral->username ?></div>
+                <div class="referral-username"><?= (!empty($referral->username) ? $referral->username : ($referral->first_name . ' ' . $referral->last_name)) ?></div>
             </div>
             <div class="referral-active-no-active">
                 <?= ($referral->active == 1 ? __('active', [], DEFAULT_LANG) : __('no active', [], DEFAULT_LANG)) ?>

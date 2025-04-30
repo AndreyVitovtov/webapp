@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Telegram.SettingsButton.isVisible = true;
     // console.log(Telegram.initDataUnsafe);
 
+    Telegram.setHeaderColor(HEADER_COLOR);
+
     document.body.addEventListener('click', (event) => {
         let element = event.target.closest('.app-menu-item');
         if (element) {

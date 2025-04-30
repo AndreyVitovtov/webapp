@@ -353,7 +353,7 @@
                 <div>
 					<?= str_replace(',', '.', number_format($draw['prize'] ?? 0)); ?>
                 </div>
-                <img src="<?= assets('images/index/ton.svg') ?>" alt="ton">
+                <img src="<?= assets('images/index/usdt.svg') ?>" alt="usdt">
             </div>
         </div>
         <div class="bg-header" style="background-image: url(<?= assets('images/index/bg-header.svg') ?>);"></div>
@@ -392,8 +392,8 @@
         </div>
 
         <div class="<?= ($noActiveDraw ? 'no-active-draw' : 'conditions-draw') ?>">
-            <a href="<?= CHANNEL_APP_LINK ?>"
-               target="_blank"><?= __(($noActiveDraw ? 'information about new giveaways on our channel' : 'conditions of the draw'), [], DEFAULT_LANG) ?></a>
+            <!--            <a href="--><?php //= CHANNEL_APP_LINK ?><!--"-->
+            <!--               target="_blank">--><?php //= __(($noActiveDraw ? 'information about new giveaways on our channel' : 'conditions of the draw'), [], DEFAULT_LANG) ?><!--</a>-->
         </div>
         <div class="sponsor-wrapper">
             <div class="sponsor">

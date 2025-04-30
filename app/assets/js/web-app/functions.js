@@ -79,6 +79,16 @@ function index(data) {
             });
         });
     }
+
+    let elementSponsor = document.querySelector('.sponsor');
+    if (elementSponsor) {
+        elementSponsor.addEventListener('click', () => {
+            webSocketSendMessage({
+                'type': 'getPage',
+                'page': 'airdrops'
+            });
+        });
+    }
 }
 
 function confetti() {

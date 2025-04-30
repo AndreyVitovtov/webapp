@@ -72,7 +72,7 @@
                 <div class="winner-prize">
                     + <?= $winner->prize ?> <?= __('', [], DEFAULT_LANG) ?>
                 </div>
-                <img src="<?= assets('images/index/ton.svg') ?>" alt="ton">
+                <img src="<?= assets('images/index/usdt.svg') ?>" alt="usdt">
             </div>
         </div>
 	<?php endforeach; ?>

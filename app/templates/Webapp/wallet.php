@@ -151,7 +151,7 @@
             <div class="balance">
 				<?= number_format($balance ?? 0, 2, ',', ' '); ?>
             </div>
-            <img src="<?= assets('images/wallet/ton.svg') ?>" alt="ton">
+            <img src="<?= assets('images/wallet/usdt.svg') ?>" alt="usdt">
         </div>
     </div>
 

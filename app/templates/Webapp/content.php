@@ -51,6 +51,19 @@
     .app-menu-item img {
         margin-bottom: 5px;
     }
+
+    .hello {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background-image: url("<?= assets('images/index/image_loading_web_app.jpg') ?>");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
 </style>
 
 <div>

@@ -80,7 +80,7 @@ class Bot extends Controller
 			case str_starts_with($this->telegram->getMessage(), '/start'):
 				$referrer = substr($this->telegram->getMessage(), 7);
 				$user = $this->register($referrer);
-				$this->telegram->sendPhoto($user->chat_id, assets('images/index/cubes.png'), str_replace('<br />', '', __('greetings')));
+				$this->telegram->sendPhoto($user->chat_id, assets('images/index/image_greeting.jpg'), str_replace('<br />', '', __('greetings', [], $this->getLanguageCode())));
 
 				$this->telegram->sendChatAction($user->chat_id);
 				extract($this->getResultCheckSubscribeToChannel());
