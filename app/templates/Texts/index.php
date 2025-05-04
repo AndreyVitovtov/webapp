@@ -1,6 +1,3 @@
-<div class="mb-3 text-dark">
-    <b>\n - <?= __('line break') ?></b>
-</div>
 <form id="textForm">
     <input type="hidden" name="lang" value="<?= $lang ?>">
 	<?php foreach ($texts as $key => $value): ?>
