@@ -188,7 +188,7 @@ class RequestHandler extends API
 				'id' => $drawId,
 				'title' => $activeDraw->title->{$this->getLanguageCode($user)},
 				'description' => $activeDraw->description->{$this->getLanguageCode($user)},
-				'conditions' => $activeDraw->conditions->{$this->getLanguageCode($user)},
+				'conditions' => $activeDraw->conditions->{$this->getLanguageCode($user)} ?? '',
 				'prize' => $activeDraw->prize,
 				'status' => $activeDraw->status,
 				'sponsor_title' => $activeDraw->sponsor_title,

@@ -44,9 +44,10 @@ function getControllerAndMethod(): array
 			$params = explode('&', $cn[1]);
 			$params = array_map(function ($v) {
 				$v = explode('=', $v);
-				return [
+				if(isset($v[0]) && isset($v[1])) return [
 					$v[0] => $v[1]
 				];
+				else return [];
 			}, $params);
 		}
 		if (isset($url[1])) {
@@ -59,9 +60,10 @@ function getControllerAndMethod(): array
 				$params = explode('&', $m[1]);
 				$params = array_map(function ($v) {
 					$v = explode('=', $v);
-					return [
+					if(isset($v[0]) && isset($v[1])) return [
 						$v[0] => $v[1]
 					];
+					else return [];
 				}, $params);
 			}
 		} else $method = 'index';
