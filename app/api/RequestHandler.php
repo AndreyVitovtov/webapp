@@ -210,10 +210,10 @@ class RequestHandler extends API
 				$data['winners'] = $this->getWinners($activeDraw, $user);
 			} else {
 				$coefficients = (new Coefficients())->get();
-				$coefficients = array_combine(array_column($coefficients, 'user_id'), array_column($coefficients, 'coefficient'));
+				$coefficients = array_combine(array_column($coefficients, 'user_id'), $coefficients);
 				$participants = array_map(function ($user) use ($coefficients) {
 					$user = (object)$user;
-					$user->coefficient = $coefficients[$user->id] ?? 0;
+					$user->coefficient = (!empty($coefficients[$user->id]['coefficient_admin']) ? $coefficients[$user->id]['coefficient_admin'] : $coefficients[$user->id]['coefficient']) ?? 0;
 					return $user;
 				}, (new User())->query("
 				SELECT u.* 
