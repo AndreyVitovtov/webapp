@@ -214,6 +214,8 @@ class RequestHandler extends API
 				$participants = array_map(function ($user) use ($coefficients) {
 					$user = (object)$user;
 					$user->coefficient = (!empty($coefficients[$user->id]['coefficient_admin']) ? $coefficients[$user->id]['coefficient_admin'] : $coefficients[$user->id]['coefficient']) ?? 0;
+					$username = $user->username;
+					if(empty($username)) $user->username = $user->first_name . ' ' . $user->last_name;
 					return $user;
 				}, (new User())->query("
 				SELECT u.* 
