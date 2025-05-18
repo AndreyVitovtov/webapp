@@ -234,6 +234,7 @@ class RequestHandler extends API
 				$data['participantsNumber'] = count($participants);
 				$data['participants'] = array_slice($participants, 0, settings('participants_number'));
 				$data['participantsOther'] = array_slice($participants, settings('participants_number'), 3);
+                $data['participantsOtherNumber'] = $data['participantsNumber'] - settings('participants_number');
 
 				$data['channels'] = (new Channel())->getObjects([
 					'draw_id' => $drawId,
