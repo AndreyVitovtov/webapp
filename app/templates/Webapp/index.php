@@ -434,7 +434,7 @@
 				<?php endforeach; ?>
                 <div class="other-participants-text">
 					<?= __('more participants', [
-						'number' => count($participantsOther)
+						'number' => $participantsOtherNumber ?? 0
 					], DEFAULT_LANG) ?>
                 </div>
             </div>
