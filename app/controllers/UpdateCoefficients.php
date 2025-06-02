@@ -68,7 +68,7 @@ class UpdateCoefficients
 		}
 	}
 
-	private
+	public
 	function checkSubscribe(User $user, Channel $channel): bool
 	{
 		$result = @json_decode($this->telegram->getChatMember(trim($user->chat_id), trim($channel->chat_id)));
@@ -86,7 +86,7 @@ class UpdateCoefficients
 		return (!empty($drawId) ? $draw : null);
 	}
 
-	private
+	public
 	function getChannelsWithDraw(User $user, $drawId = null): array
 	{
 		if (!empty($drawId) && !is_object($drawId)) {

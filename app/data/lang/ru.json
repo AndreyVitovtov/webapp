@@ -206,5 +206,7 @@
   "link_admin": "Ссылка администратора",
   "write off from balance": "Списать с баланса",
   "write off": "Списать",
-  "written off from balance": "С баланса списано {amount}"
+  "written off from balance": "С баланса списано {amount}",
+  "subscribe to channels": "Подписка на каналы",
+  "subscribe": "Подписка"
 }

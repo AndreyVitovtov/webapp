@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Balance;
 use App\Models\Coefficients;
+use App\Models\Draw;
 use App\Models\User;
 use App\Models\Wallet;
 use App\Utility\Request;
@@ -65,6 +66,22 @@ class Users extends Controller
 		$coefficients = (new Coefficients())->getOneObject(['user_id' => $user->id]);
 		$coefficientAdmin = $coefficients->coefficient_admin ?? '';
 		$coefficient = $coefficients->coefficient;
+
+		$updateCoefficient = new UpdateCoefficients();
+		$channelsWithDraw = $updateCoefficient->getChannelsWithDraw($user);
+		$subscribeChannels = [];
+		foreach ($channelsWithDraw as $key => $channel) {
+			$subscribeChannels[$key] = [
+				'title' => $channel->title,
+				'url' => $channel->url,
+				'subscribe' => true
+			];
+
+			if (!$updateCoefficient->checkSubscribe($user, $channel)) {
+				$subscribeChannels[$key]['subscribe'] = false;
+			}
+		}
+
 		$this->view('details', [
 			'title' => __('user details') . ' ' . $user->username,
 			'pageTitle' => __('user details') . ' ' . $user->username,
@@ -73,7 +90,8 @@ class Users extends Controller
 				'css' => 'users.css'
 			],
 			'coefficientAdmin' => $coefficientAdmin,
-			'coefficient' => $coefficient
+			'coefficient' => $coefficient,
+			'subscribeChannels' => $subscribeChannels
 		]);
 	}
 
@@ -114,7 +132,7 @@ class Users extends Controller
 		$this->auth();
 		$balance = (new Balance())->getOneObject(['user_id' => $request->id]);
 		$amount = $balance->balance - $request->amount;
-		if($amount < 0) $amount = 0;
+		if ($amount < 0) $amount = 0;
 		$balance->balance = $amount;
 		$balance->update();
 		redirect('/users/details/' . $request->id, [

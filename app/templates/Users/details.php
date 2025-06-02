@@ -51,7 +51,8 @@
 <form action="/users/addCoefficient" method="POST" class="mb-4">
     <input type="hidden" name="id" value="<?= $user->id ?>">
     <div class="mb-2">
-        <input type="number" step="0.01" name="coefficient" value="<?= !empty($coefficientAdmin) ? $coefficientAdmin : '' ?>"
+        <input type="number" step="0.01" name="coefficient"
+               value="<?= !empty($coefficientAdmin) ? $coefficientAdmin : '' ?>"
                class="form-control">
     </div>
     <div class="mb-3">
@@ -78,3 +79,20 @@
         <input type="submit" value="<?= __('write off') ?>" class="btn">
     </div>
 </form>
+<h6 class="mt-3"><?= __('subscribe to channels') ?></h6>
+<table class="table table-striped table-bordered table-responsive table-hover">
+    <thead>
+    <tr>
+        <th><?= __('channel') ?></th>
+        <th><?= __('subscribe') ?></th>
+    </tr>
+    </thead>
+    <tbody>
+	<?php foreach ($subscribeChannels ?? [] as $channel): ?>
+        <tr>
+            <td><a href="<?= $channel['url'] ?>" target="_blank"><?= $channel['title'] ?></a></td>
+            <td><i class="icon-<?= $channel['subscribe'] ? 'check-1' : 'cancel' ?>"></i></td>
+        </tr>
+	<?php endforeach; ?>
+    </tbody>
+</table>

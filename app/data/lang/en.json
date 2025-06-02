@@ -206,5 +206,7 @@
   "link_admin": "Link admin",
   "write off from balance": "Write off from balance",
   "write off": "Write off",
-  "written off from balance": "Written off from balance {amount}"
+  "written off from balance": "Written off from balance {amount}",
+  "subscribe to channels": "Subscribe to channels",
+  "subscribe": "Subscribe"
 }

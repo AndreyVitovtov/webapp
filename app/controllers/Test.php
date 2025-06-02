@@ -12,6 +12,8 @@ class Test extends Controller
 {
 	public function index()
 	{
-		dd(settings('link_admin'));
+		$telegram = new TelegramBot(TELEGRAM_TOKEN);
+		$res = json_decode($telegram->getChatMember('490929240', '-1002534224403'));
+		dd($res);
 	}
 }
