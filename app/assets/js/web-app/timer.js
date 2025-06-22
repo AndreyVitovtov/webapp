@@ -43,14 +43,20 @@ function startCountdown(targetDate, containerId, onEnd = () => {
         const daysSeparator = container.querySelector(".days-separator");
 
         if (days > 0) {
-            if (daysContainer) daysContainer.classList.remove("hidden");
-            if (daysSeparator) daysSeparator.classList.remove("hidden");
+            if (daysContainer) {
+                daysContainer.innerHTML = "";
 
-            const daysTens = container.querySelector(".days-tens");
-            const daysUnits = container.querySelector(".days-units");
+                const digits = String(days).split("");
+                digits.forEach(d => {
+                    const el = document.createElement("div");
+                    el.className = "block days-digit";
+                    el.textContent = d;
+                    daysContainer.appendChild(el);
+                });
 
-            if (daysTens) daysTens.textContent = days >= 10 ? String(days)[0] : "0";
-            if (daysUnits) daysUnits.textContent = String(days).slice(-1);
+                daysContainer.classList.remove("hidden");
+                if (daysSeparator) daysSeparator.classList.remove("hidden");
+            }
         } else {
             if (daysContainer) daysContainer.classList.add("hidden");
             if (daysSeparator) daysSeparator.classList.add("hidden");

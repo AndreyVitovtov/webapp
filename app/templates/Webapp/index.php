@@ -341,6 +341,20 @@
         font-size: 17px;
     }
 
+    .days-digit {
+        border-radius: 0!important;
+    }
+
+    .days-digit:first-child {
+        border-top-left-radius: 6px!important;
+        border-bottom-left-radius: 6px!important;
+    }
+
+    .days-digit:last-child {
+        border-top-right-radius: 6px!important;
+        border-bottom-right-radius: 6px!important;
+    }
+
 </style>
 
 <?php if (empty($draw)) { ?>

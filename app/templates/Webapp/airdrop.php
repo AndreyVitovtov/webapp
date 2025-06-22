@@ -320,6 +320,20 @@
         border-radius: 50%;
         background: #4a4a4a;
     }
+
+    .days-digit {
+        border-radius: 0!important;
+    }
+
+    .days-digit:first-child {
+        border-top-left-radius: 6px!important;
+        border-bottom-left-radius: 6px!important;
+    }
+
+    .days-digit:last-child {
+        border-top-right-radius: 6px!important;
+        border-bottom-right-radius: 6px!important;
+    }
 </style>
 
 <div class="airdrop-details">
@@ -334,10 +348,7 @@
 		<?= $airdrop->title ?>
     </div>
     <div class="timer text-center" id="timer">
-        <div class="block-group days-container">
-            <div class="block days-tens">0</div>
-            <div class="block days-units">0</div>
-        </div>
+        <div class="block-group days-container"></div>
         <div class="separator days-separator">:</div>
         <div class="block-group">
             <div class="block hours-tens">0</div>
