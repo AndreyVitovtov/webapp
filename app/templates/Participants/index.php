@@ -18,14 +18,21 @@
         <thead>
         <tr>
             <th><?= __('username') ?></th>
+            <th><?= __('active') ?></th>
             <th><?= __('added') ?></th>
         </tr>
         </thead>
         <tbody>
-		<?php foreach ($participants as $participant): ?>
+		<?php foreach ($participants as $participant):
+            $username = $participant['username'];
+            if(empty($username)) $username = $participant['first_name'] . ' ' . $participant['last_name'];
+        ?>
             <tr>
                 <td>
-                    <a href="/users/details/<?= $participant['id'] ?>"><?= $participant['username'] ?></a>
+                    <a href="/users/details/<?= $participant['id'] ?>"><?= $username ?></a>
+                </td>
+                <td data-order="<?= $participant['active'] ? 1 : 0 ?>">
+                    <i class="<?= ($participant['active'] ? 'icon-check-1' : 'icon-cancel') ?>">
                 </td>
                 <td>
                     <?= $participant['date'] ?>
