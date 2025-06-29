@@ -22,7 +22,7 @@
         <tr class="table-users" data-id="<?= $user->id ?>">
             <td><?= (empty($userName) ? ($user->first_name . ' ' . $user->last_name) : $user->username) ?></td>
             <td><?= $user->chat_id ?></td>
-            <td><?= ($user->active ? '<i class="icon-check-1"></i>' : '<i class="icon-cancel"></i>') ?></td>
+            <td data-order="<?= ($user->active ? 1 : 0) ?>"><?= ($user->active ? '<i class="icon-check-1"></i>' : '<i class="icon-cancel"></i>') ?></td>
             <td><?= $user->referrals ?></td>
             <td><?= $user->added ?></td>
             <td class="table-actions text-right">
