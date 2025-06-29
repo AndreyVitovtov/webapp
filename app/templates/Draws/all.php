@@ -21,7 +21,7 @@
         <tr>
             <td><?= $draw->title->{getCurrentLang()} ?></td>
             <td><?= $draw->date ?></td>
-            <td><?= ($draw->active ? '<i class="icon-check-1"></i>' : '<i class="icon-cancel"></i>') ?></td>
+            <td data-order="<?= ($draw->active ? 1 : 0) ?>"><?= ($draw->active ? '<i class="icon-check-1"></i>' : '<i class="icon-cancel"></i>') ?></td>
             <td><?= $draw->prize ?></td>
             <td><?= ($draw->active ? __($draw->status) : '') ?></td>
             <td>
